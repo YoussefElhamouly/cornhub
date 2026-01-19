@@ -1,0 +1,67 @@
+@use "index.scss";
+
+::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text-accent-orange);
+  border-radius: 1px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-accent-blue);
+}
+
+
+.monaco-scrollable-element > .scrollbar {
+  width: 2px !important;
+  height: 2px !important;
+}
+
+.monaco-scrollable-element > .scrollbar > .slider {
+  background: var(--text-accent-orange) !important;
+  border-radius: 1px !important;
+}
+
+.monaco-scrollable-element > .scrollbar > .slider:hover {
+  background: var(--text-accent-blue) !important;
+}
+
+.monaco-scrollable-element > .scrollbar > .slider:active {
+  background: var(--text-accent-blue) !important;
+}
+
+.monaco-scrollable-element > .scrollbar.vertical {
+  width: 2px !important;
+}
+
+.monaco-scrollable-element > .scrollbar.horizontal {
+  height: 2px !important;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--primary-bg);
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+.logo {
+  width: 35px;
+  height: 35px;
+}

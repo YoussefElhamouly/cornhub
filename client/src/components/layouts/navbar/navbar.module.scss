@@ -1,0 +1,11 @@
+.navbar {
+  width: 100%;
+  background-color: var(--secondary-bg);
+  min-height: 65px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px;
+  box-sizing: border-box;
+}

@@ -1,0 +1,21 @@
+.workSpace_btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  all: unset;
+  width: 35px;
+  height: 35px;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  border-radius: 0.3rem;
+  border: 1px solid var(--border);
+  background-color: var(--tertiary-bg);
+  cursor: pointer;
+  &:hover {
+    background-color: #262c36;
+  }
+
+  svg {
+    fill: var(--icon-primary);
+  }
+}

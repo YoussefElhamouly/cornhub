@@ -1,0 +1,25 @@
+.container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  // border: 1px solid var(--border);
+  width: 100px;
+  height: 100px;
+  figure {
+    position: absolute;
+    width: 115%;
+    height: 115%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: blur(34px);
+    opacity: 0.2;
+  }
+  img {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+  }
+}

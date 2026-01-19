@@ -1,0 +1,123 @@
+.modal_outer_window {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #21283066;
+  box-sizing: border-box;
+  padding-bottom: 3rem;
+  z-index: 100;
+
+  .modal_window {
+    width: 600px;
+    height: 500px;
+    overflow-x: hidden;
+    border-radius: 0.45rem;
+    background-color: var(--secondary-bg-lighter);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    border: 1px solid var(--border);
+    animation: fade_in 0.2s;
+    header {
+      min-height: 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--tertiary-bg);
+      padding: 1rem;
+      box-sizing: border-box;
+      border-bottom: 1px solid var(--border);
+
+      button {
+        all: unset;
+        width: 16px;
+        height: 16px;
+        cursor: pointer;
+
+        svg {
+          min-height: 100%;
+          min-width: 100%;
+          fill: var(--text-primary);
+          transition: all 0.1s;
+        }
+
+        &:hover {
+          svg {
+            fill: var(--text-accent-orange);
+          }
+        }
+      }
+      h1 {
+        font-size: 0.9rem;
+        font-family: sans-serif;
+        color: var(--text-primary);
+        font-weight: 600;
+      }
+    }
+    footer {
+      margin-top: auto;
+      min-height: 60px;
+      display: flex;
+      padding: 1rem;
+      box-sizing: border-box;
+      border-top: 1px solid var(--border);
+    }
+
+    .modal_window_content_container {
+      max-height: 400px;
+      overflow-y: scroll;
+    }
+  }
+}
+
+@keyframes fade_in {
+  0% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.image_viewer {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #21283066;
+  box-sizing: border-box;
+
+  .fullscreen_image {
+    max-width: 70%;
+    max-height: 70%;
+    object-fit: contain;
+    border-radius: 0.45rem;
+  }
+
+  .close_button_image {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    all: unset;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+
+    svg {
+      min-height: 100%;
+      min-width: 100%;
+      fill: var(--text-accent-orange);
+    }
+
+    &:hover {
+      opacity: 0.6;
+    }
+  }
+}

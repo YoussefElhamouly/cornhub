@@ -1,0 +1,26 @@
+.explorerContent_container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.author_info {
+  width: 100%;
+  padding: 0.7rem;
+  box-sizing: border-box;
+  height: 50px;
+  flex-shrink: 0;
+  // background-color: var(--tertiary-bg);
+  border: 1px solid var(--border);
+  border-radius: 0.25em;
+}
+
+.explorerContent_header {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}

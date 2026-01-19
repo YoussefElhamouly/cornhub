@@ -1,0 +1,48 @@
+.breadcrumb_container {
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+  align-items: center;
+
+  .path_nav {
+    display: flex;
+    gap: 0.4rem;
+    a {
+      font-weight: 400;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+      font-size: 0.95rem;
+      color: var(--text-accent-orange);
+    }
+    span {
+      color: var(--icon-primary);
+    }
+  }
+
+  .copy_path_btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    all: unset;
+    width: 30px;
+    height: 30px;
+    padding: 0.4rem;
+    box-sizing: border-box;
+    border-radius: 0.3rem;
+
+    // border: 1px solid var(--border);
+    // background-color: var(--tertiary-bg);
+    cursor: pointer;
+    &:hover {
+      background-color: #262c36;
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+      fill: var(--icon-primary);
+    }
+  }
+}
