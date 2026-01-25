@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./button.module.scss";
+import Icon from "../icon/Icon.jsx";
 const Button = ({
   variant = "workSpace",
   onClick = () => {},
@@ -7,6 +8,7 @@ const Button = ({
   title,
   children,
   className,
+  icon,
 }) => {
   const selectedClass = styles[`${variant}_btn`];
   return (
@@ -18,6 +20,7 @@ const Button = ({
         onClick(e);
       }}
     >
+      {icon && <Icon icon={icon} />}
       {title && <span>{title}</span>}
       {children}
     </button>

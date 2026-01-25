@@ -1,0 +1,111 @@
+// .dropdown_wrapper {
+//   position: relative;
+//   width: fit-content;
+
+.dropdown_toggle_btn {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 0.2rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: var(--text-primary);
+  background-color: transparent;
+  width: fit-content;
+  min-height: 32px;
+  gap: 0.5rem;
+  position: relative;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: var(--tertiary-bg);
+  }
+
+  .left_icon {
+    display: flex;
+    align-items: center;
+  }
+
+  .dropdown_title {
+    white-space: nowrap;
+  }
+
+  .right_icon {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+
+    svg {
+      min-width: 14px;
+      min-height: 14px;
+      height: 15px;
+      width: 15px;
+      fill: var(--text-primary);
+      opacity: 0.5;
+    }
+  }
+
+  svg {
+    min-width: 14px;
+    min-height: 14px;
+    height: 15px;
+    width: 15px;
+    fill: var(--text-primary);
+    opacity: 0.5;
+  }
+}
+
+//   .dropdown_container {
+//     cursor: default;
+//     top: 100%;
+//     margin-top: 5px;
+//     border: 1px solid var(--border);
+//     border-radius: 0.3rem;
+//     background-color: var(--secondary-bg);
+//     width: 200px;
+//     min-height: 100px;
+//     position: absolute;
+//     opacity: 0;
+//     transition: all 0.15s ease;
+//     visibility: hidden;
+//     z-index: 100;
+//     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+//   }
+
+//   .dropdown_container_visible {
+//     opacity: 1;
+//     visibility: visible;
+//   }
+// }
+
+// .dropdown_items {
+//   display: flex;
+//   flex-direction: column;
+//   padding: 0.25rem;
+//   gap: 0.1rem;
+// }
+
+.dropdown_item {
+  padding: 0.5rem 0.75rem;
+
+  box-sizing: border-box;
+  margin: 0 auto;
+
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border-radius: 0.2rem;
+
+  &:hover {
+    background-color: var(--tertiary-bg);
+  }
+
+  &.dropdown_item_active {
+    background-color: var(--secondary-bg);
+    color: var(--text-accent-orange);
+    font-weight: 500;
+  }
+}

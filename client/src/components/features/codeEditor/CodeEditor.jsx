@@ -120,10 +120,8 @@ const CodeEditor = ({
 
   const handleEditorDidMount = (editor, monaco) => {
     editorRef.current = editor;
-    // Theme is already defined in beforeMount, no need to redefine here
   };
 
-  // Update editor content when code prop changes (without reloading)
   useEffect(() => {
     if (editorRef.current && code !== undefined) {
       const currentValue = editorRef.current.getValue();

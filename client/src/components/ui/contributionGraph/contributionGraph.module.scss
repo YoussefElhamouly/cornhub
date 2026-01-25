@@ -1,0 +1,215 @@
+.contribution_graph {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.15rem;
+  background-color: transparent;
+  box-sizing: border-box;
+  width: 100%;
+  --square-size: clamp(8px, 0.7vw, 11px);
+  --square-gap: clamp(1px, 0.15vw, 2px);
+  --label-width: clamp(16px, 1.5vw, 20px);
+  --min-grid-width: calc(53 * (var(--square-size) + var(--square-gap)) - var(--square-gap));
+}
+
+.graph_container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow-x: auto;
+  overflow-y: visible;
+  min-width: 0;
+  padding-bottom: 0.5rem;
+}
+
+.month_labels_container {
+  display: flex;
+  margin-left: var(--label-width);
+  position: relative;
+  margin-bottom: 0.5rem;
+  min-width: var(--min-grid-width);
+  width: max-content;
+}
+
+.month_labels_spacer {
+  width: var(--label-width);
+  flex-shrink: 0;
+}
+
+.month_labels {
+  height: 20px;
+  position: relative;
+}
+
+.month_label {
+  font-size: clamp(0.65rem, 0.8vw, 0.75rem);
+  color: var(--text-primary);
+  opacity: 0.7;
+  white-space: nowrap;
+  grid-column-start: var(--grid-column);
+}
+
+.graph_content {
+  display: flex;
+  gap: 0.5rem;
+  min-width: 0;
+  width: 100%;
+}
+
+.day_labels {
+  display: grid;
+  grid-template-rows: repeat(7, var(--square-size));
+  gap: var(--square-gap);
+  width: var(--label-width);
+  flex-shrink: 0;
+  font-size: clamp(0.65rem, 0.8vw, 0.75rem);
+  color: var(--text-primary);
+  opacity: 0.7;
+  align-content: start;
+}
+
+.day_label {
+  font-size: clamp(0.65rem, 0.8vw, 0.75rem);
+  color: var(--text-primary);
+  opacity: 0.7;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+}
+
+.day_label_spacer {
+  // Spacer for empty rows
+}
+
+.contribution_grid {
+  display: flex;
+  flex-direction: row;
+  gap: var(--square-gap);
+  min-width: var(--min-grid-width);
+  width: max-content;
+  flex-shrink: 0;
+}
+
+.contribution_grid_column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--square-gap);
+}
+
+.contribution_square {
+  width: var(--square-size);
+  height: var(--square-size);
+  min-width: var(--square-size);
+  min-height: var(--square-size);
+  max-width: var(--square-size);
+  max-height: var(--square-size);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-sizing: border-box;
+  flex-shrink: 0;
+
+  &:hover {
+    outline: 1px solid rgba(255, 255, 255, 0.5);
+    transform: scale(1.1);
+  }
+}
+
+.contribution_square_empty {
+  width: var(--square-size);
+  height: var(--square-size);
+  min-width: var(--square-size);
+  min-height: var(--square-size);
+  max-width: var(--square-size);
+  max-height: var(--square-size);
+  flex-shrink: 0;
+}
+
+.graph_footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
+  font-size: clamp(0.65rem, 0.8vw, 0.75rem);
+  color: var(--text-primary);
+  opacity: 0.7;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.learn_more {
+  flex: 1;
+}
+
+.learn_more_link {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--text-accent-orange);
+  cursor: pointer;
+  font-size: clamp(0.65rem, 0.8vw, 0.75rem);
+  text-decoration: none;
+  transition: text-decoration 0.2s ease;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.legend_label {
+  font-size: clamp(0.65rem, 0.8vw, 0.75rem);
+  color: var(--text-primary);
+  opacity: 0.7;
+}
+
+.legend_squares {
+  display: flex;
+  gap: var(--square-gap);
+}
+
+.legend_square {
+  width: var(--square-size);
+  height: var(--square-size);
+  min-width: var(--square-size);
+  min-height: var(--square-size);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+// Responsive adjustments for small screens
+@media (max-width: 768px) {
+  .contribution_graph {
+    padding: 0.75rem;
+    --square-size: clamp(7px, 1.2vw, 10px);
+    --square-gap: clamp(1px, 0.2vw, 2px);
+  }
+
+  .graph_footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .learn_more {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .contribution_graph {
+    padding: 0.5rem;
+    --square-size: clamp(6px, 1.5vw, 9px);
+  }
+
+  .month_labels_container {
+    margin-bottom: 0.25rem;
+  }
+}
+

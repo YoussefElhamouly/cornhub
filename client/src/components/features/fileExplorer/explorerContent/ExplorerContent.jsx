@@ -4,6 +4,7 @@ import styles from "./explorerContent.module.scss";
 import Menu from "../../../ui/menu/Menu.jsx";
 import Breadcrumb from "../../../ui/breadcrumb/Breadcrumb.jsx";
 import InputField from "../../../ui/inputField/InputField.jsx";
+import { CopySlash, Menu as MenuIcon } from "lucide-react";
 const ExplorerContent = () => {
   const reactCode = `import React from "react";
 import TreeNode from "../../../ui/treeNode/TreeNode.jsx";
@@ -184,21 +185,7 @@ export default ExplorerTree;
       <header className={styles.explorerContent_header}>
         <Breadcrumb />
         <Menu
-          icon={
-            <svg
-              clipRule="evenodd"
-              fillRule="evenodd"
-              strokeLinejoin="round"
-              strokeMiterlimit={2}
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="m13 16.745c0-.414-.336-.75-.75-.75h-9.5c-.414 0-.75.336-.75.75s.336.75.75.75h9.5c.414 0 .75-.336.75-.75zm9-5c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75zm-4-5c0-.414-.336-.75-.75-.75h-14.5c-.414 0-.75.336-.75.75s.336.75.75.75h14.5c.414 0 .75-.336.75-.75z"
-                fillRule="nonzero"
-              />
-            </svg>
-          }
+          icon={MenuIcon}
           wrapperStyle={{
             width: "fit-content",
             padding: "0rem",
