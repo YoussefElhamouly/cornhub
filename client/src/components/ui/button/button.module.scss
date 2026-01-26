@@ -1,8 +1,9 @@
 .workSpace_btn {
+  all: unset;
   display: flex;
   align-items: center;
   justify-content: center;
-  all: unset;
+  gap: 0.5rem;
   width: 35px;
   height: 35px;
   padding: 0.5rem;
@@ -11,7 +12,13 @@
   border: 1px solid var(--border);
   background-color: var(--tertiary-bg);
   cursor: pointer;
+  font-size: 0.9rem;
+  // text-align: center;
+  position: relative;
   &:hover {
     background-color: #262c36;
+  }
+  span {
+    color: var(--text-primary);
   }
 }

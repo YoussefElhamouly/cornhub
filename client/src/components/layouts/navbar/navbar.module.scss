@@ -1,45 +1,92 @@
 .navbar {
   width: 100%;
   background-color: var(--secondary-bg);
-  min-height: 65px;
+  min-height: 70px;
   border-bottom: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 10px;
+  padding-bottom: 0px;
   box-sizing: border-box;
-}
 
-.secondaryNavbar {
-  display: flex;
-  gap: 1rem;
-  margin-top: 0.7rem;
-
-  .link {
+  .globalBar {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 6px;
-    padding: 0.5rem;
-    text-decoration: none;
-    color: var(--text-primary);
-    border-bottom: 2px solid transparent;
-    border-radius: 0.3em;
-    transition:
-      color 0.15s ease,
-      border-bottom-color 0.15s ease;
+    gap: 1rem;
+    .user_info_wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      .user_info_container {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+        color: var(--text-primary);
+        font-weight: 600;
+        font-size: 0.88rem;
+        .userTag {
+          font-size: 0.73rem;
+          opacity: 0.7;
+        }
+        .userName {
+        }
+      }
+    }
   }
+  .secondaryNavbar {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 0.5rem;
 
-  .link:hover {
-    background-color: rgba(255, 255, 255, 0.06);
-  }
+    .link_wrapper {
+      position: relative;
+      width: fit-content;
+      padding-bottom: 0.5rem;
+      display: flex;
+      justify-content: center;
 
-  .active {
-    // background-color: rgba(255, 165, 0, 0.08);
-    border-bottom-color: var(--text-accent-oragne);
-  }
+      .link_highlighter {
+        position: absolute;
 
-  .icon {
-    width: 16px;
-    height: 16px;
+        bottom: 0px;
+        height: 2px;
+        width: 90%;
+        margin-inline: auto;
+        margin-left: 0.2rem;
+        opacity: 0.9;
+      }
+      .link {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0.5rem;
+        text-decoration: none;
+        color: var(--text-primary);
+        border-bottom: 2px solid transparent;
+        border-radius: 0.3em;
+        font-size: 0.82rem;
+        transition:
+          color 0.15s ease,
+          border-bottom-color 0.15s ease;
+      }
+
+      .link:hover {
+        background-color: rgba(255, 255, 255, 0.06);
+      }
+
+      .active + .link_highlighter {
+        background-color: var(--text-accent-orange);
+        border-radius: 20em;
+        z-index: 100;
+      }
+
+      .icon {
+        width: 16px;
+        height: 16px;
+      }
+    }
   }
 }

@@ -4,18 +4,21 @@
   gap: 0.75rem;
   padding: 1rem;
   border: 1px solid var(--border);
-  border-radius: 0.15rem;
+  border-radius: 0.25rem;
   background-color: transparent;
   box-sizing: border-box;
   width: 100%;
   --square-size: clamp(8px, 0.7vw, 11px);
   --square-gap: clamp(1px, 0.15vw, 2px);
   --label-width: clamp(16px, 1.5vw, 20px);
-  --min-grid-width: calc(53 * (var(--square-size) + var(--square-gap)) - var(--square-gap));
+  --min-grid-width: calc(
+    53 * (var(--square-size) + var(--square-gap)) - var(--square-gap)
+  );
 }
 
 .graph_container {
   display: flex;
+  padding: 1rem 0rem;
   flex-direction: column;
   gap: 0.5rem;
   overflow-x: auto;
@@ -68,6 +71,7 @@
   color: var(--text-primary);
   opacity: 0.7;
   align-content: start;
+  margin-right: 1rem;
 }
 
 .day_label {
@@ -107,13 +111,48 @@
   max-height: var(--square-size);
   border-radius: 2px;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.25s ease;
   box-sizing: border-box;
   flex-shrink: 0;
+  position: relative;
+
+  .contribution_square_info {
+    position: absolute;
+    bottom: 15px;
+
+    background: var(--secondary-bg);
+    width: fit-content;
+    padding: 0.5rem 0.5rem;
+    box-sizing: border-box;
+    border-radius: 0.2rem;
+    font-size: 12px;
+    line-height: 12px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1;
+    display: none;
+    justify-content: center;
+    color: var(--text-primary);
+    h4,
+    h5 {
+      opacity: 0.9;
+      font-weight: 600;
+    }
+    h5 {
+      color: var(--text-accent-orange);
+    }
+  }
 
   &:hover {
+    .contribution_square_info {
+      opacity: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
     outline: 1px solid rgba(255, 255, 255, 0.5);
-    transform: scale(1.1);
+    // transform: scale(1.07);
   }
 }
 
@@ -212,4 +251,3 @@
     margin-bottom: 0.25rem;
   }
 }
-

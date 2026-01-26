@@ -10,7 +10,16 @@ import Main from "../../components/layouts/main/Main";
 import styles from "./profile.module.scss";
 import Navbar from "../../components/layouts/navbar/Navbar";
 import SecondaryNavbar from "../../components/layouts/navbar/SecondaryNavbar";
-import { BookOpen, Box, Star, Eye, CalendarDays } from "lucide-react";
+import {
+  BookOpen,
+  Box,
+  Eye,
+  CalendarDays,
+  UserRoundPlus,
+  UserRoundMinus,
+  AtSign,
+  Webhook,
+} from "lucide-react";
 
 const Profile = () => {
   const availableYears = [
@@ -47,6 +56,7 @@ const Profile = () => {
   ];
 
   const visibilityOptions = [
+    { displayName: "All", value: "all" },
     { displayName: "Public", value: "public" },
     { displayName: "Private", value: "private" },
   ];
@@ -101,33 +111,47 @@ const Profile = () => {
   };
 
   const SECONDARY_NAV_LINKS = [
-    { displayName: "Overview", path: "/profile", icon: BookOpen },
-    { displayName: "Repositories", path: "/repos", icon: Box },
-    { displayName: "Stars", path: "/stars", icon: Star },
+    { displayName: "Overview", path: "/", icon: BookOpen },
+    { displayName: "Repositories", path: "/profile", icon: Box },
+    { displayName: "Contributions", path: "/contributions", icon: Webhook },
+    { displayName: "Posts", path: "/posts", icon: AtSign },
   ];
 
   const ProfileInfoSection = () => {
     return (
       <div className={styles.profile_info}>
         <div className={styles.profile_picture_container}>
-          <Pfp editable={true} src={"/images/logo6.png"} />
+          <Pfp editable={true} src={"/images/amity.jpg"} />
         </div>
         <h1 className={styles.profile_name}>Youssef Elhamouly</h1>
         <p className={styles.profile_username}>YoussefElhamouly</p>
         <Button
+          className={styles.edit_profile_btn}
           customStyles={{
             width: "100%",
-            padding: "0.5rem 1rem",
-            backgroundColor: "var(--secondary-bg)",
-            border: "1px solid var(--border)",
-            borderRadius: "0.3rem",
-            color: "var(--text-primary)",
-            fontSize: "0.9rem",
           }}
           onClick={() => console.log("Edit profile")}
-        >
-          Edit profile
-        </Button>
+          title="Edit profile"
+        />
+
+        <Button
+          className={styles.edit_profile_btn}
+          customStyles={{
+            width: "100%",
+          }}
+          onClick={() => console.log("Edit profile")}
+          title="Follow"
+          icon={UserRoundPlus}
+        />
+        <Button
+          className={styles.edit_profile_btn}
+          customStyles={{
+            width: "100%",
+          }}
+          onClick={() => console.log("Edit profile")}
+          title="Unfollow"
+          icon={UserRoundMinus}
+        />
         <div className={styles.profile_stats}>
           <span>2 followers</span>
           <span>·</span>

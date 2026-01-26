@@ -13,7 +13,8 @@ const Dropdown = ({
 
   const displayTitle = () => {
     return defaultValue
-      ? options.find((option) => option.value == defaultValue)?.displayName || title
+      ? options.find((option) => option.value == defaultValue)?.displayName ||
+          title
       : title;
   };
 
@@ -43,13 +44,15 @@ const Dropdown = ({
         color: "var(--text-primary)",
         backgroundColor: "transparent",
         width: "fit-content",
+        maxWidth: "fit-content",
+        minWidth: "120px",
         minHeight: "32px",
         gap: "0.5rem",
         position: "relative",
         boxSizing: "border-box",
         transition: "all 0.2s ease",
       }}
-      menuStyle={{ width: "130px", maxHeight: "110px" }}
+      menuStyle={{ width: "120px", maxHeight: "110px" }}
     >
       {options.map((option) => (
         <div

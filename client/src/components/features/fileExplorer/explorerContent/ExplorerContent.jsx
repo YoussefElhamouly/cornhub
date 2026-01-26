@@ -4,7 +4,9 @@ import styles from "./explorerContent.module.scss";
 import Menu from "../../../ui/menu/Menu.jsx";
 import Breadcrumb from "../../../ui/breadcrumb/Breadcrumb.jsx";
 import InputField from "../../../ui/inputField/InputField.jsx";
-import { CopySlash, Menu as MenuIcon } from "lucide-react";
+import { CopySlash, Menu as MenuIcon, History } from "lucide-react";
+import Pfp from "../../../ui/pfp/Pfp.jsx";
+import Button from "../../../ui/button/Button.jsx";
 const ExplorerContent = () => {
   const reactCode = `import React from "react";
 import TreeNode from "../../../ui/treeNode/TreeNode.jsx";
@@ -201,7 +203,21 @@ export default ExplorerTree;
         />
       </header>
 
-      <div className={styles.author_info}></div>
+      <div className={styles.author_info}>
+        <Pfp
+          editable={false}
+          src={"/images/amity.jpg"}
+          customStyles={{ width: "35px", height: "35px" }}
+        />
+        <h2>Youssef Elhamouly</h2>
+
+        <span className={styles.last_modified}>7 months ago</span>
+        <Button
+          title={"History"}
+          icon={History}
+          className={styles.history_btn}
+        />
+      </div>
       <ItemViewer content={code} language="javascript" onChange={setCode} />
     </>
   );

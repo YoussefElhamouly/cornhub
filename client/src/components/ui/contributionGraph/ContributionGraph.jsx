@@ -15,7 +15,7 @@ const ContributionGraph = ({
   // Generate dates for a full year from Jan 1 to Dec 31
   const dates = useMemo(() => {
     let start, end;
-    
+
     if (startDate && endDate) {
       // Use custom dates if provided
       start = new Date(startDate);
@@ -82,7 +82,7 @@ const ContributionGraph = ({
     // Convert Sunday=0 to Monday=0: Sunday becomes 6, Monday becomes 0, etc.
     let firstDayOfWeek = firstDate.getDay(); // 0 = Sunday, 1 = Monday, etc.
     firstDayOfWeek = firstDayOfWeek === 0 ? 6 : firstDayOfWeek - 1; // Convert to Monday-based (0-6)
-    
+
     // Pad the first week if it doesn't start on Monday
     let currentWeek = [];
     for (let i = 0; i < firstDayOfWeek; i++) {
@@ -140,12 +140,12 @@ const ContributionGraph = ({
         {/* Month labels */}
         <div className={styles.month_labels_container}>
           <div className={styles.month_labels_spacer}></div>
-          <div 
+          <div
             className={styles.month_labels}
-            style={{ 
-              display: 'grid',
+            style={{
+              display: "grid",
               gridTemplateColumns: `repeat(${weeks.length}, var(--square-size))`,
-              gap: 'var(--square-gap)'
+              gap: "var(--square-gap)",
             }}
           >
             {monthLabels.map((month, idx) => (
@@ -163,45 +163,87 @@ const ContributionGraph = ({
         {/* Day labels and grid */}
         <div className={styles.graph_content}>
           <div className={styles.day_labels}>
-            <div className={styles.day_label} style={{ gridRow: 1 }}>Mon</div>
-            <div className={styles.day_label_spacer} style={{ gridRow: 2 }}></div>
-            <div className={styles.day_label} style={{ gridRow: 3 }}>Wed</div>
-            <div className={styles.day_label_spacer} style={{ gridRow: 4 }}></div>
-            <div className={styles.day_label} style={{ gridRow: 5 }}>Fri</div>
-            <div className={styles.day_label_spacer} style={{ gridRow: 6 }}></div>
-            <div className={styles.day_label_spacer} style={{ gridRow: 7 }}></div>
+            <div className={styles.day_label} style={{ gridRow: 1 }}>
+              Mon
+            </div>
+            <div
+              className={styles.day_label_spacer}
+              style={{ gridRow: 2 }}
+            ></div>
+            <div className={styles.day_label} style={{ gridRow: 3 }}>
+              Wed
+            </div>
+            <div
+              className={styles.day_label_spacer}
+              style={{ gridRow: 4 }}
+            ></div>
+            <div className={styles.day_label} style={{ gridRow: 5 }}>
+              Fri
+            </div>
+            <div
+              className={styles.day_label_spacer}
+              style={{ gridRow: 6 }}
+            ></div>
+            <div
+              className={styles.day_label_spacer}
+              style={{ gridRow: 7 }}
+            ></div>
           </div>
 
           <div className={styles.contribution_grid}>
-            {weeks.map((week, weekIndex) => (
-              <div key={weekIndex} className={styles.contribution_grid_column}>
-                {week.map((date, dayIndex) => {
-                  if (!date) {
+            {weeks.map((week, weekIndex) => {
+              return (
+                <div
+                  key={weekIndex}
+                  className={styles.contribution_grid_column}
+                >
+                  {week.map((date, dayIndex) => {
+                    if (!date) {
+                      return (
+                        <div
+                          key={`${weekIndex}-${dayIndex}`}
+                          className={styles.contribution_square_empty}
+                        />
+                      );
+                    }
+
+                    const level = getContributionLevel(date);
+                    const color = getColor(level);
+                    const dateKey = date.toISOString().split("T")[0];
+                    const value = data[dateKey] || 0;
+                    const totalDays = 365;
+                    const dayOfYear = Math.floor(
+                      (date - new Date(date.getFullYear(), 0, 0)) / 86400000,
+                    );
+
+                    const position =
+                      50 +
+                      50 *
+                        Math.cos((Math.PI * (dayOfYear - 1)) / (totalDays - 1));
                     return (
                       <div
                         key={`${weekIndex}-${dayIndex}`}
-                        className={styles.contribution_square_empty}
-                      />
+                        className={styles.contribution_square}
+                        style={{ backgroundColor: color }}
+                        onClick={() => onDayClick && onDayClick(date, value)}
+                        // title={`${date.toLocaleDateString()}: ${value} contributions`}
+                      >
+                        <div
+                          className={styles.contribution_square_info}
+                          style={{
+                            left: "50%",
+                            transform: `translateX(calc(-50% + ${20 * Math.cos((Math.PI * (dayOfYear - 1)) / (totalDays - 1))}px))`,
+                          }}
+                        >
+                          <h4>{date.toLocaleDateString()}</h4>
+                          {/* <h5>{value} contributions</h5> */}
+                        </div>
+                      </div>
                     );
-                  }
-
-                  const level = getContributionLevel(date);
-                  const color = getColor(level);
-                  const dateKey = date.toISOString().split("T")[0];
-                  const value = data[dateKey] || 0;
-
-                  return (
-                    <div
-                      key={`${weekIndex}-${dayIndex}`}
-                      className={styles.contribution_square}
-                      style={{ backgroundColor: color }}
-                      onClick={() => onDayClick && onDayClick(date, value)}
-                      title={`${date.toLocaleDateString()}: ${value} contributions`}
-                    />
-                  );
-                })}
-              </div>
-            ))}
+                  })}
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -242,4 +284,3 @@ const ContributionGraph = ({
 };
 
 export default ContributionGraph;
-

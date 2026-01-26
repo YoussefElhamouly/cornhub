@@ -64,12 +64,12 @@ const ItemViewer = ({
             flex: "1",
           }}
         /> */}
-        <CodeEditor
+        {/* <CodeEditor
           code={content}
           language={"javascript"}
           onChange={onChange}
-        />
-        {/* <Table
+        /> */}
+        <Table
           columns={[
             { key: "name", header: "Name" },
             { key: "description", header: "Description" },
@@ -81,8 +81,23 @@ const ItemViewer = ({
               description: "webrtc exp",
               timestamp: "7 months ago",
             },
+            {
+              name: "assets.zip",
+              description: "webrtc exp",
+              timestamp: "7 months ago",
+            },
+            {
+              name: "assets.zip",
+              description: "webrtc exp",
+              timestamp: "7 months ago",
+            },
+            {
+              name: "assets.zip",
+              description: "webrtc exp",
+              timestamp: "7 months ago",
+            },
           ]}
-        /> */}
+        />
       </div>
     </div>
   );

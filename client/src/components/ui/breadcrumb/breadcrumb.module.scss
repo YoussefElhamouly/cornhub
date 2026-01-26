@@ -14,8 +14,14 @@
         text-decoration: underline;
       }
       font-size: 0.95rem;
+      color: var(--text-primary);
+    }
+
+    a:nth-of-type(1) {
+      font-weight: 600;
       color: var(--text-accent-orange);
     }
+
     span {
       color: var(--icon-primary);
     }
@@ -37,12 +43,6 @@
     cursor: pointer;
     &:hover {
       background-color: #262c36;
-    }
-
-    svg {
-      width: 100%;
-      height: 100%;
-      fill: var(--icon-primary);
     }
   }
 }

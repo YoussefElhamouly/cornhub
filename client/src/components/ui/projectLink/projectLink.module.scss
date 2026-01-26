@@ -4,7 +4,7 @@
   gap: 0.5rem;
   padding: 1rem;
   border: 1px solid var(--border);
-  border-radius: 0.15rem;
+  border-radius: 0.25rem;
   background-color: transparent;
   box-sizing: border-box;
 }
@@ -30,7 +30,7 @@
   flex-shrink: 0;
   fill: var(--text-accent-orange);
   color: var(--text-accent-orange);
-}   
+}
 
 .project_name_link {
   display: flex;
@@ -45,7 +45,7 @@
   }
   &:visited {
     color: var(--text-accent-orange);
-  } 
+  }
 }
 
 .project_name_text {
@@ -61,8 +61,6 @@
   cursor: pointer;
   text-decoration: none;
   transition: text-decoration 0.2s ease;
-
-
 }
 
 .visibility_badge {
@@ -136,4 +134,3 @@
   color: var(--text-primary);
   opacity: 0.7;
 }
-
