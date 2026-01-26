@@ -1,0 +1,39 @@
+.video_wrapper {
+  // width: 100%;
+  border-radius: 0.5em;
+  overflow: hidden;
+  video {
+    margin: auto;
+    max-width: 100%;
+    max-height: 666px;
+    object-fit: contain;
+  }
+}
+
+// .video-wrapper {
+//   width: 300px;
+//   border-radius: 0.5em;
+//   overflow: hidden;
+
+//   .plyr__video-wrapper {
+//     background: rgba(0, 0, 0, 0.425) !important;
+
+//     video {
+//       margin: auto;
+//       max-width: 100%;
+//       max-height: 220px;
+//       object-fit: contain;
+//     }
+//   }
+
+//   .plyr__control svg {
+//     fill: currentColor;
+//     height: 12px;
+//     pointer-events: none;
+//     width: 12px;
+//   }
+
+//   .plyr__time {
+//     margin-top: -30px;
+//   }
+// }

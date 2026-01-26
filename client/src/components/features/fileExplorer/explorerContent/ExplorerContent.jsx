@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import ItemViewer from "../../itemViewer/ItemViewer";
+import ItemViewer from "../itemViewer/ItemViewer";
 import styles from "./explorerContent.module.scss";
 import Menu from "../../../ui/menu/Menu.jsx";
 import Breadcrumb from "../../../ui/breadcrumb/Breadcrumb.jsx";
-import InputField from "../../../ui/inputField/InputField.jsx";
-import { CopySlash, Menu as MenuIcon, History } from "lucide-react";
+import { Menu as MenuIcon, History } from "lucide-react";
 import Pfp from "../../../ui/pfp/Pfp.jsx";
 import Button from "../../../ui/button/Button.jsx";
 const ExplorerContent = () => {

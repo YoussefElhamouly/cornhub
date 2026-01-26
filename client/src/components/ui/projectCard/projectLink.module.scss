@@ -1,0 +1,136 @@
+.project_link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+  background-color: transparent;
+  box-sizing: border-box;
+}
+
+.project_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.project_icon_name {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.project_icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  fill: var(--text-accent-orange);
+  color: var(--text-accent-orange);
+}
+
+.project_name_link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 0;
+  text-decoration: none;
+  color: var(--text-accent-orange);
+  &:hover {
+    text-decoration: underline;
+  }
+  &:visited {
+    color: var(--text-accent-orange);
+  }
+}
+
+.project_name_text {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-accent-orange);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: none;
+  transition: text-decoration 0.2s ease;
+}
+
+.visibility_badge {
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  color: var(--text-primary);
+  background-color: transparent;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.project_description {
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  opacity: 0.7;
+  margin: 0;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.project_footer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.25rem;
+}
+
+.language_info {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.language_dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #f1e05a;
+  flex-shrink: 0;
+}
+
+.language_text {
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  opacity: 0.7;
+}
+
+.stars_info {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.star_icon {
+  width: 16px;
+  height: 16px;
+  color: var(--text-primary);
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+
+.star_count {
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  opacity: 0.7;
+}

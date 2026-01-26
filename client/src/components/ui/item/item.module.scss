@@ -1,0 +1,18 @@
+.item_container {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+
+  svg,
+  path {
+    width: 25px;
+    height: 25px;
+    fill: var(--icon-primary);
+  }
+
+  .item_name {
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    margin-left: 0.2rem;
+  }
+}

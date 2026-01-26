@@ -22,7 +22,11 @@ const Table = ({ columns = [], data = [], className = "" }) => {
           {data.map((row, rowIndex) => (
             <tr key={rowIndex} className={styles.table_row}>
               {columns.map((column, colIndex) => (
-                <td key={colIndex} className={styles.table_cell}>
+                <td
+                  key={colIndex}
+                  className={styles.table_cell}
+                  style={colIndex != 0 ? { opacity: "0.5" } : {}}
+                >
                   {column.render
                     ? column.render(row[column.key], row, rowIndex)
                     : row[column.key] || ""}

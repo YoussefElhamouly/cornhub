@@ -3,7 +3,7 @@ import styles from "./navbar.module.scss";
 import Picture from "../../ui/picture/Picture";
 import SearchBar from "../../ui/searchBar/SearchBar";
 import Button from "../../ui/button/Button";
-
+import Logo from "/images/logo.png";
 import Menu from "../../ui/menu/Menu.jsx";
 import { GitPullRequestCreate, Menu as MenuIcon } from "lucide-react";
 import Pfp from "../../ui/pfp/Pfp";
@@ -25,7 +25,7 @@ const Navbar = ({ children }) => {
           <Pfp
             editable={false}
             src={"/images/amity.jpg"}
-            customStyles={{ width: "33px", height: "33px" }}
+            customStyles={{ width: "37px", height: "37px" }}
           />
           <div className={styles.user_info_container}>
             <h1 className={styles.userName}>Youssef Elhamouly</h1>
@@ -62,8 +62,8 @@ const Navbar = ({ children }) => {
         />
         <Pfp
           editable={false}
-          src={"/images/logo22.png"}
-          customStyles={{ width: "33px", height: "33px" }}
+          src={Logo}
+          customStyles={{ width: "37px", height: "37px" }}
         />
       </div>
       {children}

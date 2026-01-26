@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Pfp from "../../components/ui/pfp/Pfp";
-import ProjectLink from "../../components/ui/projectLink/ProjectLink";
+import ProjectCard from "../../components/ui/projectCard/ProjectCard";
 import ContributionGraph from "../../components/ui/contributionGraph/ContributionGraph";
 import Button from "../../components/ui/button/Button";
 import Dropdown from "../../components/ui/dropdown/Dropdown";
@@ -187,7 +187,7 @@ const Profile = () => {
             </div>
             <div className={styles.pinned_section}>
               {mockPinnedProjects.map((project) => (
-                <ProjectLink
+                <ProjectCard
                   key={project.name}
                   name={project.name}
                   description={project.description}
