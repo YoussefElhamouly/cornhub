@@ -74,7 +74,7 @@ const Menu = forwardRef(
           )}
           {title && <h1>{title}</h1>}
           <span className={styles.right_icon}>
-            {<Icon icon={icon || ChevronDown} />}
+            {<Icon icon={icon || ChevronDown} size={icon ? 16 : 12} />}
           </span>
         </div>
 

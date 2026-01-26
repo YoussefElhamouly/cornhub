@@ -11,12 +11,13 @@ import {
   Popcorn,
   Settings,
   GitBranch,
+  Blend,
 } from "lucide-react";
 const WorkSpace = () => {
   const SECONDARY_NAV_LINKS = [
     { displayName: "Code", path: "/", icon: Code },
     { displayName: "Pull requests", path: "/profile", icon: GitPullRequest },
-    { displayName: "Branches", path: "/profile", icon: GitPullRequest },
+    { displayName: "Branches", path: "/profile", icon: GitBranch },
     { displayName: "Rooms", path: "/Popcorn", icon: Popcorn },
     { displayName: "Wiki", path: "/posts", icon: AtSign },
     { displayName: "Settings", path: "/posts", icon: Settings },

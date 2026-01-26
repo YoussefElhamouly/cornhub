@@ -73,24 +73,29 @@ const ItemViewer = ({
         /> */}
         <Table
           columns={[
-            { key: "name", header: "Name" },
-            { key: "description", header: "Description" },
+            { key: "item", header: "Name" },
+            { key: "commit", header: "Description" },
             { key: "timestamp", header: "Time" },
           ]}
           data={[
             {
-              name: <Item name={"Client"} />,
-              description: "webrtc exp",
+              item: <Item name={"Client"} />,
+              commit: "webrtc exp",
               timestamp: "7 months ago",
             },
             {
-              name: <Item name={"Server"} />,
-              description: "webrtc exp",
+              item: <Item name={"Server"} />,
+              commit: "webrtc exp",
               timestamp: "7 months ago",
             },
             {
-              name: <Item name={".cornignore"} type="file" />,
-              description: "webrtc exp",
+              item: <Item name={".cornignore"} type="file" />,
+              commit: "webrtc exp",
+              timestamp: "7 months ago",
+            },
+            {
+              item: <Item name={"readme.md"} type="file" />,
+              commit: "webrtc exp",
               timestamp: "7 months ago",
             },
           ]}
