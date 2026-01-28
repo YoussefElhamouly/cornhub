@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import ItemViewer from "../itemViewer/ItemViewer";
 import styles from "./explorerContent.module.scss";
-import Menu from "../../../ui/menu/Menu.jsx";
-import Breadcrumb from "../../../ui/breadcrumb/Breadcrumb.jsx";
-import { Menu as MenuIcon, History } from "lucide-react";
+
+import { History } from "lucide-react";
 import Pfp from "../../../ui/pfp/Pfp.jsx";
 import Button from "../../../ui/button/Button.jsx";
 const ExplorerContent = () => {
@@ -183,25 +182,6 @@ export default ExplorerTree;
 
   return (
     <>
-      <header className={styles.explorerContent_header}>
-        <Breadcrumb />
-        <Menu
-          icon={MenuIcon}
-          wrapperStyle={{
-            width: "fit-content",
-            padding: "0rem",
-            marginLeft: "auto",
-          }}
-          buttonStyle={{
-            padding: "13px 7px",
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-          }}
-          menuStyle={{ right: "0px", left: "unset" }}
-        />
-      </header>
-
       <div className={styles.author_info}>
         <Pfp
           editable={false}

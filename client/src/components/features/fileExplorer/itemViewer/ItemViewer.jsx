@@ -7,7 +7,7 @@ import Table from "../../../ui/table/Table";
 import styles from "./itemViewr.module.scss";
 import { Sprout, ArrowDownToLine, Popcorn } from "lucide-react";
 import Video from "../../../ui/Video/Video";
-import Item from "../../../ui/item/Item";
+import Item from "../../../ui/folder/Item";
 const ItemViewer = ({
   type = "code",
   name = "",

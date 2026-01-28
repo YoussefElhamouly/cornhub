@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./treeNode.module.scss";
 import Icon from "../icon/Icon.jsx";
-import Item from "../item/Item.jsx";
+import Item from "../folder/Item.jsx";
 import { ChevronRight } from "lucide-react";
 
 const TreeNode = ({ name, type = "folder", children }) => {

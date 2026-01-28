@@ -8,6 +8,9 @@ const Dropdown = ({
   options = [],
   defaultValue = null,
   onChange = () => {},
+  buttonStyle,
+  wrapperStyle,
+  menuStyle,
 }) => {
   const menuRef = useRef(null);
 
@@ -51,8 +54,14 @@ const Dropdown = ({
         position: "relative",
         boxSizing: "border-box",
         transition: "all 0.2s ease",
+        ...buttonStyle,
       }}
-      menuStyle={{ width: "120px", maxHeight: "110px" }}
+      menuStyle={{
+        width: "120px",
+        maxHeight: "110px",
+        overflow: "auto",
+        ...menuStyle,
+      }}
     >
       {options.map((option) => (
         <div

@@ -14,3 +14,10 @@
     color: var(--text-primary);
   }
 }
+.explorer_content_nav {
+  height: 35px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 1rem;
+}

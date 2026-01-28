@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import WorkSpace from "./pages/workSpace/WorkSpace.jsx";
 import "./sass/main.scss";
 import Profile from "./pages/profile/Profile.jsx";
-
+import Project from "./pages/project/Project.jsx";
 function App() {
   const router = createBrowserRouter([
     {
@@ -14,6 +14,10 @@ function App() {
     {
       element: <Profile />,
       path: "/profile",
+    },
+    {
+      element: <Project />,
+      path: "/project",
     },
   ]);
 

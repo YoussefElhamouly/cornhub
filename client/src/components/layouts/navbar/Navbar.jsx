@@ -29,7 +29,7 @@ const Navbar = ({ children }) => {
           />
           <div className={styles.user_info_container}>
             <h1 className={styles.userName}>Youssef Elhamouly</h1>
-            <h2 className={styles.userTag}>CoDEx</h2>
+            {/* <h2 className={styles.userTag}>CoDEx</h2> */}
           </div>
         </div>
 
