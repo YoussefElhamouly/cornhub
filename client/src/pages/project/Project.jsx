@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../../components/layouts/navbar/Navbar.jsx";
 import Wrapper from "../../components/layouts/wrapper/Wrapper.jsx";
 import Aside from "../../components/layouts/aside/Aside.jsx";
@@ -9,13 +9,14 @@ import Dropdown from "../../components/ui/dropdown/Dropdown.jsx";
 import SearchBar from "../../components/ui/searchBar/SearchBar.jsx";
 import Pfp from "../../components/ui/pfp/Pfp.jsx";
 import ItemViewer from "../../components/features/fileExplorer/itemViewer/ItemViewer.jsx";
-import Item from "../../components/ui/folder/Item.jsx";
-import Table from "../../components/ui/table/Table.jsx";
+
 import ReadMe from "../../components/ui/readMe/ReadMe.jsx";
+
 import styles from "./project.module.scss";
 import { Link } from "react-router-dom";
 import SecondaryNavbar from "../../components/layouts/navbar/SecondaryNavbar.jsx";
 import Icon from "../../components/ui/icon/Icon.jsx";
+import Modal from "../../components/ui/modal/Modal.jsx";
 import {
   Pin,
   Eye,
@@ -30,9 +31,13 @@ import {
   Popcorn,
   Activity,
   BookOpen,
+  Webhook,
+  SearchAlert as ErrorIcon,
 } from "lucide-react";
 
+import Feed from "../../components/features/feed/feed/Feed.jsx";
 const Project = () => {
+  const [settingsModal, setSettingsModal] = useState(false);
   const projectData = {
     name: "Mittens",
     owner: "YoussefElhamouly",
@@ -42,11 +47,12 @@ const Project = () => {
       forks: 0,
       watchers: 12,
       language: "JavaScript",
+      contributor: 0,
     },
     languages: [
-      { name: "JavaScript", percentage: 74.6 },
-      { name: "SCSS", percentage: 25.1 },
-      { name: "Other", percentage: 0.3 },
+      { name: "JavaScript", percentage: 22 },
+      { name: "SCSS", percentage: 25 },
+      { name: "Other", percentage: 53 },
     ],
     readme: "Social Media Platform",
     activity: "7 months ago",
@@ -54,7 +60,7 @@ const Project = () => {
 
 Mittens is a comprehensive full-stack social media platform designed exclusively for cat enthusiasts. It provides a modern social experience with real-time features that allow users to share posts, engage interactively, and communicate instantly via chat—all within a thoughtfully curated, cat-themed environment.
 
-![Mittens Platform](https://images.panda.org/assets/images/pages/welcome/orangutan_1600x1000_279157.jpg)
+
 
 ## ⭐ Features
 
@@ -103,9 +109,8 @@ npm run build
 
 ## 📸 Screenshots
 
-![Dashboard](https://images.unsplash.com/photo-1611080626919-7cf5a9dbab5b?w=800&q=80)
+![Mittens Platform](https://images.panda.org/assets/images/pages/welcome/orangutan_1600x1000_279157.jpg)
 
-![Feed View](https://images.unsplash.com/photo-1611532736000-f1b7c5e40f2e?w=800&q=80)
 
 ## 📝 License
 
@@ -158,6 +163,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
           leftIcon={ForkKnifeCrossed}
           title="Fork"
           wrapperStyle={{ width: "fit-content" }}
+          menuStyle={{ left: "unset", right: "0px" }}
           buttonStyle={{
             backgroundColor: "var(--tertiary-bg)",
             height: "32px",
@@ -189,10 +195,12 @@ This project is licensed under the MIT License - see the LICENSE file for detail
       />
       <Button
         title="1 Branch"
-        customStyles={{
-          backgroundColor: "transparent",
-          border: "none",
-        }}
+        // customStyles={{
+        //   backgroundColor: "transparent",
+        //   border: "none",
+
+        // }}
+        variant="transparent"
         icon={GitBranch}
       />
 
@@ -219,52 +227,56 @@ This project is licensed under the MIT License - see the LICENSE file for detail
     </div>
   );
 
-  const StatData = ({ label, data, icon }) => {
-    return (
-      <div className={styles.stat_item}>
-        <Icon icon={icon} size={16} />
-        <span className={styles.stat_label}>{label}</span>
-        <span className={styles.stat_value}></span>
-      </div>
-    );
-  };
-
   const AboutSection = () => (
     <div className={styles.about_section}>
-      <div className={styles.section_header}>
-        <h3>About</h3>
-        <Button icon={Settings} />
-      </div>
       <div className={styles.about_content}>
-        <p className={styles.about_description}>{projectData.readme}</p>
-        <div className={styles.about_stats}>
-          <div className={styles.stat_item}>
-            <Icon icon={BookOpen} size={16} />
-            <span className={styles.stat_label}>Readme</span>
-          </div>
-          <div className={styles.stat_item}>
-            <Icon icon={Activity} size={16} />
-
-            <span className={styles.stat_value}>{projectData.activity}</span>
-          </div>
-          <div className={styles.stat_item}>
-            <Star size={16} />
-            <span className={styles.stat_value}>
-              {projectData.stats.stars} stars
-            </span>
-          </div>
-
-          <div className={styles.stat_item}>
-            <Eye size={16} />
-            <span className={styles.stat_value}>
-              {projectData.watchers} watching
-            </span>
-          </div>
-          <div className={styles.stat_item}>
-            <GitBranch size={16} />
-            <span className={styles.stat_value}>{projectData.forks} forks</span>
-          </div>
+        {/* <div className={styles.about_stats}> */}
+        <div className={styles.section_header}>
+          <h3>About</h3>
+          <Button
+            icon={Settings}
+            variant="transparent"
+            customStyles={{ width: "25px", height: "25px", padding: "0px" }}
+            onClick={() => {
+              setSettingsModal(true);
+            }}
+          />
         </div>
+        <p className={styles.about_description}>{projectData.readme}</p>
+        <div className={styles.stat_item}>
+          <Icon icon={BookOpen} size={16} />
+          <span className={styles.stat_label}>Readme</span>
+        </div>
+        <div className={styles.stat_item}>
+          <Icon icon={Activity} size={16} />
+
+          <span className={styles.stat_value}>{projectData.activity}</span>
+        </div>
+        <div className={styles.stat_item}>
+          <Icon size={16} icon={Star} />
+          <span className={styles.stat_value}>
+            {projectData.stats.stars} Stars
+          </span>
+        </div>
+        <div className={styles.stat_item}>
+          <Icon size={16} icon={Eye} />
+          <span className={styles.stat_value}>
+            {projectData.stats.watchers} Watching
+          </span>
+        </div>
+        <div className={styles.stat_item}>
+          <Icon size={16} icon={ForkKnifeCrossed} />
+          <span className={styles.stat_value}>
+            {projectData.stats.forks} Forks
+          </span>
+        </div>
+        <div className={styles.stat_item}>
+          <Icon size={16} icon={Webhook} />
+          <span className={styles.stat_value}>
+            {projectData.stats.contributor} Contributors
+          </span>
+        </div>
+        {/* </div> */}
       </div>
     </div>
   );
@@ -318,17 +330,28 @@ This project is licensed under the MIT License - see the LICENSE file for detail
     };
     return languageColors[language] || "#858585";
   };
+
+  const SettingsModal = () => (
+    <Modal
+      title={"Settings"}
+      onClose={() => {
+        setSettingsModal(false);
+      }}
+    />
+  );
   const SECONDARY_NAV_LINKS = [
     { displayName: "Code", path: "/", icon: Code },
-    { displayName: "Pull requests", path: "/profile", icon: GitPullRequest },
     { displayName: "Branches", path: "/Project", icon: GitBranch },
     { displayName: "Rooms", path: "/Popcorn", icon: Popcorn },
+    { displayName: "Pull requests", path: "/profile", icon: GitPullRequest },
+    { displayName: "Issues", path: "/posts", icon: ErrorIcon },
     { displayName: "Wiki", path: "/posts", icon: AtSign },
     { displayName: "Settings", path: "/posts", icon: Settings },
   ];
 
   return (
     <>
+      {settingsModal && <SettingsModal />}
       <Navbar>
         <SecondaryNavbar links={SECONDARY_NAV_LINKS} />
       </Navbar>
@@ -349,7 +372,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
                 </div>
               }
             />
-
             <ReadMe title="README" content={projectData.readmeContent} />
           </Main>
 

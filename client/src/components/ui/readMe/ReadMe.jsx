@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./readMe.module.scss";
 import { BookOpen, Edit2, List } from "lucide-react";
 import Button from "../button/Button.jsx";
+import Picture from "../picture/Picture.jsx";
 
 const ReadMe = ({ content = "", title = "README" }) => {
   // Parse markdown-like syntax into JSX
@@ -113,10 +114,13 @@ const ReadMe = ({ content = "", title = "README" }) => {
         if (imgMatch) {
           elements.push(
             <div key={`img-${i}`} className={styles.image_wrapper}>
-              <img
+              <Picture
                 src={imgMatch[2]}
-                alt={imgMatch[1]}
-                className={styles.image}
+                customStyles={{
+                  width: "100%",
+                  height: "auto",
+                  borderRadius: "0.3rem",
+                }}
               />
               {imgMatch[1] && (
                 <p className={styles.image_caption}>{imgMatch[1]}</p>
@@ -163,11 +167,15 @@ const ReadMe = ({ content = "", title = "README" }) => {
         const imgAlt = match[2];
         const imgUrl = match[3];
         parts.push(
-          <img
+          <Picture
             key={`inline-img-${match.index}`}
             src={imgUrl}
-            alt={imgAlt}
-            className={styles.inline_image}
+            // customStyles={{
+            //   height: "auto",
+            //   display: "inline-block",
+            //   margin: "0 0.25rem",
+            //   borderRadius: "0.2rem",
+            // }}
           />,
         );
       } else {

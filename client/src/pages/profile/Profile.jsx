@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Pfp from "../../components/ui/pfp/Pfp";
 import ProjectCard from "../../components/ui/projectCard/ProjectCard";
 import ContributionGraph from "../../components/ui/contributionGraph/ContributionGraph";
+
+import ActivityList from "../../components/ui/activityList/ActivityList";
 import Button from "../../components/ui/button/Button";
 import Dropdown from "../../components/ui/dropdown/Dropdown";
 import Wrapper from "../../components/layouts/wrapper/Wrapper";
@@ -19,7 +21,9 @@ import {
   UserRoundMinus,
   AtSign,
   Webhook,
+  X,
 } from "lucide-react";
+import Feed from "../../components/features/feed/feed/Feed";
 
 const Profile = () => {
   const availableYears = [
@@ -30,6 +34,7 @@ const Profile = () => {
   const [selectedYear, setSelectedYear] = useState(
     availableYears[0]?.value || null,
   ); // Default to latest year
+  const [selectedDate, setSelectedDate] = useState(null);
 
   const mockPinnedProjects = [
     {
@@ -98,7 +103,94 @@ const Profile = () => {
     2024: {},
   };
 
+  // Activity data mapped to dates
+  const activitiesByYear = {
+    2026: [
+      {
+        type: "repository",
+        name: "YoussefElhamouly/cornhub",
+        language: "JavaScript",
+        date: "2026-01-20",
+        link: "#",
+      },
+    ],
+    2025: [
+      {
+        type: "repository",
+        name: "YoussefElhamouly/project-1",
+        language: "React",
+        date: "2025-12-14",
+        link: "#",
+      },
+      {
+        type: "code",
+        name: "YoussefElhamouly/cornhub",
+        language: "JavaScript",
+        date: "2025-12-13",
+        link: "#",
+      },
+      {
+        type: "star",
+        name: "facebook/react",
+        language: "JavaScript",
+        date: "2025-12-12",
+        link: "#",
+      },
+      {
+        type: "code",
+        name: "YoussefElhamouly/cornhub",
+        language: "JavaScript",
+        date: "2025-12-11",
+        link: "#",
+      },
+      {
+        type: "code",
+        name: "YoussefElhamouly/cornhub",
+        language: "JavaScript",
+        date: "2025-12-10",
+        link: "#",
+      },
+      {
+        type: "code",
+        name: "YoussefElhamouly/project-2",
+        language: "Python",
+        date: "2025-12-09",
+        link: "#",
+      },
+      {
+        type: "repository",
+        name: "YoussefElhamouly/new-project",
+        language: "TypeScript",
+        date: "2025-12-08",
+        link: "#",
+      },
+      {
+        type: "code",
+        name: "YoussefElhamouly/cornhub",
+        language: "JavaScript",
+        date: "2025-12-07",
+        link: "#",
+      },
+      {
+        type: "code",
+        name: "YoussefElhamouly/cornhub",
+        language: "JavaScript",
+        date: "2025-12-06",
+        link: "#",
+      },
+      {
+        type: "star",
+        name: "vuejs/vue",
+        language: "JavaScript",
+        date: "2025-12-05",
+        link: "#",
+      },
+    ],
+    2024: [],
+  };
+
   const contributionData = contributionDataByYear[selectedYear] || {};
+  const activities = activitiesByYear[selectedYear] || [];
 
   // Calculate total contributions
   const totalContributions = Object.values(contributionData).reduce(
@@ -107,6 +199,8 @@ const Profile = () => {
   );
 
   const handleDayClick = (date, value) => {
+    const dateStr = date.toISOString().split("T")[0];
+    setSelectedDate(dateStr);
     console.log(`Clicked ${date.toLocaleDateString()}: ${value} contributions`);
   };
 
@@ -235,18 +329,33 @@ const Profile = () => {
             />
           </div>
 
-          {/* <div className={styles.section}>
+          <div className={styles.section}>
             <h2 className={styles.section_title}>Contribution activity</h2>
-            <div className={styles.contribution_activity_section}>
-              <h3 className={styles.activity_month}>
-                {new Date().toLocaleDateString("en-US", {
-                  month: "long",
-                  year: "numeric",
-                })}
-              </h3>
-            
-            </div>
-          </div> */}
+            {selectedDate && (
+              <div className={styles.selected_date_info}>
+                <span>
+                  {new Date(selectedDate).toLocaleDateString("en-US", {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </span>
+
+                <Button
+                  icon={X}
+                  onClick={() => setSelectedDate(null)}
+                  customStyles={{
+                    border: "none",
+                  }}
+                  className={styles.clear_date_btn}
+                />
+              </div>
+            )}
+            <ActivityList activities={activities} selectedDate={selectedDate} />
+          </div>
+
+          <Feed />
         </Main>
       </Wrapper>
     </>

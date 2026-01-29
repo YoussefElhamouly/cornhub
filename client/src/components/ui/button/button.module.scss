@@ -1,4 +1,4 @@
-.workSpace_btn {
+@mixin default_styles {
   all: unset;
   display: flex;
   align-items: center;
@@ -9,16 +9,28 @@
   padding: 0.5rem;
   box-sizing: border-box;
   border-radius: 0.3rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  position: relative;
+  transition: 0.1s;
+  span {
+    color: var(--text-primary);
+  }
+}
+
+.workSpace_btn {
+  @include default_styles;
   border: 1px solid var(--border);
   background-color: var(--tertiary-bg);
-  cursor: pointer;
-  font-size: 0.9rem;
-  // text-align: center;
-  position: relative;
   &:hover {
     background-color: #262c36;
   }
-  span {
-    color: var(--text-primary);
+}
+
+.transparent_btn {
+  @include default_styles;
+  background-color: transparent;
+  &:hover {
+    background-color: #262c36;
   }
 }

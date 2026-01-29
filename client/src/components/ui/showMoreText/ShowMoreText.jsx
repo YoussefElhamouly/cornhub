@@ -1,48 +1,81 @@
 import React, { useState } from "react";
+import styles from "./showMoreText.module.scss";
 
-const ShowMoreText = ({ text, charLimit = 300 }) => {
+const ShowMoreText = ({
+  text = "",
+  charLimit = 300,
+  onExpand = null,
+  onCollapse = null,
+
+  customStyles = {},
+}) => {
   const [isExpanded, setIsExpanded] = useState(false);
+
   if (!text) return null;
 
   const urlRegex = /(https?:\/\/[^\s]+)/g;
   const shouldTruncate = text.length > charLimit;
   const displayedText =
-    isExpanded || !shouldTruncate ? text : text.slice(0, charLimit) + "...";
+    isExpanded || !shouldTruncate ? text : text.slice(0, charLimit);
+
+  const handleToggle = () => {
+    const newState = !isExpanded;
+    setIsExpanded(newState);
+    if (newState && onExpand) onExpand();
+    if (!newState && onCollapse) onCollapse();
+  };
+
+  const renderContent = () => {
+    const lines = displayedText.split("\n");
+    return lines.map((line, lineIndex, lineArray) => {
+      const isLastLine = lineIndex === lineArray.length - 1;
+      const parts = line.split(urlRegex);
+
+      return (
+        <span key={lineIndex}>
+          {parts.map((part, i) =>
+            urlRegex.test(part) ? (
+              <a
+                key={i}
+                href={part}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.text_link}
+              >
+                {part}
+              </a>
+            ) : (
+              part
+            ),
+          )}
+          {shouldTruncate && isLastLine && !isExpanded && (
+            <>
+              ...{" "}
+              <button className={styles.show_more_btn} onClick={handleToggle}>
+                See more
+              </button>
+            </>
+          )}
+          {shouldTruncate && isLastLine && isExpanded && (
+            <>
+              {" "}
+              <button className={styles.show_more_btn} onClick={handleToggle}>
+                See less
+              </button>
+            </>
+          )}
+          {lineIndex !== lineArray.length - 1 && <br />}
+        </span>
+      );
+    });
+  };
 
   return (
-    <p className="post-caption">
-      <span>
-        {displayedText.split("\n").map((line, index, array) => (
-          <span key={index}>
-            {line.split(urlRegex).map((part, i) =>
-              urlRegex.test(part) ? (
-                <a
-                  key={i}
-                  href={part}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-links"
-                >
-                  {part}
-                </a>
-              ) : (
-                part
-              ),
-            )}
-            {index !== array.length - 1 && <br />}
-          </span>
-        ))}
-      </span>
-      {shouldTruncate && (
-        <button
-          className="glowing-link show-more-btn"
-          onClick={() => setIsExpanded(!isExpanded)}
-          style={{ display: "inline" }}
-        >
-          {isExpanded ? "See less" : "See more"}
-        </button>
-      )}
-    </p>
+    <div className={styles.show_more_text_container}>
+      <p className={styles.text_content} style={customStyles}>
+        {renderContent()}
+      </p>
+    </div>
   );
 };
 

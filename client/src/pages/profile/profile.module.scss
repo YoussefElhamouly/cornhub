@@ -160,3 +160,38 @@
   color: var(--text-primary);
   margin: 0;
 }
+
+.selected_date_info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: var(--tertiary-bg);
+  border-radius: 0.3rem;
+  border-left: 3px solid var(--text-accent-orange);
+
+  span {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+}
+
+.clear_date_btn {
+  padding: 0rem;
+  height: fit-content;
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: transparent;
+    transform: rotate(180deg);
+    border-color: var(--text-accent-orange);
+    color: var(--text-accent-orange);
+  }
+}

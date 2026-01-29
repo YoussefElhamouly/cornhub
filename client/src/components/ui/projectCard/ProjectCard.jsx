@@ -75,7 +75,7 @@ const ProjectCard = ({
       <div className={styles.project_header}>
         <div className={styles.project_icon_name}>
           <Icon icon={icon || AudioLines} className={styles.project_icon} />
-          <Link className={styles.project_name_link} to={`/`}>
+          <Link className={styles.project_name_link} to={`/Project`}>
             <span className={styles.project_name_text}>{name}</span>
           </Link>
         </div>
