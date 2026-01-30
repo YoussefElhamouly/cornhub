@@ -9,15 +9,13 @@ const Table = ({ columns = [], data = [], className = "" }) => {
   return (
     <div className={`${styles.table_wrapper} ${className}`}>
       <table className={styles.table}>
-        {/* <thead>
-          <tr>
-            {columns.map((column, index) => (
-              <th key={index} className={styles.table_header}>
-                {column.header || column.label || ""}
-              </th>
-            ))}
-          </tr>
-        </thead> */}
+        <thead>
+          {columns.map((column, index) => (
+            <th key={index} className={styles.table_header}>
+              {column.key}
+            </th>
+          ))}
+        </thead>
         <tbody>
           {data.map((row, rowIndex) => (
             <tr key={rowIndex} className={styles.table_row}>

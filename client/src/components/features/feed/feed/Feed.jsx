@@ -52,7 +52,7 @@ const mockPosts = [
       timestamp: "1 week ago",
     },
     postBody: {
-      text: "Check out the incredible gallery feature! 📸🎥 Just launched our new image slider with smooth coverflow effects. The performance is buttery smooth even with high-res images.",
+      text: "Check out the incredible gallery feature! https://www.youtube.com/watch?v=AS8MnNBkHYE 📸🎥 Just launched our new image slider with smooth coverflow effects. The performance is buttery smooth even with high-res images.",
       image: [
         {
           src: "/images/amity.jpg",

@@ -8,15 +8,16 @@ import Menu from "../../components/ui/menu/Menu.jsx";
 import Dropdown from "../../components/ui/dropdown/Dropdown.jsx";
 import SearchBar from "../../components/ui/searchBar/SearchBar.jsx";
 import Pfp from "../../components/ui/pfp/Pfp.jsx";
-import ItemViewer from "../../components/features/fileExplorer/itemViewer/ItemViewer.jsx";
+import ContentViewer from "../../components/ui/contentViewer/ContentViewer.jsx";
 
 import ReadMe from "../../components/ui/readMe/ReadMe.jsx";
-
+import Table from "../../components/ui/table/Table.jsx";
 import styles from "./project.module.scss";
 import { Link } from "react-router-dom";
 import SecondaryNavbar from "../../components/layouts/navbar/SecondaryNavbar.jsx";
 import Icon from "../../components/ui/icon/Icon.jsx";
 import Modal from "../../components/ui/modal/Modal.jsx";
+import Item from "../../components/ui/folder/Item.jsx";
 import {
   Pin,
   Eye,
@@ -342,11 +343,52 @@ This project is licensed under the MIT License - see the LICENSE file for detail
   const SECONDARY_NAV_LINKS = [
     { displayName: "Code", path: "/", icon: Code },
     { displayName: "Branches", path: "/Project", icon: GitBranch },
-    { displayName: "Rooms", path: "/Popcorn", icon: Popcorn },
-    { displayName: "Pull requests", path: "/profile", icon: GitPullRequest },
+    { displayName: "Rooms", path: "/Profile", icon: Popcorn },
+    { displayName: "Pull requests", path: "/posts", icon: GitPullRequest },
     { displayName: "Issues", path: "/posts", icon: ErrorIcon },
-    { displayName: "Wiki", path: "/posts", icon: AtSign },
+    { displayName: "Wiki", path: "/wiki", icon: AtSign },
     { displayName: "Settings", path: "/posts", icon: Settings },
+  ];
+
+  const tableKeys = [
+    {
+      key: "item",
+    },
+
+    {
+      key: "message",
+    },
+    {
+      key: "timestamp",
+    },
+  ];
+
+  // Dummy commit data with folders
+  const tableData = [
+    {
+      item: <Item name={"client"} type={"folder"} />,
+      message: "Refactor component structure for better organization",
+      timestamp: "2 hours ago",
+      author: "Youssef Elhamouly",
+    },
+    {
+      item: <Item name={"server"} type={"folder"} />,
+      message: "Add utility functions for data transformation",
+      timestamp: "5 hours ago",
+      author: "Sarah Chen",
+    },
+    {
+      item: <Item name={".cornignore"} type={"folder"} />,
+      message: "Implement custom React hooks",
+      timestamp: "1 day ago",
+      author: "Alex Martinez",
+    },
+    {
+      item: <Item name={"readme.md"} type={"folder"} />,
+      message: "Create new page templates",
+      timestamp: "2 days ago",
+      author: "Jordan Lee",
+    },
   ];
 
   return (
@@ -361,8 +403,8 @@ This project is licensed under the MIT License - see the LICENSE file for detail
         <Wrapper className={styles.project_content_wrapper}>
           <Main className={styles.project_main}>
             <MainControls />
-
-            <ItemViewer
+            {/* 
+            <ContentViewer
               type="table"
               fileInfo={
                 <div className={styles.file_info}>
@@ -371,8 +413,15 @@ This project is licensed under the MIT License - see the LICENSE file for detail
                   <span>f248d41 · 7 months ago</span>
                 </div>
               }
-            />
+            /> */}
+            <ContentViewer>
+              <ContentViewer.Body>
+                <Table columns={tableKeys} data={tableData} />
+              </ContentViewer.Body>
+            </ContentViewer>
+
             <ReadMe title="README" content={projectData.readmeContent} />
+            <Feed />
           </Main>
 
           <Aside className={styles.project_aside}>

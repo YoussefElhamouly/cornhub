@@ -77,9 +77,9 @@ const ActivityList = ({ activities = [], selectedDate = null }) => {
             </div>
             <div className={styles.toggle_icon}>
               {expandedSections[type] ? (
-                <ChevronUp size={20} />
+                <ChevronUp size={14} />
               ) : (
-                <ChevronDown size={20} />
+                <ChevronDown size={14} />
               )}
             </div>
           </button>

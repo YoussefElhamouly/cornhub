@@ -5,6 +5,7 @@ import WorkSpace from "./pages/workSpace/WorkSpace.jsx";
 import "./sass/main.scss";
 import Profile from "./pages/profile/Profile.jsx";
 import Project from "./pages/project/Project.jsx";
+import Wiki from "./pages/wiki/Wiki.jsx";
 function App() {
   const router = createBrowserRouter([
     {
@@ -18,6 +19,10 @@ function App() {
     {
       element: <Project />,
       path: "/project",
+    },
+    {
+      element: <Wiki />,
+      path: "/wiki",
     },
   ]);
 

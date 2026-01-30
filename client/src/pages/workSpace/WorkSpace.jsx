@@ -12,14 +12,16 @@ import {
   Settings,
   GitBranch,
   Blend,
+  SearchAlert as ErrorIcon,
 } from "lucide-react";
 const WorkSpace = () => {
   const SECONDARY_NAV_LINKS = [
     { displayName: "Code", path: "/", icon: Code },
-    { displayName: "Pull requests", path: "/profile", icon: GitPullRequest },
     { displayName: "Branches", path: "/Project", icon: GitBranch },
-    { displayName: "Rooms", path: "/Popcorn", icon: Popcorn },
-    { displayName: "Wiki", path: "/posts", icon: AtSign },
+    { displayName: "Rooms", path: "/Profile", icon: Popcorn },
+    { displayName: "Pull requests", path: "/posts", icon: GitPullRequest },
+    { displayName: "Issues", path: "/posts", icon: ErrorIcon },
+    { displayName: "Wiki", path: "/wiki", icon: AtSign },
     { displayName: "Settings", path: "/posts", icon: Settings },
   ];
 

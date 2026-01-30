@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
-import ItemViewer from "../itemViewer/ItemViewer";
+import ContentViewer from "../../../ui/contentViewer/ContentViewer.jsx";
 import styles from "./explorerContent.module.scss";
-
+import CodeEditor from "../codeEditor/CodeEditor.jsx";
 import { History } from "lucide-react";
 import Pfp from "../../../ui/pfp/Pfp.jsx";
 import Button from "../../../ui/button/Button.jsx";
+import { Sprout, ArrowDownToLine, Popcorn } from "lucide-react";
+import Menu from "../../../ui/menu/Menu.jsx";
+import Table from "../../../ui/table/Table.jsx";
+import Item from "../../../ui/folder/Item.jsx";
 const ExplorerContent = () => {
   const reactCode = `import React from "react";
 import TreeNode from "../../../ui/treeNode/TreeNode.jsx";
@@ -180,6 +184,33 @@ export default ExplorerTree;
     console.log(code);
   }, [code]);
 
+  const ItemActions = ({ fileOptions = null }) => {
+    return (
+      <div className={styles.itemViewer_actions}>
+        <Button icon={Popcorn} />
+        <Button icon={ArrowDownToLine} />
+        <Menu
+          title={"Seeders"}
+          leftIcon={Sprout}
+          wrapperStyle={{
+            width: "fit-content",
+            padding: "0rem",
+            marginLeft: "auto",
+          }}
+          buttonStyle={{
+            padding: "16px 7px",
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+          }}
+          menuStyle={{ right: "0px", left: "unset" }}
+        >
+          {fileOptions}
+        </Menu>
+      </div>
+    );
+  };
+
   return (
     <>
       <div className={styles.author_info}>
@@ -197,7 +228,21 @@ export default ExplorerTree;
           className={styles.history_btn}
         />
       </div>
-      <ItemViewer content={code} language="javascript" onChange={setCode} />
+      <ContentViewer>
+        {/* <ContentViewer.Header>
+          <ItemActions />
+        </ContentViewer.Header>
+        <ContentViewer.Body>
+          <Table columns={tableKeys} data={tableData} />
+        </ContentViewer.Body> */}
+
+        <ContentViewer.Header>
+          <ItemActions />
+        </ContentViewer.Header>
+        <ContentViewer.Body>
+          <CodeEditor code={code} setCode={setCode} />
+        </ContentViewer.Body>
+      </ContentViewer>
     </>
   );
 };

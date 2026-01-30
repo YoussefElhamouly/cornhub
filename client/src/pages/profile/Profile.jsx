@@ -12,17 +12,26 @@ import Main from "../../components/layouts/main/Main";
 import styles from "./profile.module.scss";
 import Navbar from "../../components/layouts/navbar/Navbar";
 import SecondaryNavbar from "../../components/layouts/navbar/SecondaryNavbar";
+
 import {
+  AtSign,
+  Webhook,
+  Code,
+  GitPullRequest,
+  Popcorn,
+  Settings,
+  GitBranch,
+  Blend,
+  SearchAlert as ErrorIcon,
   BookOpen,
   Box,
   Eye,
   CalendarDays,
   UserRoundPlus,
   UserRoundMinus,
-  AtSign,
-  Webhook,
   X,
 } from "lucide-react";
+
 import Feed from "../../components/features/feed/feed/Feed";
 
 const Profile = () => {
@@ -204,13 +213,21 @@ const Profile = () => {
     console.log(`Clicked ${date.toLocaleDateString()}: ${value} contributions`);
   };
 
+  // const SECONDARY_NAV_LINKS = [
+  //   { displayName: "Overview", path: "/", icon: BookOpen },
+  //   { displayName: "Repositories", path: "/profile", icon: Box },
+  //   { displayName: "Contributions", path: "/contributions", icon: Webhook },
+  //   { displayName: "Posts", path: "/posts", icon: AtSign },
+  // ];
   const SECONDARY_NAV_LINKS = [
-    { displayName: "Overview", path: "/", icon: BookOpen },
-    { displayName: "Repositories", path: "/profile", icon: Box },
-    { displayName: "Contributions", path: "/contributions", icon: Webhook },
-    { displayName: "Posts", path: "/posts", icon: AtSign },
+    { displayName: "Code", path: "/", icon: Code },
+    { displayName: "Branches", path: "/Project", icon: GitBranch },
+    { displayName: "Rooms", path: "/Profile", icon: Popcorn },
+    { displayName: "Pull requests", path: "/posts", icon: GitPullRequest },
+    { displayName: "Issues", path: "/posts", icon: ErrorIcon },
+    { displayName: "Wiki", path: "/wiki", icon: AtSign },
+    { displayName: "Settings", path: "/posts", icon: Settings },
   ];
-
   const ProfileInfoSection = () => {
     return (
       <div className={styles.profile_info}>
