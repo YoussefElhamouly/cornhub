@@ -1,0 +1,284 @@
+import React, { useState } from "react";
+
+import ProjectCard from "../../../components/ui/projectCard/ProjectCard";
+import ContributionGraph from "../../../components/ui/contributionGraph/ContributionGraph";
+
+import ActivityList from "../../../components/ui/activityList/ActivityList";
+import Dropdown from "../../../components/ui/dropdown/Dropdown";
+import Button from "../../../components/ui/button/Button";
+import styles from "../profile.module.scss";
+import { Eye, CalendarDays, X } from "lucide-react";
+const Overview = () => {
+  const availableYears = [
+    { displayName: "2026", value: 2026 },
+    { displayName: "2025", value: 2025 },
+    { displayName: "2024", value: 2024 },
+  ]; // Latest year first
+  const [selectedYear, setSelectedYear] = useState(
+    availableYears[0]?.value || null,
+  ); // Default to latest year
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  const mockPinnedProjects = [
+    {
+      name: "Project 1",
+      description: "This is a description of project 1",
+      visibility: "Public",
+      language: "JavaScript",
+      stars: 2224,
+    },
+    {
+      name: "Project 2",
+      description: "This is a description of project 2",
+      visibility: "Public",
+      language: "PHP",
+      stars: 224,
+    },
+    {
+      name: "Project 3",
+      description: "This is a description of project 3",
+      visibility: "Private",
+      language: "C++",
+      stars: 21312312314,
+    },
+  ];
+
+  const visibilityOptions = [
+    { displayName: "All", value: "all" },
+    { displayName: "Public", value: "public" },
+    { displayName: "Private", value: "private" },
+  ];
+  const [profileVisibility, setProfileVisibility] = useState("public");
+
+  // Example contribution data by year
+  const contributionDataByYear = {
+    2026: {
+      "2026-01-01": 1,
+      "2026-01-02": 2,
+      "2026-01-03": 3,
+    },
+    2025: {
+      // May contributions
+      "2025-05-15": 3,
+      // June contributions
+      "2025-06-10": 5,
+      "2025-06-11": 8,
+      // July contributions
+      "2025-07-05": 2,
+      "2025-07-06": 4,
+      "2025-07-07": 6,
+      // December contributions
+      "2025-12-01": 1,
+      "2025-12-02": 3,
+      "2025-12-03": 5,
+      "2025-12-04": 2,
+      "2025-12-05": 4,
+      "2025-12-06": 6,
+      "2025-12-07": 8,
+      "2025-12-08": 10,
+      "2025-12-09": 7,
+      "2025-12-10": 5,
+      "2025-12-11": 3,
+      "2025-12-12": 4,
+      "2025-12-13": 6,
+      "2025-12-14": 9,
+    },
+    2024: {},
+  };
+
+  // Activity data mapped to dates
+  const activitiesByYear = {
+    2026: [
+      {
+        type: "repository",
+        name: "YoussefElhamouly/cornhub",
+        language: "JavaScript",
+        date: "2026-01-20",
+        link: "#",
+      },
+    ],
+    2025: [
+      {
+        type: "repository",
+        name: "YoussefElhamouly/project-1",
+        language: "React",
+        date: "2025-12-14",
+        link: "#",
+      },
+      {
+        type: "code",
+        name: "YoussefElhamouly/cornhub",
+        language: "JavaScript",
+        date: "2025-12-13",
+        link: "#",
+      },
+      {
+        type: "star",
+        name: "facebook/react",
+        language: "JavaScript",
+        date: "2025-12-12",
+        link: "#",
+      },
+      {
+        type: "code",
+        name: "YoussefElhamouly/cornhub",
+        language: "JavaScript",
+        date: "2025-12-11",
+        link: "#",
+      },
+      {
+        type: "code",
+        name: "YoussefElhamouly/cornhub",
+        language: "JavaScript",
+        date: "2025-12-10",
+        link: "#",
+      },
+      {
+        type: "code",
+        name: "YoussefElhamouly/project-2",
+        language: "Python",
+        date: "2025-12-09",
+        link: "#",
+      },
+      {
+        type: "repository",
+        name: "YoussefElhamouly/new-project",
+        language: "TypeScript",
+        date: "2025-12-08",
+        link: "#",
+      },
+      {
+        type: "code",
+        name: "YoussefElhamouly/cornhub",
+        language: "JavaScript",
+        date: "2025-12-07",
+        link: "#",
+      },
+      {
+        type: "code",
+        name: "YoussefElhamouly/cornhub",
+        language: "JavaScript",
+        date: "2025-12-06",
+        link: "#",
+      },
+      {
+        type: "star",
+        name: "vuejs/vue",
+        language: "JavaScript",
+        date: "2025-12-05",
+        link: "#",
+      },
+    ],
+    2024: [],
+  };
+
+  const contributionData = contributionDataByYear[selectedYear] || {};
+  const activities = activitiesByYear[selectedYear] || [];
+
+  // Calculate total contributions
+  const totalContributions = Object.values(contributionData).reduce(
+    (sum, val) => sum + val,
+    0,
+  );
+
+  const handleDayClick = (date, value) => {
+    const dateStr = date.toISOString().split("T")[0];
+    setSelectedDate(dateStr);
+    console.log(`Clicked ${date.toLocaleDateString()}: ${value} contributions`);
+  };
+  return (
+    <>
+      <div className={styles.section}>
+        <div className={styles.section_header}>
+          <h2 className={styles.section_title}>Pinned</h2>
+          <a
+            href="#"
+            className={styles.section_link}
+            onClick={(e) => {
+              e.preventDefault();
+              console.log("Customize pins");
+            }}
+          >
+            Customize your pins
+          </a>
+        </div>
+        <div className={styles.pinned_section}>
+          {mockPinnedProjects.map((project) => (
+            <ProjectCard
+              key={project.name}
+              name={project.name}
+              description={project.description}
+              visibility={project.visibility}
+              language={project.language}
+              stars={project.stars}
+            />
+          ))}
+        </div>
+      </div>
+
+      <div className={styles.section}>
+        <div className={styles.contribution_section_header}>
+          <h2 className={styles.contribution_title}>
+            {totalContributions} contributions in {selectedYear}
+          </h2>
+          <div className={styles.contribution_settings}>
+            <Dropdown
+              title="Visibility"
+              icon={Eye}
+              options={visibilityOptions}
+              defaultValue={profileVisibility}
+              onChange={(val) => {
+                setProfileVisibility(val);
+                console.log("Profile visibility changed to:", val);
+              }}
+            />
+            <Dropdown
+              icon={CalendarDays}
+              options={availableYears}
+              defaultValue={selectedYear}
+              onChange={(val) => {
+                setSelectedYear(val);
+              }}
+            />
+          </div>
+        </div>
+        <ContributionGraph
+          data={contributionData}
+          onDayClick={handleDayClick}
+          showLegend={true}
+          showLearnMore={true}
+          startDate={new Date(selectedYear, 0, 1)}
+          endDate={new Date(selectedYear, 11, 31)}
+        />
+      </div>
+
+      <div className={styles.section}>
+        <h2 className={styles.section_title}>Contribution activity</h2>
+        {selectedDate && (
+          <div className={styles.selected_date_info}>
+            <span>
+              {new Date(selectedDate).toLocaleDateString("en-US", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </span>
+
+            <Button
+              icon={X}
+              onClick={() => setSelectedDate(null)}
+              customStyles={{
+                border: "none",
+              }}
+              className={styles.clear_date_btn}
+            />
+          </div>
+        )}
+        <ActivityList activities={activities} selectedDate={selectedDate} />
+      </div>
+    </>
+  );
+};
+
+export default Overview;

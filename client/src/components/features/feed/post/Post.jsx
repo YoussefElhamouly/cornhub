@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./post.module.scss";
-import Pfp from "../../../ui/pfp/Pfp.jsx";
+
 import Button from "../../../ui/button/Button.jsx";
 import Menu from "../../../ui/menu/Menu.jsx";
 import Picture from "../../../ui/picture/Picture.jsx";
@@ -9,6 +9,7 @@ import Slider from "../../../ui/slider/Slider.jsx";
 import ShowMoreText from "../../../ui/showMoreText/ShowMoreText.jsx";
 import Comment from "../comment/Comment.jsx";
 import { Star, MessageCircle, MoreHorizontal } from "lucide-react";
+import Avatar from "../../../ui/avatar/Avatar.jsx";
 
 const Post = ({
   author = {
@@ -86,7 +87,7 @@ const Post = ({
       {/* Header */}
       <div className={styles.post_header}>
         <div className={styles.header_left}>
-          <Pfp
+          <Avatar
             editable={false}
             src={author.pfp}
             customStyles={{ width: "40px", height: "40px" }}

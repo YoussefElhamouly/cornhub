@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import Skeleton from "../skeleton/Skeleton";
 import styles from "./picture.module.scss";
 
-const Picture = ({ src, customStyles }) => {
+const Picture = ({ src, alt, customStyles }) => {
   const [isLoading, setIsloading] = useState(true);
   useEffect(() => {});
   return (
@@ -11,7 +11,7 @@ const Picture = ({ src, customStyles }) => {
       <figure style={{ backgroundImage: `url(${src})` }}></figure>
       <img
         src={src}
-        alt=""
+        alt={alt}
         onLoad={() => {
           setIsloading(false);
         }}

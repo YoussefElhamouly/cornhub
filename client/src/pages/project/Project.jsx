@@ -7,7 +7,6 @@ import Button from "../../components/ui/button/Button.jsx";
 import Menu from "../../components/ui/menu/Menu.jsx";
 import Dropdown from "../../components/ui/dropdown/Dropdown.jsx";
 import SearchBar from "../../components/ui/searchBar/SearchBar.jsx";
-import Pfp from "../../components/ui/pfp/Pfp.jsx";
 import ContentViewer from "../../components/ui/contentViewer/ContentViewer.jsx";
 
 import ReadMe from "../../components/ui/readMe/ReadMe.jsx";
@@ -37,6 +36,7 @@ import {
 } from "lucide-react";
 
 import Feed from "../../components/features/feed/feed/Feed.jsx";
+import Avatar from "../../components/ui/avatar/Avatar.jsx";
 const Project = () => {
   const [settingsModal, setSettingsModal] = useState(false);
   const projectData = {
@@ -131,7 +131,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
   const ProjectHeader = () => (
     <div className={styles.project_header}>
       <div className={styles.header_left}>
-        <Pfp
+        <Avatar
           editable={false}
           src={"/images/amity.jpg"}
           customStyles={{ width: "32px", height: "32px" }}
@@ -366,6 +366,12 @@ This project is licensed under the MIT License - see the LICENSE file for detail
   // Dummy commit data with folders
   const tableData = [
     {
+      item: <Item name={"assets"} type={"folder"} />,
+      message: "Icons",
+      timestamp: "2 hours ago",
+      author: "Youssef Elhamouly",
+    },
+    {
       item: <Item name={"client"} type={"folder"} />,
       message: "Refactor component structure for better organization",
       timestamp: "2 hours ago",
@@ -378,13 +384,13 @@ This project is licensed under the MIT License - see the LICENSE file for detail
       author: "Sarah Chen",
     },
     {
-      item: <Item name={".cornignore"} type={"folder"} />,
+      item: <Item name={".cornignore"} type={"file"} />,
       message: "Implement custom React hooks",
       timestamp: "1 day ago",
       author: "Alex Martinez",
     },
     {
-      item: <Item name={"readme.md"} type={"folder"} />,
+      item: <Item name={"readme.md"} type={"file"} />,
       message: "Create new page templates",
       timestamp: "2 days ago",
       author: "Jordan Lee",
@@ -403,17 +409,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
         <Wrapper className={styles.project_content_wrapper}>
           <Main className={styles.project_main}>
             <MainControls />
-            {/* 
-            <ContentViewer
-              type="table"
-              fileInfo={
-                <div className={styles.file_info}>
-                  <span>YoussefElhamouly</span>
-                  <span>v1.0</span>
-                  <span>f248d41 · 7 months ago</span>
-                </div>
-              }
-            /> */}
+
             <ContentViewer>
               <ContentViewer.Body>
                 <Table columns={tableKeys} data={tableData} />

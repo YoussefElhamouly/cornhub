@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ChevronDown, ChevronRight, Star, Reply } from "lucide-react";
-import Pfp from "../../../ui/pfp/Pfp.jsx";
+import Avatar from "../../../ui/avatar/Avatar.jsx";
 import Button from "../../../ui/button/Button.jsx";
 import styles from "./comment.module.scss";
 
@@ -35,7 +35,7 @@ const Comment = ({ comment, onReply = null }) => {
       <div className={styles.comment_container}>
         <div className={styles.comment_content}>
           <div className={styles.comment_header}>
-            <Pfp
+            <Avatar
               src={comment.author.pfp}
               alt={comment.author.name}
               customStyles={{ width: "28px", height: "28px" }}

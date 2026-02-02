@@ -1,10 +1,10 @@
 import React, { useRef } from "react";
 import Picture from "../picture/Picture.jsx";
-import styles from "./pfp.module.scss";
+import styles from "./avatar.module.scss";
 import Button from "../button/Button.jsx";
 import { Camera } from "lucide-react";
 
-const Pfp = ({ src, customStyles, editable = false }) => {
+const Avatar = ({ src, customStyles, editable = false }) => {
   const inputRef = useRef(null);
   return (
     <div className={styles.pfp_wrapper}>
@@ -37,4 +37,4 @@ const Pfp = ({ src, customStyles, editable = false }) => {
   );
 };
 
-export default Pfp;
+export default Avatar;

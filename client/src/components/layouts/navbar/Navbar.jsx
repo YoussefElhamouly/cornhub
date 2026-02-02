@@ -1,13 +1,13 @@
 import Skeleton from "../../ui/skeleton/Skeleton";
 import styles from "./navbar.module.scss";
 import Picture from "../../ui/picture/Picture";
-import SearchBar from "../../ui/searchBar/SearchBar";
 import Button from "../../ui/button/Button";
+import SearchBar from "../../ui/searchBar/SearchBar";
 import Logo from "/images/logo.png";
 import Menu from "../../ui/menu/Menu.jsx";
 import { GitPullRequestCreate, Menu as MenuIcon } from "lucide-react";
-import Pfp from "../../ui/pfp/Pfp";
-import { Bell } from "lucide-react";
+import Avatar from "../../ui/avatar/Avatar.jsx";
+import { Bell, BookOpen } from "lucide-react";
 
 const Navbar = ({ children }) => {
   return (
@@ -22,7 +22,7 @@ const Navbar = ({ children }) => {
           }}
         />
         <div className={styles.user_info_wrapper}>
-          <Pfp
+          <Avatar
             editable={false}
             src={"/images/amity.jpg"}
             customStyles={{ width: "37px", height: "37px" }}
@@ -34,10 +34,31 @@ const Navbar = ({ children }) => {
         </div>
 
         <SearchBar
-          placeholder={"Search for smth"}
+          placeHolder={"Search for smth"}
           customStyles={{ width: "350px", marginLeft: "auto" }}
+          id="global_search_bar"
+        />
+        <Button
+          icon={BookOpen}
+          variant="transparent"
+          customStyles={{
+            border: "1px solid var(--border)",
+            width: "30px",
+            height: "30px",
+            padding: "0px !important",
+          }}
         />
 
+        <Button
+          icon={BookOpen}
+          variant="transparent"
+          customStyles={{
+            border: "1px solid var(--border)",
+            width: "30px",
+            height: "30px",
+            padding: "0px !important",
+          }}
+        />
         <Menu
           icon={GitPullRequestCreate}
           menuStyle={{ right: "0px", left: "unset" }}
@@ -47,6 +68,7 @@ const Navbar = ({ children }) => {
             height: "30px",
             display: "flex",
             justifyContent: "center",
+            backgroundColor: "transparent",
           }}
         />
         <Menu
@@ -58,9 +80,10 @@ const Navbar = ({ children }) => {
             height: "30px",
             display: "flex",
             justifyContent: "center",
+            backgroundColor: "transparent",
           }}
         />
-        <Pfp
+        <Avatar
           editable={false}
           src={Logo}
           customStyles={{ width: "37px", height: "37px" }}

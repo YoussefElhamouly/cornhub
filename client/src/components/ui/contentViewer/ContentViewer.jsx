@@ -1,8 +1,15 @@
 import React from "react";
 import styles from "./contentViewer.module.scss";
 
-const ContentViewer = ({ children }) => {
-  return <div className={styles.itemViewer_container}>{children}</div>;
+const ContentViewer = ({ children, customStyles, className }) => {
+  return (
+    <div
+      className={`${styles.itemViewer_container} ${className}`}
+      style={customStyles}
+    >
+      {children}
+    </div>
+  );
 };
 
 ContentViewer.Header = function Header({ children }) {

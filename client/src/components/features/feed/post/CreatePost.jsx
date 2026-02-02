@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./createPost.module.scss";
 import Button from "../../../ui/button/Button.jsx";
 import InputField from "../../../ui/inputField/InputField.jsx";
-import Pfp from "../../../ui/pfp/Pfp.jsx";
+import Pfp from "../../../ui/avatar/Avatar.jsx";
 import Modal from "../../../ui/modal/Modal.jsx";
 import Post from "./Post.jsx";
 import { Image, Video, X } from "lucide-react";

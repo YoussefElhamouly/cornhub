@@ -1,0 +1,24 @@
+// Branches page layout styles
+.branches_wrapper {
+  max-width: 1330px;
+  margin: 0 auto;
+  width: 100%;
+  height: fit-content;
+  margin-top: 1.3rem;
+}
+
+.branches_main {
+  display: flex;
+  flex-direction: column;
+  //   gap: 2rem;
+}
+
+.branch_table {
+  flex: unset;
+}
+
+.branch_group_title {
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  font-weight: 600;
+}

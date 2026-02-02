@@ -3,7 +3,7 @@ import ContentViewer from "../../../ui/contentViewer/ContentViewer.jsx";
 import styles from "./explorerContent.module.scss";
 import CodeEditor from "../codeEditor/CodeEditor.jsx";
 import { History } from "lucide-react";
-import Pfp from "../../../ui/pfp/Pfp.jsx";
+import Pfp from "../../../ui/avatar/Avatar.jsx";
 import Button from "../../../ui/button/Button.jsx";
 import { Sprout, ArrowDownToLine, Popcorn } from "lucide-react";
 import Menu from "../../../ui/menu/Menu.jsx";
@@ -187,6 +187,8 @@ export default ExplorerTree;
   const ItemActions = ({ fileOptions = null }) => {
     return (
       <div className={styles.itemViewer_actions}>
+        <h1>yourmom.jsx</h1>
+        <h1>0.3kb</h1>
         <Button icon={Popcorn} />
         <Button icon={ArrowDownToLine} />
         <Menu
@@ -195,7 +197,6 @@ export default ExplorerTree;
           wrapperStyle={{
             width: "fit-content",
             padding: "0rem",
-            marginLeft: "auto",
           }}
           buttonStyle={{
             padding: "16px 7px",
