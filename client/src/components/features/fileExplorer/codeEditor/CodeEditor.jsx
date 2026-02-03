@@ -109,17 +109,69 @@ const CodeEditor = ({
   language = "javascript",
   onChange,
   theme = "default",
+  customStyles = {},
+  className = "",
+  highlights = {},
 }) => {
   const editorRef = useRef(null);
+  const decorationsRef = useRef([]);
 
   const handleChange = (value) => {
-    if (onChange) {
+    // Disable editing when highlights are present
+    if (onChange && Object.keys(highlights).length === 0) {
       onChange(value || "");
     }
   };
 
   const handleEditorDidMount = (editor, monaco) => {
     editorRef.current = editor;
+    // Apply highlights immediately after mount
+    if (Object.keys(highlights).length > 0) {
+      applyHighlights(highlights, monaco);
+    }
+  };
+
+  const applyHighlights = (highlightsObj, monaco) => {
+    if (
+      !editorRef.current ||
+      !highlightsObj ||
+      Object.keys(highlightsObj).length === 0
+    ) {
+      return;
+    }
+
+    const decorations = Object.entries(highlightsObj)
+      .map(([lineNum, type]) => {
+        const line = parseInt(lineNum);
+        if (!line || (type !== "+" && type !== "-")) return null;
+
+        return {
+          range: new monaco.Range(line, 1, line, 250),
+          options: {
+            isWholeLine: true,
+            className:
+              type === "+" ? "highlight-added-line" : "highlight-removed-line",
+            glyphMarginClassName:
+              type === "+" ? "glyph-added-icon" : "glyph-removed-icon",
+            glyphMarginHoverMessage: {
+              value: type === "+" ? "Added line" : "Removed line",
+            },
+            minimap: {
+              color: type === "+" ? "#22c55e99" : "#ef444499",
+            },
+            overviewRuler: {
+              color: type === "+" ? "#22c55e" : "#ef4444",
+              position: 7,
+            },
+          },
+        };
+      })
+      .filter(Boolean);
+
+    decorationsRef.current = editorRef.current.deltaDecorations(
+      decorationsRef.current,
+      decorations,
+    );
   };
 
   useEffect(() => {
@@ -143,8 +195,18 @@ const CodeEditor = ({
     }
   }, [code]);
 
+  // Apply highlights whenever highlights object changes
+  useEffect(() => {
+    if (editorRef.current && window.monaco) {
+      applyHighlights(highlights, window.monaco);
+    }
+  }, [highlights]);
+
   return (
-    <div className={styles.codeEditor_wrapper}>
+    <div
+      className={`${styles.codeEditor_wrapper} ${className}`}
+      style={customStyles}
+    >
       <Editor
         height="100%"
         language={language}
@@ -152,7 +214,8 @@ const CodeEditor = ({
         onChange={handleChange}
         loading={null}
         options={{
-          readOnly: !onChange,
+          readOnly: !onChange || Object.keys(highlights).length > 0,
+          glyphMargin: true,
           minimap: {
             enabled: false,
             side: "left", // "right" | "left"
@@ -179,6 +242,26 @@ const CodeEditor = ({
           Object.entries(MONACO_THEMES).forEach(([themeName, themeConfig]) => {
             monaco.editor.defineTheme(themeName, themeConfig);
           });
+
+          // Define highlight styles
+          const styleSheet = document.createElement("style");
+          styleSheet.textContent = `
+            .highlight-added-line {
+              background: linear-gradient(90deg, rgba(34, 197, 94, 0.25) 0%, transparent 100%) !important;
+              border-left: 3px solid #22c55e !important;
+            }
+            .highlight-removed-line {
+              background: linear-gradient(90deg, rgba(239, 68, 68, 0.25) 0%, transparent 100%) !important;
+              border-left: 3px solid #ef4444 !important;
+            }
+            .glyph-added-icon {
+              background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext x='4' y='12' font-size='14' font-weight='bold' fill='%2322c55e'%3E+%3C/text%3E%3C/svg%3E") center/10px no-repeat !important;
+            }
+            .glyph-removed-icon {
+              background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext x='4' y='12' font-size='14' font-weight='bold' fill='%23ef4444'%3E−%3C/text%3E%3C/svg%3E") center/10px no-repeat !important;
+            }
+          `;
+          document.head.appendChild(styleSheet);
         }}
         onMount={handleEditorDidMount}
         theme={theme}
