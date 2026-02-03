@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { ChevronDown, ChevronRight, Star, Reply } from "lucide-react";
+import { ChevronDown, ChevronRight, Reply, Star } from "lucide-react";
 
 import Avatar from "../../../ui/media/avatar/Avatar.jsx";
 
