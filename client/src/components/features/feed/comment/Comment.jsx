@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ChevronDown, ChevronRight, Star, Reply } from "lucide-react";
-import Avatar from "../../../ui/avatar/Avatar.jsx";
-import Button from "../../../ui/button/Button.jsx";
+import Avatar from "../../../ui/media/avatar/Avatar.jsx";
+import Button from "../../../ui/control/button/Button.jsx";
 import styles from "./comment.module.scss";
 
 const Comment = ({ comment, onReply = null }) => {

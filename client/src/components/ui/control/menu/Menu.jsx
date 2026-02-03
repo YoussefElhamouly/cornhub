@@ -6,8 +6,8 @@ import React, {
   useImperativeHandle,
 } from "react";
 import styles from "./menu.module.scss";
-import useOutsideClick from "../../../hooks/useOutsideClick";
-import Icon from "../icon/Icon.jsx";
+import useOutsideClick from "../../../../hooks/useOutsideClick.jsx";
+import Icon from "../../media/icon/Icon.jsx";
 import { ChevronDown } from "lucide-react";
 
 const Menu = forwardRef(

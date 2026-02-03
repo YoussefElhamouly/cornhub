@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
-import ProjectCard from "../../../components/ui/projectCard/ProjectCard";
-import ContributionGraph from "../../../components/ui/contributionGraph/ContributionGraph";
+import ProjectCard from "../../../components/ui/cards/projectCard/ProjectCard";
+import ContributionGraph from "../../../components/ui/visualization/contributionGraph/ContributionGraph";
 
-import ActivityList from "../../../components/ui/activityList/ActivityList";
-import Dropdown from "../../../components/ui/dropdown/Dropdown";
-import Button from "../../../components/ui/button/Button";
+import ActivityList from "../../../components/ui/collection/activityList/ActivityList";
+import Dropdown from "../../../components/ui/control/dropdown/Dropdown";
+import Button from "../../../components/ui/control/button/Button";
 import styles from "../profile.module.scss";
 import { Eye, CalendarDays, X } from "lucide-react";
 const Overview = () => {

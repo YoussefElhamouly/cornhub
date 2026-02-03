@@ -3,11 +3,11 @@ import Navbar from "../../../components/layouts/navbar/Navbar.jsx";
 import SecondaryNavbar from "../../../components/layouts/navbar/SecondaryNavbar.jsx";
 import Wrapper from "../../../components/layouts/wrapper/Wrapper.jsx";
 import Main from "../../../components/layouts/main/Main.jsx";
-import Filter from "../../../components/ui/filter/Filter.jsx";
-import SearchBar from "../../../components/ui/searchBar/SearchBar.jsx";
-import ContentViewer from "../../../components/ui/contentViewer/ContentViewer.jsx";
-import Table from "../../../components/ui/table/Table.jsx";
-import Item from "../../../components/ui/folder/Item.jsx";
+import Filter from "../../../components/ui/control/filter/Filter.jsx";
+import SearchBar from "../../../components/ui/control/searchBar/SearchBar.jsx";
+import ContentViewer from "../../../components/ui/layout/contentViewer/ContentViewer.jsx";
+import Table from "../../../components/ui/layout/table/Table.jsx";
+import Item from "../../../components/ui/collection/item/Item.jsx";
 import styles from "./branches.module.scss";
 import { GitBranch, User, Clock } from "lucide-react";
 

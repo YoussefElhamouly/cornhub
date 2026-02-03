@@ -1,6 +1,6 @@
 import React from "react";
-import TreeNode from "../../../ui/treeNode/TreeNode.jsx";
-import SearchBar from "../../../ui/searchBar/SearchBar.jsx";
+import TreeNode from "../../../ui/navigation/treeNode/TreeNode.jsx";
+import SearchBar from "../../../ui/control/searchBar/SearchBar.jsx";
 import styles from "./explorerTree.module.scss";
 const ExplorerTree = () => {
   const mockTree = [

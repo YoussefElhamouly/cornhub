@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import styles from "./post.module.scss";
 
-import Button from "../../../ui/button/Button.jsx";
-import Menu from "../../../ui/menu/Menu.jsx";
-import Picture from "../../../ui/picture/Picture.jsx";
-import Video from "../../../ui/Video/Video.jsx";
-import Slider from "../../../ui/slider/Slider.jsx";
-import ShowMoreText from "../../../ui/showMoreText/ShowMoreText.jsx";
+import Button from "../../../ui/control/button/Button.jsx";
+import Menu from "../../../ui/control/menu/Menu.jsx";
+import Picture from "../../../ui/media/picture/Picture.jsx";
+import Video from "../../../ui/media/Video/Video.jsx";
+import Slider from "../../../ui/media/slider/Slider.jsx";
+import ShowMoreText from "../../../ui/media/showMoreText/ShowMoreText.jsx";
 import Comment from "../comment/Comment.jsx";
 import { Star, MessageCircle, MoreHorizontal } from "lucide-react";
-import Avatar from "../../../ui/avatar/Avatar.jsx";
+import Avatar from "../../../ui/media/avatar/Avatar.jsx";
 
 const Post = ({
   author = {

@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./item.module.scss";
 import { Folder, FolderOpen } from "lucide-react";
-import Icon from "../icon/Icon";
+import Icon from "../../media/icon/Icon";
 const FOLDER_CLOSED = (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="3 5 18 14">
     <path

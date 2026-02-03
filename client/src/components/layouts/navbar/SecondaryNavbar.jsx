@@ -1,6 +1,6 @@
 import { NavLink, useLocation } from "react-router-dom";
 import styles from "./navbar.module.scss";
-import Icon from "../../ui/icon/Icon.jsx";
+import Icon from "../../ui/media/icon/Icon.jsx";
 
 const getTabFromPath = (path) => {
   // Extract ?tab=... from path

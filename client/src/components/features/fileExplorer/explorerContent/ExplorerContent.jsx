@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import ContentViewer from "../../../ui/contentViewer/ContentViewer.jsx";
+import ContentViewer from "../../../ui/layout/contentViewer/ContentViewer.jsx";
 import styles from "./explorerContent.module.scss";
 import CodeEditor from "../codeEditor/CodeEditor.jsx";
 import { History } from "lucide-react";
-import Pfp from "../../../ui/avatar/Avatar.jsx";
-import Button from "../../../ui/button/Button.jsx";
+import Avatar from "../../../ui/media/avatar/Avatar.jsx";
+import Button from "../../../ui/control/button/Button.jsx";
 import { Sprout, ArrowDownToLine, Popcorn } from "lucide-react";
-import Menu from "../../../ui/menu/Menu.jsx";
-import Table from "../../../ui/table/Table.jsx";
-import Item from "../../../ui/folder/Item.jsx";
+import Menu from "../../../ui/control/menu/Menu.jsx";
+
 const ExplorerContent = () => {
   const reactCode = `import React from "react";
 import TreeNode from "../../../ui/treeNode/TreeNode.jsx";
@@ -215,7 +214,7 @@ export default ExplorerTree;
   return (
     <>
       <div className={styles.author_info}>
-        <Pfp
+        <Avatar
           editable={false}
           src={"/images/amity.jpg"}
           customStyles={{ width: "35px", height: "35px" }}

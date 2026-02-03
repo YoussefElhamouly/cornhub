@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./searchBar.module.scss";
 import { useState } from "react";
 import { Search } from "lucide-react";
-import Icon from "../icon/Icon";
+import Icon from "../../media/icon/Icon";
 const SearchBar = ({ placeHolder, customStyles = {}, id, onChange }) => {
   const [isFocused, setIsFocused] = useState(false);
   return (

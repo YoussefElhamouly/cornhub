@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./projectLink.module.scss";
 import { Link } from "react-router-dom";
-import { renderNumberWithAbbreviations } from "../../../utils/helperFunctions";
+import { renderNumberWithAbbreviations } from "../../../../utils/helperFunctions";
 import { AudioLines, Star } from "lucide-react";
-import Icon from "../icon/Icon";
+import Icon from "../../media/icon/Icon";
 // Language color mapping (GitHub-style colors)
 const getLanguageColor = (language) => {
   const languageColors = {

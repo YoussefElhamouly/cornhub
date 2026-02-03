@@ -1,6 +1,6 @@
 import React, { useState, useRef, useCallback } from "react";
 import styles from "./dropdown.module.scss";
-import Menu from "../menu/Menu.jsx";
+import Menu from "../menu/Menu";
 
 const Dropdown = ({
   title = "Select an option",

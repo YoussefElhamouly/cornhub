@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./readMe.module.scss";
 import { BookOpen, Edit2, List } from "lucide-react";
-import Button from "../button/Button.jsx";
+import Button from "../../control/button/Button.jsx";
 import Picture from "../picture/Picture.jsx";
 
 const ReadMe = ({ content = "", title = "README" }) => {

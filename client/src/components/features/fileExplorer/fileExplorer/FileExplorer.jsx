@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import ExplorerTree from "../explorerTree/ExplorerTree";
 import styles from "./fileExplorer.module.scss";
 import Aside from "../../../layouts/aside/Aside";
-import Menu from "../../../ui/menu/Menu";
+import Menu from "../../../ui/control/menu/Menu.jsx";
 import ExplorerContent from "../explorerContent/ExplorerContent";
-import Button from "../../../ui/button/Button";
+import Button from "../../../ui/control/button/Button";
 import Main from "../../../layouts/main/Main";
 import Wrapper from "../../../layouts/wrapper/Wrapper";
 
@@ -14,7 +14,7 @@ import {
   PanelLeftOpen,
   Menu as MenuIcon,
 } from "lucide-react";
-import Breadcrumb from "../../../ui/breadcrumb/Breadcrumb.jsx";
+import Breadcrumb from "../../../ui/navigation/breadcrumb/Breadcrumb.jsx";
 const FileExplorer = () => {
   const [leftPanel, setLeftPanel] = useState(true);
 

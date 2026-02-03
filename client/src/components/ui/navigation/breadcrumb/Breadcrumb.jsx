@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./breadcrumb.module.scss";
 import { Link } from "react-router-dom";
-import Button from "../button/Button.jsx";
+import Button from "../../control/button/Button.jsx";
 import { CopySlash } from "lucide-react";
 const Breadcrumb = ({ path }) => {
   return (

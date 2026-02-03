@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Feed from "../../../components/features/feed/feed/Feed";
-import Filter from "../../../components/ui/filter/Filter";
+import Filter from "../../../components/ui/control/filter/Filter";
 import Main from "../../../components/layouts/main/Main";
-import SearchBar from "../../../components/ui/searchBar/SearchBar";
+import SearchBar from "../../../components/ui/control/searchBar/SearchBar";
 const filterOptions = [
   { displayName: "All", value: "all", key: "all", default: true },
   { displayName: "Starred", value: "starred", key: "starred" },

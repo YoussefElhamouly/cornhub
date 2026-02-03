@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./button.module.scss";
-import Icon from "../icon/Icon.jsx";
+import Icon from "../../media/icon/Icon";
 const Button = ({
   variant = "workSpace",
   onClick = () => {},

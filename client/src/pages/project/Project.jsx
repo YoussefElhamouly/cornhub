@@ -3,20 +3,20 @@ import Navbar from "../../components/layouts/navbar/Navbar.jsx";
 import Wrapper from "../../components/layouts/wrapper/Wrapper.jsx";
 import Aside from "../../components/layouts/aside/Aside.jsx";
 import Main from "../../components/layouts/main/Main.jsx";
-import Button from "../../components/ui/button/Button.jsx";
-import Menu from "../../components/ui/menu/Menu.jsx";
-import Dropdown from "../../components/ui/dropdown/Dropdown.jsx";
-import SearchBar from "../../components/ui/searchBar/SearchBar.jsx";
-import ContentViewer from "../../components/ui/contentViewer/ContentViewer.jsx";
+import Button from "../../components/ui/control/button/Button.jsx";
+import Menu from "../../components/ui/control/menu/Menu.jsx";
+import Dropdown from "../../components/ui/control/dropdown/Dropdown.jsx";
+import SearchBar from "../../components/ui/control/searchBar/SearchBar.jsx";
+import ContentViewer from "../../components/ui/layout/contentViewer/ContentViewer.jsx";
 
-import ReadMe from "../../components/ui/readMe/ReadMe.jsx";
-import Table from "../../components/ui/table/Table.jsx";
+import ReadMe from "../../components/ui/media/readMe/ReadMe.jsx";
+import Table from "../../components/ui/layout/table/Table.jsx";
 import styles from "./project.module.scss";
 import { Link } from "react-router-dom";
 import SecondaryNavbar from "../../components/layouts/navbar/SecondaryNavbar.jsx";
-import Icon from "../../components/ui/icon/Icon.jsx";
-import Modal from "../../components/ui/modal/Modal.jsx";
-import Item from "../../components/ui/folder/Item.jsx";
+import Icon from "../../components/ui/media/icon/Icon.jsx";
+import Modal from "../../components/ui/layout/modal/Modal.jsx";
+import Item from "../../components/ui/collection/item/Item.jsx";
 import {
   Pin,
   Eye,
@@ -36,7 +36,7 @@ import {
 } from "lucide-react";
 
 import Feed from "../../components/features/feed/feed/Feed.jsx";
-import Avatar from "../../components/ui/avatar/Avatar.jsx";
+import Avatar from "../../components/ui/media/avatar/Avatar.jsx";
 const Project = () => {
   const [settingsModal, setSettingsModal] = useState(false);
   const projectData = {
@@ -363,7 +363,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
     },
   ];
 
-  // Dummy commit data with folders
   const tableData = [
     {
       item: <Item name={"assets"} type={"folder"} />,
@@ -408,7 +407,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
         <Wrapper className={styles.project_content_wrapper}>
           <Main className={styles.project_main}>
-            <MainControls />
+            {/* <MainControls />
 
             <ContentViewer>
               <ContentViewer.Body>
@@ -416,7 +415,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
               </ContentViewer.Body>
             </ContentViewer>
 
-            <ReadMe title="README" content={projectData.readmeContent} />
+            <ReadMe title="README" content={projectData.readmeContent} /> */}
             <Feed />
           </Main>
 

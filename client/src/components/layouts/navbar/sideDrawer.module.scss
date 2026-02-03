@@ -1,0 +1,138 @@
+.drawer_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 2000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+.drawer_overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 320px;
+  max-width: 90vw;
+  background: var(--secondary-bg);
+  box-shadow: 2px 0 16px rgba(0, 0, 0, 0.25);
+  z-index: 2100;
+  transform: translateX(-100%);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--border);
+  border-radius: 0.5em;
+}
+
+.drawer.open {
+  transform: translateX(0);
+}
+
+.close_btn {
+  background: none;
+  border: none;
+  color: #8b949e;
+  align-self: flex-end;
+  margin: 0.5rem 1rem 1rem 0;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.close_btn:hover {
+  color: #fff;
+}
+
+.drawer_content {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.drawer_nav_links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.drawer_nav_links a {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  padding: 0 1rem;
+  border-left: 3px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.drawer_nav_links a:hover {
+  border-left-color: transparent;
+}
+
+.drawer_nav_links a.active {
+  border-left-color: var(--text-accent-orange);
+}
+
+.drawer_nav_links a.active button {
+  background: #262d35 !important;
+}
+
+.drawer_btn {
+  width: 100% !important;
+  justify-content: flex-start;
+}
+
+.drawer_divider {
+  border: none;
+  border-top: 1px solid #30363d;
+  margin: 0.5rem 0;
+}
+
+.drawer_section_title {
+  padding: 1rem 1.5rem 0.5rem 1.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #8b949e;
+
+  letter-spacing: 0.05em;
+}
+
+.drawer_repos_list {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0 1rem 0;
+}
+
+.drawer_repos_list a {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  padding: 0 1rem;
+  border-left: 2px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.drawer_repos_list a:hover {
+  border-left-color: transparent;
+}
+
+.drawer_repos_list a.active {
+  border-left-color: #ff8c00;
+}
+
+.drawer_repos_list a.active button {
+  background: #262d35 !important;
+  color: #fff !important;
+}

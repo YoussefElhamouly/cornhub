@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import Button from "../../components/ui/button/Button";
+import Button from "../../components/ui/control/button/Button";
 
 import Wrapper from "../../components/layouts/wrapper/Wrapper";
 import Aside from "../../components/layouts/aside/Aside";
@@ -20,7 +20,8 @@ import {
   UserRoundMinus,
 } from "lucide-react";
 
-import Avatar from "../../components/ui/avatar/Avatar";
+import Feed from "../../components/features/feed/feed/Feed";
+import Avatar from "../../components/ui/media/avatar/Avatar.jsx";
 
 const TABS = {
   overview: {

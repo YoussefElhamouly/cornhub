@@ -1,17 +1,34 @@
-import Skeleton from "../../ui/skeleton/Skeleton";
+import React, { useState } from "react";
 import styles from "./navbar.module.scss";
-import Picture from "../../ui/picture/Picture";
-import Button from "../../ui/button/Button";
-import SearchBar from "../../ui/searchBar/SearchBar";
+import Button from "../../ui/control/button/Button";
+import SearchBar from "../../ui/control/searchBar/SearchBar";
 import Logo from "/images/logo.png";
-import Menu from "../../ui/menu/Menu.jsx";
+import Menu from "../../ui/control/menu/Menu.jsx";
 import { GitPullRequestCreate, Menu as MenuIcon } from "lucide-react";
-import Avatar from "../../ui/avatar/Avatar.jsx";
+import SideDrawer from "./SideDrawer";
+import Avatar from "../../ui/media/avatar/Avatar.jsx";
 import { Bell, BookOpen } from "lucide-react";
 
 const Navbar = ({ children }) => {
+  const [drawerOpen, setDrawerOpen] = useState(false);
   return (
     <div className={styles.navbar}>
+      <SideDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)}>
+        {/* TODO: Add nav content here */}
+        <div
+          style={{
+            color: "#fff",
+            fontWeight: 600,
+            fontSize: "1.2rem",
+            marginBottom: "1.5rem",
+          }}
+        >
+          Menu
+        </div>
+        <div style={{ color: "#fff", opacity: 0.7 }}>
+          Add navigation links here...
+        </div>
+      </SideDrawer>
       <div className={styles.globalBar}>
         <Button
           icon={MenuIcon}
@@ -20,6 +37,7 @@ const Navbar = ({ children }) => {
             width: "30px",
             height: "30px",
           }}
+          onClick={() => setDrawerOpen(true)}
         />
         <div className={styles.user_info_wrapper}>
           <Avatar

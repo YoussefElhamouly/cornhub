@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
-import Skeleton from "../skeleton/Skeleton";
+import Skeleton from "../../feedback/skeleton/Skeleton";
 import styles from "./picture.module.scss";
 
 const Picture = ({ src, alt, customStyles }) => {

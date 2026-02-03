@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import Picture from "../picture/Picture.jsx";
 import styles from "./avatar.module.scss";
-import Button from "../button/Button.jsx";
+import Button from "../../control/button/Button.jsx";
 import { Camera } from "lucide-react";
 
 const Avatar = ({ src, customStyles, editable = false }) => {
