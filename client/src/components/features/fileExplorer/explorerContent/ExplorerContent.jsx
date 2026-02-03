@@ -7,7 +7,7 @@ import Avatar from "../../../ui/media/avatar/Avatar.jsx";
 import Button from "../../../ui/control/button/Button.jsx";
 import { Sprout, ArrowDownToLine, Popcorn } from "lucide-react";
 import Menu from "../../../ui/control/menu/Menu.jsx";
-
+import InputField from "../../../ui/control/inputField/InputField.jsx";
 const ExplorerContent = () => {
   const testCode = `// Welcome to CodeEditor with Highlights!
 function calculateSum(a, b) {
@@ -25,6 +25,27 @@ console.log(greeting);
 function subtract(a, b) {
   return a - b;
 }
+  const greeting = "Hello, World!";
+console.log(greeting);
+
+function subtract(a, b) {
+  return a - b;
+}const greeting = "Hello, World!";
+console.log(greeting);
+
+function subtract(a, b) {
+  return a - b;
+}const greeting = "Hello, World!";
+console.log(greeting);
+
+function subtract(a, b) {
+  return a - b;
+}const greeting = "Hello, World!";
+console.log(greeting);
+
+function subtract(a, b) {
+  return a - b;
+}
 
 export { calculateSum, multiply, subtract };`;
 
@@ -35,19 +56,19 @@ export { calculateSum, multiply, subtract };`;
     1: "",
     2: "+",
     3: "+",
-    4: "",
-    5: "",
+    // 4: "",
+    // 5: "",
     6: "+",
     7: "+",
     8: "+",
-    9: "",
-    10: "",
+    // 9: "",
+    // 10: "",
     11: "-",
-    12: "",
-    13: "",
+    // 12: "",
+    // 13: "",
     14: "-",
     15: "-",
-    16: "",
+    // 16: "",
     17: "+",
     18: "+",
   };
@@ -101,7 +122,46 @@ export { calculateSum, multiply, subtract };`;
           className={styles.history_btn}
         />
       </div>
-      <ContentViewer>
+
+      <ContentViewer customStyles={{ minHeight: "50%" }}>
+        {/* <ContentViewer.Header>
+          <ItemActions />
+        </ContentViewer.Header>
+        <ContentViewer.Body>
+          <Table columns={tableKeys} data={tableData} />
+        </ContentViewer.Body> */}
+
+        <ContentViewer.Header>
+          <ItemActions />
+        </ContentViewer.Header>
+        <ContentViewer.Body>
+          <CodeEditor
+            code={code}
+            onChange={setCode}
+            highlights={testHighlights}
+          />
+        </ContentViewer.Body>
+      </ContentViewer>
+      <ContentViewer customStyles={{ minHeight: "50%" }}>
+        {/* <ContentViewer.Header>
+          <ItemActions />
+        </ContentViewer.Header>
+        <ContentViewer.Body>
+          <Table columns={tableKeys} data={tableData} />
+        </ContentViewer.Body> */}
+
+        <ContentViewer.Header>
+          <ItemActions />
+        </ContentViewer.Header>
+        <ContentViewer.Body>
+          <CodeEditor
+            code={code}
+            onChange={setCode}
+            highlights={testHighlights}
+          />
+        </ContentViewer.Body>
+      </ContentViewer>
+      <ContentViewer customStyles={{ minHeight: "50%" }}>
         {/* <ContentViewer.Header>
           <ItemActions />
         </ContentViewer.Header>

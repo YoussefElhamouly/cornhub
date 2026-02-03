@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./contentViewer.module.scss";
 
-const ContentViewer = ({ children, customStyles, className }) => {
+const ContentViewer = ({ children, customStyles = {}, className = "" }) => {
   return (
     <div
       className={`${styles.itemViewer_container} ${className}`}

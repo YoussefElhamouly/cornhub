@@ -247,18 +247,18 @@ const CodeEditor = ({
           const styleSheet = document.createElement("style");
           styleSheet.textContent = `
             .highlight-added-line {
-              background: linear-gradient(90deg, rgba(34, 197, 94, 0.25) 0%, transparent 100%) !important;
+              background-color: rgba(34, 197, 94, 0.2) !important;
               border-left: 3px solid #22c55e !important;
             }
             .highlight-removed-line {
-              background: linear-gradient(90deg, rgba(239, 68, 68, 0.25) 0%, transparent 100%) !important;
+              background-color: rgba(239, 68, 68, 0.2) !important;
               border-left: 3px solid #ef4444 !important;
             }
             .glyph-added-icon {
-              background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext x='4' y='12' font-size='14' font-weight='bold' fill='%2322c55e'%3E+%3C/text%3E%3C/svg%3E") center/10px no-repeat !important;
+              background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext x='4' y='12' font-size='24' font-weight='bold' fill='%2322c55e'%3E+%3C/text%3E%3C/svg%3E") center/10px no-repeat !important;
             }
             .glyph-removed-icon {
-              background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext x='4' y='12' font-size='14' font-weight='bold' fill='%23ef4444'%3E−%3C/text%3E%3C/svg%3E") center/10px no-repeat !important;
+              background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext x='4' y='12' font-size='24' font-weight='bold' fill='%23ef4444'%3E−%3C/text%3E%3C/svg%3E") center/10px no-repeat !important;
             }
           `;
           document.head.appendChild(styleSheet);

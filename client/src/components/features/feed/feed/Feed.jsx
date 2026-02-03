@@ -220,9 +220,9 @@ const Feed = () => {
   return (
     <>
       {/* <CreatePost /> */}
-      {mockPosts.map((post, idx) => (
+      {mockPosts.map((post, i) => (
         <Post
-          key={idx}
+          key={i}
           author={post.author}
           postBody={post.postBody}
           likes={post.likes}
