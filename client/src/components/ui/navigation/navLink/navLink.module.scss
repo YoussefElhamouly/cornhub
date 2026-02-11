@@ -1,0 +1,79 @@
+/* Base styles for both variants */
+.secondary_link,
+.drawer_link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s;
+
+  &:hover {
+    .nav_btn {
+      background-color: var(--tertiary-bg);
+    }
+  }
+}
+
+/* Secondary variant */
+.secondary_link {
+  position: relative;
+  width: fit-content;
+  padding-bottom: 0.5rem;
+  justify-content: center;
+
+  .btn_secondary {
+    gap: 0.3rem;
+    padding: 0.5rem;
+    border-radius: 0.3em;
+    font-size: 0.87rem;
+  }
+
+  &.active {
+    color: var(--text-accent-orange);
+
+    .link_highlighter {
+      background-color: var(--text-accent-orange);
+    }
+  }
+
+  .link_highlighter {
+    position: absolute;
+    bottom: 0px;
+    height: 2px;
+    width: 90%;
+    margin-inline: auto;
+    margin-left: 0.2rem;
+    opacity: 0.9;
+    border-radius: 20em;
+    transition: background-color 0.2s;
+  }
+}
+
+/* Drawer variant */
+.drawer_link {
+  padding: 0 1rem;
+  border-left: 3px solid transparent;
+  transition: border-color 0.2s;
+
+  .btn_drawer {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  &:hover {
+    border-left-color: transparent;
+  }
+
+  &.active {
+    border-left-color: var(--text-accent-orange);
+
+    .nav_btn {
+      background: #262d35 !important;
+    }
+  }
+}
+
+/* Button styling */
+.nav_btn {
+  transition: background-color 0.2s;
+}

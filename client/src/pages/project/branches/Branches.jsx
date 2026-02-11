@@ -11,17 +11,7 @@ import Item from "../../../components/ui/collection/item/Item.jsx";
 import styles from "./branches.module.scss";
 import { GitBranch, User, Clock } from "lucide-react";
 
-// Secondary navbar links (same as project page)
-const SECONDARY_NAV_LINKS = [
-  { displayName: "Code", path: "/", icon: GitBranch },
-  { displayName: "Branches", path: "/Project", icon: GitBranch },
-  { displayName: "Rooms", path: "/Profile", icon: User },
-  { displayName: "Pull requests", path: "/posts", icon: GitBranch },
-  { displayName: "Issues", path: "/posts", icon: GitBranch },
-  { displayName: "Wiki", path: "/wiki", icon: GitBranch },
-  { displayName: "Settings", path: "/posts", icon: GitBranch },
-];
-
+import { SECONDARY_NAV_LINKS } from "../Project.jsx";
 // Table columns and mock data for both tables
 const columns = [
   { key: "branch", render: (val) => val },

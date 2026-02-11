@@ -3,8 +3,8 @@
   align-items: center;
   gap: 0.3rem;
 
-  svg,
-  path {
+  .folder_icon,
+  .folder_icon path {
     width: 18px;
     height: 18px;
     fill: var(--icon-primary);

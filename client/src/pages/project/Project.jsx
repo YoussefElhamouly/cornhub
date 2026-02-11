@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { Children, useState } from "react";
+import { Outlet } from "react-router-dom";
 import Navbar from "../../components/layouts/navbar/Navbar.jsx";
 import Wrapper from "../../components/layouts/wrapper/Wrapper.jsx";
 import Aside from "../../components/layouts/aside/Aside.jsx";
@@ -7,16 +8,10 @@ import Button from "../../components/ui/control/button/Button.jsx";
 import Menu from "../../components/ui/control/menu/Menu.jsx";
 import Dropdown from "../../components/ui/control/dropdown/Dropdown.jsx";
 import SearchBar from "../../components/ui/control/searchBar/SearchBar.jsx";
-import ContentViewer from "../../components/ui/layout/contentViewer/ContentViewer.jsx";
-
-import ReadMe from "../../components/ui/media/readMe/ReadMe.jsx";
-import Table from "../../components/ui/layout/table/Table.jsx";
 import styles from "./project.module.scss";
-import { Link } from "react-router-dom";
 import SecondaryNavbar from "../../components/layouts/navbar/SecondaryNavbar.jsx";
 import Icon from "../../components/ui/media/icon/Icon.jsx";
 import Modal from "../../components/ui/layout/modal/Modal.jsx";
-import Item from "../../components/ui/collection/item/Item.jsx";
 import {
   Pin,
   Eye,
@@ -37,6 +32,28 @@ import {
 
 import Feed from "../../components/features/feed/feed/Feed.jsx";
 import Avatar from "../../components/ui/media/avatar/Avatar.jsx";
+
+const SECONDARY_NAV_LINKS = [
+  { displayName: "Code", path: "/:user/:project", icon: Code },
+  {
+    displayName: "Branches",
+    path: "/:user/:project/branches",
+    icon: GitBranch,
+  },
+  { displayName: "Rooms", path: "/:user/:project/rooms", icon: Popcorn },
+  {
+    displayName: "Pull requests",
+    path: "/:user/:project/pulls",
+    icon: GitPullRequest,
+  },
+  { displayName: "Issues", path: "/posts", icon: ErrorIcon },
+  { displayName: "Wiki", path: "/:user/:project/wiki", icon: AtSign },
+  {
+    displayName: "Settings",
+    path: "/:user/:project/settings",
+    icon: Settings,
+  },
+];
 const Project = () => {
   const [settingsModal, setSettingsModal] = useState(false);
   const projectData = {
@@ -122,12 +139,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 *Made with 🐱 for cat enthusiasts everywhere*`,
   };
 
-  const branchOptions = [
-    { displayName: "main", value: "main" },
-    { displayName: "develop", value: "develop" },
-    { displayName: "feature", value: "feature" },
-  ];
-
   const ProjectHeader = () => (
     <div className={styles.project_header}>
       <div className={styles.header_left}>
@@ -178,53 +189,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
           }}
         />
       </div>
-    </div>
-  );
-
-  // Main content area with controls
-  const MainControls = () => (
-    <div className={styles.main_controls}>
-      <Dropdown
-        title="main"
-        icon={GitBranch}
-        options={branchOptions}
-        defaultValue="main"
-        buttonStyle={{
-          backgroundColor: "var(--tertiary-bg)",
-          height: "32px",
-        }}
-      />
-      <Button
-        title="1 Branch"
-        // customStyles={{
-        //   backgroundColor: "transparent",
-        //   border: "none",
-
-        // }}
-        variant="transparent"
-        icon={GitBranch}
-      />
-
-      <SearchBar
-        placeHolder="Go to file"
-        customStyles={{ flex: 1, maxWidth: "250px", marginLeft: "auto" }}
-      />
-      <Menu
-        icon={Plus}
-        title="Add file"
-        wrapperStyle={{ width: "fit-content" }}
-        buttonStyle={{
-          height: "32px",
-        }}
-      ></Menu>
-      <Menu
-        leftIcon={Code}
-        title="Code"
-        wrapperStyle={{ width: "fit-content" }}
-        buttonStyle={{
-          height: "32px",
-        }}
-      ></Menu>
     </div>
   );
 
@@ -340,61 +304,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
       }}
     />
   );
-  const SECONDARY_NAV_LINKS = [
-    { displayName: "Code", path: "/", icon: Code },
-    { displayName: "Branches", path: "/Project", icon: GitBranch },
-    { displayName: "Rooms", path: "/Profile", icon: Popcorn },
-    { displayName: "Pull requests", path: "/posts", icon: GitPullRequest },
-    { displayName: "Issues", path: "/posts", icon: ErrorIcon },
-    { displayName: "Wiki", path: "/wiki", icon: AtSign },
-    { displayName: "Settings", path: "/posts", icon: Settings },
-  ];
-
-  const tableKeys = [
-    {
-      key: "item",
-    },
-
-    {
-      key: "message",
-    },
-    {
-      key: "timestamp",
-    },
-  ];
-
-  const tableData = [
-    {
-      item: <Item name={"assets"} type={"folder"} />,
-      message: "Icons",
-      timestamp: "2 hours ago",
-      author: "Youssef Elhamouly",
-    },
-    {
-      item: <Item name={"client"} type={"folder"} />,
-      message: "Refactor component structure for better organization",
-      timestamp: "2 hours ago",
-      author: "Youssef Elhamouly",
-    },
-    {
-      item: <Item name={"server"} type={"folder"} />,
-      message: "Add utility functions for data transformation",
-      timestamp: "5 hours ago",
-      author: "Sarah Chen",
-    },
-    {
-      item: <Item name={".cornignore"} type={"file"} />,
-      message: "Implement custom React hooks",
-      timestamp: "1 day ago",
-      author: "Alex Martinez",
-    },
-    {
-      item: <Item name={"readme.md"} type={"file"} />,
-      message: "Create new page templates",
-      timestamp: "2 days ago",
-      author: "Jordan Lee",
-    },
-  ];
 
   return (
     <>
@@ -407,16 +316,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
         <Wrapper className={styles.project_content_wrapper}>
           <Main className={styles.project_main}>
-            {/* <MainControls />
-
-            <ContentViewer>
-              <ContentViewer.Body>
-                <Table columns={tableKeys} data={tableData} />
-              </ContentViewer.Body>
-            </ContentViewer>
-
-            <ReadMe title="README" content={projectData.readmeContent} /> */}
-            <Feed />
+            <Outlet />
           </Main>
 
           <Aside className={styles.project_aside}>
@@ -430,3 +330,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 };
 
 export default Project;
+export { SECONDARY_NAV_LINKS };

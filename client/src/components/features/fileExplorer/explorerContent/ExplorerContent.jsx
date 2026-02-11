@@ -52,26 +52,26 @@ export { calculateSum, multiply, subtract };`;
   const [code, setCode] = useState(testCode);
 
   // Test highlights object: line numbers map to "+" (added), "-" (removed), or "" (none)
-  const testHighlights = {
-    1: "",
-    2: "+",
-    3: "+",
-    // 4: "",
-    // 5: "",
-    6: "+",
-    7: "+",
-    8: "+",
-    // 9: "",
-    // 10: "",
-    11: "-",
-    // 12: "",
-    // 13: "",
-    14: "-",
-    15: "-",
-    // 16: "",
-    17: "+",
-    18: "+",
-  };
+  // const testHighlights = {
+  //   1: "",
+  //   2: "+",
+  //   3: "+",
+  //   // 4: "",
+  //   // 5: "",
+  //   6: "+",
+  //   7: "+",
+  //   8: "+",
+  //   // 9: "",
+  //   // 10: "",
+  //   11: "-",
+  //   // 12: "",
+  //   // 13: "",
+  //   14: "-",
+  //   15: "-",
+  //   // 16: "",
+  //   17: "+",
+  //   18: "+",
+  // };
 
   useEffect(() => {
     console.log(code);
@@ -135,49 +135,7 @@ export { calculateSum, multiply, subtract };`;
           <ItemActions />
         </ContentViewer.Header>
         <ContentViewer.Body>
-          <CodeEditor
-            code={code}
-            onChange={setCode}
-            highlights={testHighlights}
-          />
-        </ContentViewer.Body>
-      </ContentViewer>
-      <ContentViewer customStyles={{ minHeight: "50%" }}>
-        {/* <ContentViewer.Header>
-          <ItemActions />
-        </ContentViewer.Header>
-        <ContentViewer.Body>
-          <Table columns={tableKeys} data={tableData} />
-        </ContentViewer.Body> */}
-
-        <ContentViewer.Header>
-          <ItemActions />
-        </ContentViewer.Header>
-        <ContentViewer.Body>
-          <CodeEditor
-            code={code}
-            onChange={setCode}
-            highlights={testHighlights}
-          />
-        </ContentViewer.Body>
-      </ContentViewer>
-      <ContentViewer customStyles={{ minHeight: "50%" }}>
-        {/* <ContentViewer.Header>
-          <ItemActions />
-        </ContentViewer.Header>
-        <ContentViewer.Body>
-          <Table columns={tableKeys} data={tableData} />
-        </ContentViewer.Body> */}
-
-        <ContentViewer.Header>
-          <ItemActions />
-        </ContentViewer.Header>
-        <ContentViewer.Body>
-          <CodeEditor
-            code={code}
-            onChange={setCode}
-            highlights={testHighlights}
-          />
+          <CodeEditor code={code} onChange={setCode} highlights={{}} />
         </ContentViewer.Body>
       </ContentViewer>
     </>

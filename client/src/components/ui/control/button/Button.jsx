@@ -13,10 +13,11 @@ const Button = ({
   const selectedClass = styles[`${variant}_btn`];
   return (
     <button
+      form={null}
       className={`${selectedClass} ${className}`}
       style={customStyles}
       onClick={(e) => {
-        e.preventDefault();
+        // e.preventDefault();
         onClick(e);
       }}
     >

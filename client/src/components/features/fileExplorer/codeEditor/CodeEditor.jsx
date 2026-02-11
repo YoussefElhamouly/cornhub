@@ -78,14 +78,15 @@ const MONACO_THEMES = {
     inherit: true,
     rules: [
       { token: "comment", foreground: "5C6370", fontStyle: "italic" },
-      { token: "keyword", foreground: "83d6c5" }, // orange keywords
+      { token: "keyword", foreground: "83d6c5" },
+      { token: "keyword.control", foreground: "83d6c5" },
       { token: "number", foreground: "D19A66" },
       { token: "string", foreground: "d88dd1" },
       { token: "type", foreground: "a99af4" },
-      { token: "class", foreground: "83d6c5" }, // orange classes
-      { token: "function", foreground: "efb080" }, // your accent
+      { token: "class", foreground: "83d6c5" },
+      { token: "function", foreground: "efb080" },
       { token: "variable", foreground: "E06C75" },
-      { token: "constant", foreground: "aa9bf5" },
+      { token: "constant.language", foreground: "aa9bf5" },
     ],
     colors: {
       "editor.background": "#00000000",
@@ -155,13 +156,6 @@ const CodeEditor = ({
               type === "+" ? "glyph-added-icon" : "glyph-removed-icon",
             glyphMarginHoverMessage: {
               value: type === "+" ? "Added line" : "Removed line",
-            },
-            minimap: {
-              color: type === "+" ? "#22c55e99" : "#ef444499",
-            },
-            overviewRuler: {
-              color: type === "+" ? "#22c55e" : "#ef4444",
-              position: 7,
             },
           },
         };
@@ -255,10 +249,18 @@ const CodeEditor = ({
               border-left: 3px solid #ef4444 !important;
             }
             .glyph-added-icon {
-              background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext x='4' y='12' font-size='24' font-weight='bold' fill='%2322c55e'%3E+%3C/text%3E%3C/svg%3E") center/10px no-repeat !important;
+              background-color: rgba(34, 197, 94, 0.3) !important;
+              background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext x='4' y='12' font-size='24' font-weight='bold' fill='%2322c55e'%3E+%3C/text%3E%3C/svg%3E") !important;
+              background-repeat: no-repeat !important;
+              background-position: center !important;
+              background-size: 10px !important;
             }
             .glyph-removed-icon {
-              background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext x='4' y='12' font-size='24' font-weight='bold' fill='%23ef4444'%3E−%3C/text%3E%3C/svg%3E") center/10px no-repeat !important;
+              background-color: rgba(239, 68, 68, 0.3) !important;
+              background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext x='4' y='12' font-size='24' font-weight='bold' fill='%23ef4444'%3E−%3C/text%3E%3C/svg%3E") !important;
+              background-repeat: no-repeat !important;
+              background-position: center !important;
+              background-size: 10px !important;
             }
           `;
           document.head.appendChild(styleSheet);
