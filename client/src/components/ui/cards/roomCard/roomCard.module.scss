@@ -65,10 +65,11 @@
 .status_badge {
   font-size: 0.75rem;
   font-weight: 500;
-  padding: 0 7px;
+  padding: 0.3em 1em;
   border-radius: 2rem;
   border: 1px solid var(--border);
   text-transform: capitalize;
+  color: var(--text-accent-orange);
 }
 
 .room_meta {

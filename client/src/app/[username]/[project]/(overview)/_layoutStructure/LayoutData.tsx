@@ -5,7 +5,7 @@ import Main from "@/components/layouts/main/Main";
 import Button from "@/components/ui/control/button/Button";
 import Menu from "@/components/ui/control/menu/Menu";
 import Dropdown from "@/components/ui/control/dropdown/Dropdown";
-import styles from "../project.module.scss";
+import styles from "@/app/[username]/[project]/(overview)/project.module.scss";
 import Icon from "@/components/ui/media/icon/Icon";
 import Modal from "@/components/ui/layout/modal/Modal";
 import Avatar from "@/components/ui/media/avatar/Avatar";
@@ -232,7 +232,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
               className={styles.language_bar_segment}
               style={{
                 width: `${lang.percentage}%`,
-                backgroundColor: getLanguageColor(lang?.name),
+                backgroundColor: getLanguageColor(lang.name),
               }}
             ></div>
           ))}
@@ -269,8 +269,8 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
   type Language = keyof typeof languageColors;
 
-  const getLanguageColor = (language: Language | "Other") => {
-    return languageColors[language] || "#858585";
+  const getLanguageColor = (language: string) => {
+    return (languageColors as Record<string, string>)[language] || "#858585";
   };
 
   // const SettingsModal = () => (

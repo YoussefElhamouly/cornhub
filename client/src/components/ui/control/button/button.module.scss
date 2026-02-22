@@ -34,3 +34,22 @@
     background-color: #262c36;
   }
 }
+
+.outline_btn {
+  @include default_styles;
+  border: 1px solid var(--border);
+  background-color: transparent;
+  &:hover {
+    background-color: var(--button-hover-bg);
+    border-color: var(--icon-primary);
+  }
+}
+
+.ghost_btn {
+  @include default_styles;
+  background-color: transparent;
+  border: 1px solid transparent;
+  &:hover {
+    background-color: var(--button-hover-bg);
+  }
+}

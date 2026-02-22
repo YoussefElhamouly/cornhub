@@ -21,69 +21,9 @@ export default async function RoomsPage({
           <RoomControls searchParams={resolvedSearchParams} />
         </ContentViewer.Header>
         <ContentViewer.Body>
-          <Suspense fallback={<RoomsLoadingContent />}>
-            <RoomList />
-          </Suspense>
+          <RoomList />
         </ContentViewer.Body>
       </ContentViewer>
     </div>
-  );
-}
-
-function RoomsLoadingContent() {
-  return (
-    <>
-      {[1, 2, 3, 4].map((i) => (
-        <div
-          key={i}
-          style={{
-            borderBottom: "1px solid var(--border)",
-            padding: "0.75rem 1rem",
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-            <div
-              style={{
-                width: "18px",
-                height: "18px",
-                borderRadius: "4px",
-                backgroundColor: "var(--border)",
-                opacity: 0.5,
-              }}
-            ></div>
-            <div style={{ flex: 1 }}>
-              <div
-                style={{
-                  width: "40%",
-                  height: "18px",
-                  borderRadius: "4px",
-                  backgroundColor: "var(--border)",
-                  opacity: 0.5,
-                  marginBottom: "8px",
-                }}
-              ></div>
-              <div
-                style={{
-                  width: "20%",
-                  height: "14px",
-                  borderRadius: "4px",
-                  backgroundColor: "var(--border)",
-                  opacity: 0.5,
-                }}
-              ></div>
-            </div>
-            <div
-              style={{
-                width: "60px",
-                height: "20px",
-                borderRadius: "10px",
-                backgroundColor: "var(--border)",
-                opacity: 0.5,
-              }}
-            ></div>
-          </div>
-        </div>
-      ))}
-    </>
   );
 }

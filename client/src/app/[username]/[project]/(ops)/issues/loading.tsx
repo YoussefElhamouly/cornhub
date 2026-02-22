@@ -56,50 +56,53 @@ export default function IssuesLoading() {
         <ContentViewer.Body>
           {[1, 2, 3, 4, 5].map((i) => (
             <div key={i} className={styles.skeleton_card}>
-              <Skeleton
-                customStyles={{
-                  width: "16px",
-                  height: "16px",
-                  borderRadius: "50%",
-                  marginTop: "4px",
-                }}
-              />
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "8px",
-                  flex: 1,
-                }}
-              >
+              <div className={styles.skeleton_main}>
                 <Skeleton
                   customStyles={{
-                    width: "60%",
-                    height: "18px",
-                    borderRadius: "4px",
+                    width: "16px",
+                    height: "16px",
+                    borderRadius: "50%",
+                    marginTop: "4px",
                   }}
                 />
-                <Skeleton
-                  customStyles={{
-                    width: "40%",
-                    height: "14px",
-                    borderRadius: "4px",
-                  }}
-                />
+                <div className={styles.skeleton_info}>
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "8px",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Skeleton
+                      customStyles={{
+                        width: "60%",
+                        height: "18px",
+                        borderRadius: "4px",
+                      }}
+                    />
+                    <Skeleton
+                      customStyles={{
+                        width: "60px",
+                        height: "20px",
+                        borderRadius: "10px",
+                      }}
+                    />
+                  </div>
+                  <Skeleton
+                    customStyles={{
+                      width: "40%",
+                      height: "14px",
+                      borderRadius: "4px",
+                    }}
+                  />
+                </div>
               </div>
-              <div style={{ display: "flex", gap: "4px" }}>
+              <div className={styles.skeleton_indicators}>
                 <Skeleton
                   customStyles={{
                     width: "28px",
-                    height: "28px",
-                    borderRadius: "6px",
-                  }}
-                />
-                <Skeleton
-                  customStyles={{
-                    width: "28px",
-                    height: "28px",
-                    borderRadius: "6px",
+                    height: "20px",
+                    borderRadius: "4px",
                   }}
                 />
               </div>
