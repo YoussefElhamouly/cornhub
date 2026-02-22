@@ -1,3 +1,19 @@
+@use "../../../../../../sass/partials/vars" as *;
+
+.identity_header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 0 1.5rem 0;
+
+  .title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+  }
+}
+
 // Branches page layout styles
 .branches_wrapper {
   max-width: 1330px;

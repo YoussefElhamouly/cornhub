@@ -1,8 +1,10 @@
-.universal_wrapper {
-  display: flex;
-  flex: 1;
-  height: 100%;
-  max-width: 100%;
-  // overflow: hidden;
-  min-height: 0;
+@layer base {
+  .universal_wrapper {
+    display: flex;
+    flex: 1;
+    height: 100%;
+    max-width: 100%;
+    // overflow: hidden;
+    min-height: 0;
+  }
 }

@@ -1,0 +1,91 @@
+@use "../../../../../../sass/partials/vars" as *;
+
+.identity_header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0 1.5rem 0.5rem;
+
+  .title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .count {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--icon-primary);
+    opacity: 0.7;
+  }
+}
+
+.controls_wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  gap: 1rem;
+}
+
+.left_controls {
+  display: flex;
+  align-items: center;
+}
+
+.tabs {
+  display: flex;
+  gap: 1rem;
+}
+
+.tab_item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #7d8590;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: var(--text-primary);
+  }
+
+  &.active {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .count_badge {
+    background-color: rgba(110, 118, 129, 0.4);
+    color: var(--text-primary);
+    padding: 0 6px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+}
+
+.right_controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* List Styles */
+.room_list {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Skeleton Styles */
+.skeleton_card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+}

@@ -4,7 +4,7 @@ import Link from "next/link";
 import Button from "../../control/button/Button";
 
 interface BreadcrumbProps {
-  path: string;
+  path?: string;
 }
 
 const Breadcrumb = ({ path }: BreadcrumbProps) => {

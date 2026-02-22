@@ -8,7 +8,7 @@ import Menu from "../../ui/control/menu/Menu";
 import SideDrawer from "./SideDrawer";
 import Avatar from "../../ui/media/avatar/Avatar";
 import ProgressBar from "./ProgressBar";
-const Navbar = ({ children }) => {
+const Navbar = ({ children }: { children: React.ReactNode }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   return (
     <div className={styles.navbar}>
@@ -102,7 +102,7 @@ const Navbar = ({ children }) => {
         />
         <Avatar
           editable={false}
-          src={"./images/amity.jpg"}
+          src={"/images/logo.png"}
           customStyles={{ width: "37px", height: "37px" }}
         />
       </div>

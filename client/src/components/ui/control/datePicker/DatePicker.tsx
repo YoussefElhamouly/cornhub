@@ -2,9 +2,23 @@
 
 import React, { useState, useRef } from "react";
 import styles from "./datePicker.module.scss";
-import Menu from "../menu/Menu";
+import Menu, { MenuHandle } from "../menu/Menu";
 import Button from "../button/Button";
-import { Calendar, ChevronLeft, ChevronRight } from "lucide-react";
+import { useQuerySync } from "@/hooks/useQuerySync";
+
+interface DatePickerProps {
+  selectedDate?: Date | null;
+  onChange?: (date: Date | null) => void;
+  placeholder?: string;
+  format?: string;
+  minDate?: string | null;
+  maxDate?: string | null;
+  disabledDates?: string[];
+  query?: string | null;
+  className?: string;
+  buttonStyle?: React.CSSProperties;
+  wrapperStyle?: React.CSSProperties;
+}
 
 const DatePicker = ({
   selectedDate = null,
@@ -14,16 +28,20 @@ const DatePicker = ({
   minDate = null,
   maxDate = null,
   disabledDates = [],
+  query = null,
   className = "",
   buttonStyle = {},
   wrapperStyle = {},
-}) => {
-  const menuRef = useRef(null);
+}: DatePickerProps) => {
+  const menuRef = useRef<MenuHandle>(null);
+  const { updateQuery } = useQuerySync(query);
   const [displayTitle, setDisplayTitle] = useState(placeholder);
   const currentYear = selectedDate
     ? selectedDate.getFullYear()
     : new Date().getFullYear();
-  const currentMonth = selectedDate ? selectedDate.getMonth() : 0;
+  const currentMonth = selectedDate
+    ? selectedDate.getMonth()
+    : new Date().getMonth();
 
   const [displayYear, setDisplayYear] = useState(currentYear);
   const [displayMonth, setDisplayMonth] = useState(currentMonth);
@@ -61,23 +79,23 @@ const DatePicker = ({
     "December",
   ];
 
-  const daysInMonth = (year, month) => {
+  const daysInMonth = (year: number, month: number) => {
     return new Date(year, month + 1, 0).getDate();
   };
 
-  const firstDayOfMonth = (year, month) => {
+  const firstDayOfMonth = (year: number, month: number) => {
     return new Date(year, month, 1).getDay();
   };
 
-  const formatDate = (date) => {
+  const formatDate = (date: Date | null) => {
     if (!date) return placeholder;
     const d = String(date.getDate()).padStart(2, "0");
     const m = String(date.getMonth() + 1).padStart(2, "0");
-    const y = date.getFullYear();
+    const y = String(date.getFullYear());
     return format.replace("DD", d).replace("MM", m).replace("YYYY", y);
   };
 
-  const isDateDisabled = (date) => {
+  const isDateDisabled = (date: Date) => {
     const dateStr = date.toISOString().split("T")[0];
     if (disabledDates.includes(dateStr)) return true;
     if (minDate && date < new Date(minDate)) return true;
@@ -85,14 +103,15 @@ const DatePicker = ({
     return false;
   };
 
-  const handleDateSelect = (day) => {
+  const handleDateSelect = (day: number) => {
     const newDate = new Date(displayYear, displayMonth, day);
     if (!isDateDisabled(newDate)) {
       onChange(newDate);
+      updateQuery(newDate.toISOString());
       setDisplayTitle(formatDate(newDate));
       if (menuRef.current) {
         setTimeout(() => {
-          menuRef.current.close();
+          menuRef.current?.close();
         }, 10);
       }
     }
@@ -100,15 +119,16 @@ const DatePicker = ({
 
   const handleClear = () => {
     onChange(null);
+    updateQuery(null);
     setDisplayTitle(placeholder);
     if (menuRef.current) {
       setTimeout(() => {
-        menuRef.current.close();
+        menuRef.current?.close();
       }, 10);
     }
   };
 
-  const days = [];
+  const days: { day: number; isOtherMonth: boolean }[] = [];
   const totalDays = daysInMonth(displayYear, displayMonth);
   const firstDay = firstDayOfMonth(displayYear, displayMonth);
 
@@ -141,7 +161,7 @@ const DatePicker = ({
     });
   }
 
-  const calendarWeeks = [];
+  const calendarWeeks: { day: number; isOtherMonth: boolean }[][] = [];
   for (let i = 0; i < days.length; i += 7) {
     calendarWeeks.push(days.slice(i, i + 7));
   }
@@ -153,7 +173,7 @@ const DatePicker = ({
       key={dateKey}
       ref={menuRef}
       title={displayTitle}
-      leftIcon={Calendar}
+      leftIcon="Calendar"
       closeOnSelect={false}
       wrapperStyle={wrapperStyle}
       buttonStyle={{
@@ -172,7 +192,7 @@ const DatePicker = ({
       <div className={styles.date_picker_header}>
         <Button
           variant="transparent"
-          icon={ChevronLeft}
+          icon="ChevronLeft"
           onClick={handlePrevMonth}
           className={styles.nav_btn}
         />
@@ -181,7 +201,7 @@ const DatePicker = ({
         </div>
         <Button
           variant="transparent"
-          icon={ChevronRight}
+          icon="ChevronRight"
           onClick={handleNextMonth}
           className={styles.nav_btn}
         />
@@ -221,7 +241,7 @@ const DatePicker = ({
                   <Button
                     key={dayIndex}
                     variant="transparent"
-                    title={day}
+                    title={day.toString()}
                     onClick={() => !disabled && handleDateSelect(day)}
                     disabled={disabled}
                     className={`${styles.day} ${isCurrentDay ? styles.selected : ""} ${

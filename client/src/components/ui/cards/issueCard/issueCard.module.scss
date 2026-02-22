@@ -1,0 +1,110 @@
+@use "../../../../sass/partials/vars" as *;
+
+.issue_list_container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.issue_card {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+  background-color: transparent;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.02);
+  }
+}
+
+.issue_main {
+  display: flex;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.state_icon {
+  margin-top: 0.2rem;
+  flex-shrink: 0;
+
+  &.open {
+    color: #3fb950;
+  }
+
+  &.closed {
+    color: #f85149;
+  }
+}
+
+.issue_info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.issue_title_row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+
+  .issue_title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--text-accent-blue);
+    }
+  }
+
+  .label_badge {
+    padding: 0 7px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border: 1px solid transparent;
+  }
+}
+
+.issue_meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--icon-primary);
+
+  .author_name {
+    font-weight: 600;
+    color: var(--icon-primary);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--text-accent-blue);
+    }
+  }
+}
+
+.issue_indicators {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-left: 0.5rem;
+
+  .indicator_item {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+    color: var(--icon-primary);
+  }
+}
+
+/* Layout and controls styles moved to page-level _components/issues.module.scss */

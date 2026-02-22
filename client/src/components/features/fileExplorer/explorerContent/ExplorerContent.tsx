@@ -54,26 +54,26 @@ export { calculateSum, multiply, subtract };`;
   const [code, setCode] = useState(testCode);
 
   // Test highlights object: line numbers map to "+" (added), "-" (removed), or "" (none)
-  // const testHighlights = {
-  //   1: "",
-  //   2: "+",
-  //   3: "+",
-  //   // 4: "",
-  //   // 5: "",
-  //   6: "+",
-  //   7: "+",
-  //   8: "+",
-  //   // 9: "",
-  //   // 10: "",
-  //   11: "-",
-  //   // 12: "",
-  //   // 13: "",
-  //   14: "-",
-  //   15: "-",
-  //   // 16: "",
-  //   17: "+",
-  //   18: "+",
-  // };
+  const testHighlights = {
+    1: "",
+    2: "+",
+    3: "+",
+    // 4: "",
+    // 5: "",
+    6: "+",
+    7: "+",
+    8: "+",
+    // 9: "",
+    // 10: "",
+    11: "-",
+    // 12: "",
+    // 13: "",
+    14: "-",
+    15: "-",
+    // 16: "",
+    17: "+",
+    18: "+",
+  };
 
   useEffect(() => {
     console.log(code);
@@ -84,11 +84,11 @@ export { calculateSum, multiply, subtract };`;
       <div className={styles.itemViewer_actions}>
         <h1>yourmom.jsx</h1>
         <h1>0.3kb</h1>
-        <Button icon={Popcorn} />
-        <Button icon={ArrowDownToLine} />
+        <Button icon={"Popcorn"} />
+        <Button icon={"ArrowDownToLine"} />
         <Menu
           title={"Seeders"}
-          leftIcon={Sprout}
+          leftIcon={"Sprout"}
           wrapperStyle={{
             width: "fit-content",
             padding: "0rem",
@@ -120,7 +120,7 @@ export { calculateSum, multiply, subtract };`;
         <span className={styles.last_modified}>7 months ago</span>
         <Button
           title={"History"}
-          icon={History}
+          icon={"History"}
           className={styles.history_btn}
         />
       </div>
@@ -137,7 +137,11 @@ export { calculateSum, multiply, subtract };`;
           <ItemActions />
         </ContentViewer.Header>
         <ContentViewer.Body>
-          <CodeEditor code={code} onChange={setCode} highlights={{}} />
+          <CodeEditor
+            code={code}
+            onChange={setCode}
+            highlights={testHighlights}
+          />
         </ContentViewer.Body>
       </ContentViewer>
     </>

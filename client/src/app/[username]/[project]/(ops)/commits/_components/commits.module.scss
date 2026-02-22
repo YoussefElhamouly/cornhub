@@ -1,0 +1,121 @@
+@use "../../../../../../sass/partials/vars" as *;
+
+.identity_header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0 1.5rem 0.5rem;
+
+  .title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .count {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--icon-primary);
+    opacity: 0.7;
+  }
+}
+
+.commits_container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem 0;
+}
+
+.commit_group {
+  position: relative;
+  padding-left: 2.5rem;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 11px;
+    top: 2rem;
+    bottom: 0;
+    width: 2px;
+    background-color: var(--border);
+  }
+
+  &:last-child::before {
+    display: none;
+  }
+}
+
+.group_header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  position: relative;
+
+  .group_icon {
+    position: absolute;
+    left: -2.5rem;
+    background-color: var(--primary-bg);
+    z-index: 1;
+    color: var(--icon-primary);
+  }
+
+  .group_title {
+    font-size: 0.9rem;
+    color: var(--icon-primary);
+    font-weight: 400;
+  }
+}
+
+.commits_list {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: transparent;
+}
+
+/* CommitsControls Styles */
+.controls_section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+.left_controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.right_controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.control_dropdown {
+  background-color: #212830 !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 6px !important;
+  font-size: 0.85rem !important;
+  height: 32px !important;
+}
+
+/* Skeleton Styles */
+.skeleton_group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-left: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.skeleton_card {
+  height: 60px;
+  width: 100%;
+  border-radius: 6px;
+  background-color: var(--border);
+  opacity: 0.5;
+}

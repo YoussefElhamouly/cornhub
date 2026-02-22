@@ -11,6 +11,10 @@ import styles from "./menu.module.scss";
 import useOutsideClick from "../../../../hooks/useOutsideClick";
 import Icon from "../../media/icon/Icon";
 
+export interface MenuHandle {
+  close: () => void;
+}
+
 interface MenuProps {
   title?: string | null;
   icon?: string | null;
@@ -26,7 +30,8 @@ interface MenuProps {
   onClose?: () => void;
   closeOnSelect?: boolean;
 }
-const Menu = forwardRef(
+
+const Menu = forwardRef<MenuHandle, MenuProps>(
   (
     {
       title = null,

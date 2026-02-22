@@ -12,6 +12,7 @@ interface ButtonProps {
   customStyles?: React.CSSProperties;
   children?: React.ReactNode;
   icon?: string; // That's it!
+  disabled?: boolean;
 }
 const Button = ({
   variant = "workSpace",
@@ -21,6 +22,7 @@ const Button = ({
   children,
   className,
   icon,
+  disabled,
 }: ButtonProps) => {
   const selectedClass = styles[`${variant}_btn`];
   return (
@@ -32,6 +34,7 @@ const Button = ({
         // e.preventDefault();
         onClick(e);
       }}
+      disabled={disabled}
     >
       {icon && <Icon icon={icon} />}
       {title && <span>{title}</span>}

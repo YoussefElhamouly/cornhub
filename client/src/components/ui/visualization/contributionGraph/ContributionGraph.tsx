@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import styles from "./contributionGraph.module.scss";
 
 interface ContributionGraphProps {
@@ -21,6 +21,21 @@ interface MonthLabel {
   label: string;
 }
 
+const MONTHS = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
 const ContributionGraph = ({
   data = {},
   startDate,
@@ -32,17 +47,23 @@ const ContributionGraph = ({
   baseColor = "#4a2c0a", // Dark orange
   highlightColor = "#eba537", // Orange accent
 }: ContributionGraphProps): React.ReactElement => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
   // Generate dates for a full year from Jan 1 to Dec 31
   const dates = useMemo(() => {
     let start: Date, end: Date;
 
+    const now = new Date();
     if (startDate && endDate) {
       // Use custom dates if provided
       start = new Date(startDate);
       end = new Date(endDate);
     } else {
       // Default to current year: Jan 1 to Dec 31
-      const currentYear = new Date().getFullYear();
+      const currentYear = now.getFullYear();
       start = new Date(currentYear, 0, 1); // January 1st
       end = new Date(currentYear, 11, 31); // December 31st
     }
@@ -143,7 +164,7 @@ const ContributionGraph = ({
           months.push({
             month,
             weekIndex,
-            label: firstDate.toLocaleDateString("en-US", { month: "short" }),
+            label: MONTHS[month],
           });
           lastMonth = month;
           lastWeekIndex = weekIndex;
@@ -156,119 +177,129 @@ const ContributionGraph = ({
 
   return (
     <div className={styles.contribution_graph}>
-      <div className={styles.graph_container}>
-        {/* Month labels */}
-        <div className={styles.month_labels_container}>
-          <div className={styles.month_labels_spacer}></div>
-          <div
-            className={styles.month_labels}
-            style={{
-              display: "grid",
-              gridTemplateColumns: `repeat(${weeks.length}, var(--square-size))`,
-              gap: "var(--square-gap)",
-            }}
-          >
-            {monthLabels.map((month, idx) => (
-              <div
-                key={idx}
-                className={styles.month_label}
-                style={{ gridColumn: month.weekIndex + 1 }}
-              >
-                {month.label}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Day labels and grid */}
-        <div className={styles.graph_content}>
-          <div className={styles.day_labels}>
-            <div className={styles.day_label} style={{ gridRow: 1 }}>
-              Mon
-            </div>
+      {!isMounted ? (
+        <div
+          className={styles.graph_container}
+          style={{ height: "180px" }}
+        ></div>
+      ) : (
+        <div className={styles.graph_container}>
+          {/* Month labels */}
+          <div className={styles.month_labels_container}>
+            <div className={styles.month_labels_spacer}></div>
             <div
-              className={styles.day_label_spacer}
-              style={{ gridRow: 2 }}
-            ></div>
-            <div className={styles.day_label} style={{ gridRow: 3 }}>
-              Wed
-            </div>
-            <div
-              className={styles.day_label_spacer}
-              style={{ gridRow: 4 }}
-            ></div>
-            <div className={styles.day_label} style={{ gridRow: 5 }}>
-              Fri
-            </div>
-            <div
-              className={styles.day_label_spacer}
-              style={{ gridRow: 6 }}
-            ></div>
-            <div
-              className={styles.day_label_spacer}
-              style={{ gridRow: 7 }}
-            ></div>
-          </div>
-
-          <div className={styles.contribution_grid}>
-            {weeks.map((week, weekIndex) => {
-              return (
+              className={styles.month_labels}
+              style={{
+                display: "grid",
+                gridTemplateColumns: `repeat(${weeks.length}, var(--square-size))`,
+                gap: "var(--square-gap)",
+              }}
+            >
+              {monthLabels.map((month, idx) => (
                 <div
-                  key={weekIndex}
-                  className={styles.contribution_grid_column}
+                  key={idx}
+                  className={styles.month_label}
+                  style={{ gridColumn: month.weekIndex + 1 }}
                 >
-                  {week.map((date, dayIndex) => {
-                    if (!date) {
+                  {month.label}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Day labels and grid */}
+          <div className={styles.graph_content}>
+            <div className={styles.day_labels}>
+              <div className={styles.day_label} style={{ gridRow: 1 }}>
+                Mon
+              </div>
+              <div
+                className={styles.day_label_spacer}
+                style={{ gridRow: 2 }}
+              ></div>
+              <div className={styles.day_label} style={{ gridRow: 3 }}>
+                Wed
+              </div>
+              <div
+                className={styles.day_label_spacer}
+                style={{ gridRow: 4 }}
+              ></div>
+              <div className={styles.day_label} style={{ gridRow: 5 }}>
+                Fri
+              </div>
+              <div
+                className={styles.day_label_spacer}
+                style={{ gridRow: 6 }}
+              ></div>
+              <div
+                className={styles.day_label_spacer}
+                style={{ gridRow: 7 }}
+              ></div>
+            </div>
+
+            <div className={styles.contribution_grid}>
+              {weeks.map((week, weekIndex) => {
+                return (
+                  <div
+                    key={weekIndex}
+                    className={styles.contribution_grid_column}
+                  >
+                    {week.map((date, dayIndex) => {
+                      if (!date) {
+                        return (
+                          <div
+                            key={`${weekIndex}-${dayIndex}`}
+                            className={styles.contribution_square_empty}
+                          />
+                        );
+                      }
+
+                      const level = getContributionLevel(date);
+                      const color = getColor(level);
+                      const dateKey = date.toISOString().split("T")[0];
+                      const value = data[dateKey] || 0;
+                      const totalDays = 365;
+                      const dayOfYear = Math.floor(
+                        (date.getTime() -
+                          new Date(date.getFullYear(), 0, 0).getTime()) /
+                          86400000,
+                      );
+
+                      const position =
+                        50 +
+                        50 *
+                          Math.cos(
+                            (Math.PI * (dayOfYear - 1)) / (totalDays - 1),
+                          );
                       return (
                         <div
                           key={`${weekIndex}-${dayIndex}`}
-                          className={styles.contribution_square_empty}
-                        />
-                      );
-                    }
-
-                    const level = getContributionLevel(date);
-                    const color = getColor(level);
-                    const dateKey = date.toISOString().split("T")[0];
-                    const value = data[dateKey] || 0;
-                    const totalDays = 365;
-                    const dayOfYear = Math.floor(
-                      (date.getTime() -
-                        new Date(date.getFullYear(), 0, 0).getTime()) /
-                        86400000,
-                    );
-
-                    const position =
-                      50 +
-                      50 *
-                        Math.cos((Math.PI * (dayOfYear - 1)) / (totalDays - 1));
-                    return (
-                      <div
-                        key={`${weekIndex}-${dayIndex}`}
-                        className={styles.contribution_square}
-                        style={{ backgroundColor: color }}
-                        onClick={() => onDayClick && onDayClick(date, value)}
-                        // title={`${date.toLocaleDateString()}: ${value} contributions`}
-                      >
-                        <div
-                          className={styles.contribution_square_info}
-                          style={{
-                            left: "50%",
-                            transform: `translateX(calc(-50% + ${20 * Math.cos((Math.PI * (dayOfYear - 1)) / (totalDays - 1))}px))`,
-                          }}
+                          className={styles.contribution_square}
+                          style={{ backgroundColor: color }}
+                          onClick={() => onDayClick && onDayClick(date, value)}
                         >
-                          <h4>{date.toLocaleDateString()}</h4>
-                          {/* <h5>{value} contributions</h5> */}
+                          <div
+                            className={styles.contribution_square_info}
+                            style={{
+                              left: "50%",
+                              transform: `translateX(calc(-50% + ${20 * Math.cos((Math.PI * (dayOfYear - 1)) / (totalDays - 1))}px))`,
+                            }}
+                          >
+                            <h4>
+                              {MONTHS[date.getMonth()]} {date.getDate()},{" "}
+                              {date.getFullYear()}
+                            </h4>
+                          </div>
                         </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              );
-            })}
+                      );
+                    })}
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Footer */}
       <div className={styles.graph_footer}>

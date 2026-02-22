@@ -1,0 +1,60 @@
+@use "../../../../sass/partials/vars" as *;
+
+.user_card {
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+  padding: 1rem;
+  width: fit-content;
+  gap: 1rem;
+}
+
+.user_info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user_details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.username_link {
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--text-accent-blue);
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.joined_date {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+
+  .clock_icon {
+    color: var(--icon-primary);
+  }
+}
+
+.follow_btn {
+  padding: 4px 12px !important;
+  font-size: 0.85rem !important;
+  border-radius: 6px !important;
+  background-color: #212830 !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text-primary) !important;
+  width: fit-content;
+
+  &:hover {
+    background-color: #30363d !important;
+    border-color: #8b949e !important;
+  }
+}

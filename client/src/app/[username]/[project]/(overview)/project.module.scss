@@ -75,7 +75,7 @@
 }
 
 .project_main {
-  flex: 1;
+  flex: 1 !important;
   display: flex;
   flex-direction: column;
   gap: 1rem;

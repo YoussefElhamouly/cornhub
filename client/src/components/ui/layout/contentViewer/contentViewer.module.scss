@@ -8,16 +8,12 @@
   overflow: hidden;
 
   .itemViewer_header {
-    width: 100%;
-    padding: 0.7rem;
-    box-sizing: border-box;
-    height: 45px;
-    flex-shrink: 0;
-    background-color: var(--tertiary-bg);
+    padding: 1rem;
     border-bottom: 1px solid var(--border);
     display: flex;
     align-items: center;
-    // justify-content: space-between;
+    width: 100%;
+    background-color: var(--tertiary-bg);
   }
 
   .itemViewer_content {

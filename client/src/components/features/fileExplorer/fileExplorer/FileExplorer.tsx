@@ -20,7 +20,7 @@ const FileExplorer = () => {
         <Aside>
           <header className={styles.explorer_tree_header}>
             <Button
-              icon={"panel-left-close"}
+              icon={"PanelLeftClose"}
               onClick={() => {
                 setLeftPanel(false);
               }}
@@ -30,7 +30,7 @@ const FileExplorer = () => {
           <div className={styles.fileExplorer_filter_container}>
             <Menu
               title="Main"
-              leftIcon={"git-branch"}
+              leftIcon={"GitBranch"}
               wrapperStyle={{ width: "100%" }}
               buttonStyle={{ padding: "15px" }}
             />
@@ -42,7 +42,7 @@ const FileExplorer = () => {
         <header className={styles.explorer_content_nav}>
           {!leftPanel && (
             <Button
-              icon={"panel-left-open"}
+              icon={"PanelLeftOpen"}
               onClick={() => {
                 setLeftPanel(true);
               }}
@@ -51,7 +51,7 @@ const FileExplorer = () => {
           )}
           <Breadcrumb />
           <Menu
-            icon={"menu"}
+            icon={"Menu"}
             wrapperStyle={{
               width: "fit-content",
               padding: "0rem",

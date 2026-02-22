@@ -3,7 +3,7 @@ import * as LucideIcons from "lucide-react";
 
 interface IconProps extends React.SVGProps<SVGSVGElement> {
   icon: string;
-  size?: number;
+  size?: number | string;
   stroke?: string;
 }
 

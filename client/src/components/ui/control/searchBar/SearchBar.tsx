@@ -5,20 +5,29 @@ import styles from "./searchBar.module.scss";
 import { useState } from "react";
 
 import Icon from "../../media/icon/Icon";
+import { useQuerySync } from "@/hooks/useQuerySync";
 
 interface searchBarProps {
   placeHolder: string;
   customStyles?: React.CSSProperties;
   id?: string;
+  query?: string | null;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 const SearchBar = ({
   placeHolder,
   customStyles = {},
   id,
+  query,
   onChange,
 }: searchBarProps) => {
   const [isFocused, setIsFocused] = useState(false);
+  const { updateQuery } = useQuerySync(query);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (onChange) onChange(e);
+    updateQuery(e.target.value);
+  };
   return (
     <label
       className={
@@ -40,7 +49,7 @@ const SearchBar = ({
         onBlur={() => {
           setIsFocused(false);
         }}
-        onChange={onChange}
+        onChange={handleChange}
       />
     </label>
   );
