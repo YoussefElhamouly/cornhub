@@ -1,5 +1,7 @@
 @use "index.scss";
 
+@layer reset, base, components;
+
 ::-webkit-scrollbar {
   width: 2px;
   height: 2px;

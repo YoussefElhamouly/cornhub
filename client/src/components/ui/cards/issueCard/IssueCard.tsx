@@ -14,6 +14,7 @@ interface IssueCardProps {
   timeLabel: string;
   labels?: { name: string; color: string }[];
   commentCount?: number;
+  className?: string;
 }
 
 const IssueCard = ({
@@ -24,9 +25,10 @@ const IssueCard = ({
   timeLabel,
   labels = [],
   commentCount = 0,
+  className = "",
 }: IssueCardProps) => {
   return (
-    <div className={styles.issue_card}>
+    <div className={`${styles.issue_card} ${className}`}>
       <div className={styles.issue_main}>
         <div className={`${styles.state_icon} ${styles[state]}`}>
           <Icon

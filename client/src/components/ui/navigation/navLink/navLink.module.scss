@@ -1,6 +1,6 @@
 /* Base styles for both variants */
-.secondary_link,
-.drawer_link {
+:where(.secondary_link),
+:where(.drawer_link) {
   text-decoration: none;
   color: inherit;
   display: flex;

@@ -1,10 +1,7 @@
-@layer base {
-  .universal_wrapper {
-    display: flex;
-    flex: 1;
-    height: 100%;
-    max-width: 100%;
-    // overflow: hidden;
-    min-height: 0;
-  }
+:where(.universal_wrapper) {
+  display: flex;
+  flex: 1;
+  height: 100%;
+  max-width: 100%;
+  min-height: 0;
 }

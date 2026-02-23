@@ -1,7 +1,7 @@
-.filterBar {
+:where(.filterBar) {
   display: flex;
   gap: 0.3rem;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border) !important;
   .filter_label {
     position: relative;
     top: 1px;
@@ -14,11 +14,14 @@
     border-bottom: none;
     border: 1px solid transparent;
     cursor: pointer;
+    text-decoration: none;
+
     input {
       display: none;
     }
 
-    &:has(> input:checked) {
+    &:has(> input:checked),
+    &.active {
       background-color: var(--primary-bg);
 
       border: 1px solid var(--border);

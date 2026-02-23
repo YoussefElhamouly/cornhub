@@ -1,0 +1,108 @@
+.conversation_wrapper {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.conversation_main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-width: 0;
+}
+
+.status_box {
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background-color: var(--secondary-bg);
+
+  .status_header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.25rem;
+
+    .status_title {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+  }
+
+  .status_desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-left: 2.25rem;
+  }
+}
+
+.conversation_aside {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-top: 1rem;
+
+  .aside_section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .section_title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .user_list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      .user_item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.85rem;
+        color: var(--text-primary);
+      }
+    }
+
+    .label_list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+
+      .label_badge {
+        padding: 0.1rem 0.5rem;
+        border-radius: 2rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #fff;
+      }
+    }
+
+    .dev_info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+
+      .branch_info {
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        color: var(--text-primary);
+        font-weight: 500;
+      }
+    }
+  }
+}

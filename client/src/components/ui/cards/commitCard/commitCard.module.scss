@@ -7,7 +7,7 @@
 /* group_header and commits_list styles moved to page-level _components/commits.module.scss */
 
 /* CommitCard Styles */
-.commit_card {
+:where(.commit_card) {
   display: flex;
   justify-content: space-between;
   align-items: center;

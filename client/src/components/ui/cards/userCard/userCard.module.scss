@@ -1,6 +1,6 @@
 @use "../../../../sass/partials/vars" as *;
 
-.user_card {
+:where(.user_card) {
   display: flex;
   flex-direction: column;
   background-color: transparent;

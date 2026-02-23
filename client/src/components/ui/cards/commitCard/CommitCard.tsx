@@ -16,6 +16,7 @@ interface CommitCardProps {
   isVerified: boolean;
   timeLabel: string;
   prNumber?: number;
+  className?: string;
 }
 
 const CommitCard = ({
@@ -25,9 +26,10 @@ const CommitCard = ({
   isVerified,
   timeLabel,
   prNumber,
+  className = "",
 }: CommitCardProps) => {
   return (
-    <div className={styles.commit_card}>
+    <div className={`${styles.commit_card} ${className}`}>
       <div className={styles.commit_main}>
         <div className={styles.commit_message_row}>
           <Link href={`/commit/${hash}`} className={styles.commit_message}>

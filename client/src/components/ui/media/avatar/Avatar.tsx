@@ -7,14 +7,20 @@ import Button from "../../control/button/Button";
 
 interface avatarProps {
   src: string;
+  className?: string;
   customStyles?: React.CSSProperties;
   editable?: boolean;
 }
 
-const Avatar = ({ src, customStyles = {}, editable = false }: avatarProps) => {
+const Avatar = ({
+  src,
+  className = "",
+  customStyles = {},
+  editable = false,
+}: avatarProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   return (
-    <div className={styles.pfp_wrapper}>
+    <div className={`${styles.pfp_wrapper} ${className}`}>
       <Picture
         src={src}
         customStyles={{

@@ -18,6 +18,7 @@ interface PullRequestCardProps {
   labels?: { name: string; color: string }[];
   commentCount?: number;
   reviewStatus?: "approved" | "changes_requested" | "pending";
+  className?: string;
 }
 
 const PullRequestCard = ({
@@ -29,6 +30,7 @@ const PullRequestCard = ({
   labels = [],
   commentCount = 0,
   reviewStatus,
+  className = "",
 }: PullRequestCardProps) => {
   const stateIconMap = {
     open: "CircleDot",
@@ -37,7 +39,7 @@ const PullRequestCard = ({
   };
 
   return (
-    <div className={styles.pr_card}>
+    <div className={`${styles.pr_card} ${className}`}>
       <div className={styles.pr_main}>
         <Icon
           icon={stateIconMap[state]}

@@ -18,7 +18,7 @@
   }
 }
 
-.workSpace_btn {
+:where(.workSpace_btn) {
   @include default_styles;
   border: 1px solid var(--border);
   background-color: var(--tertiary-bg);
@@ -27,7 +27,7 @@
   }
 }
 
-.transparent_btn {
+:where(.transparent_btn) {
   @include default_styles;
   background-color: transparent;
   &:hover {
@@ -35,7 +35,7 @@
   }
 }
 
-.outline_btn {
+:where(.outline_btn) {
   @include default_styles;
   border: 1px solid var(--border);
   background-color: transparent;
@@ -45,7 +45,7 @@
   }
 }
 
-.ghost_btn {
+:where(.ghost_btn) {
   @include default_styles;
   background-color: transparent;
   border: 1px solid transparent;

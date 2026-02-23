@@ -8,13 +8,22 @@ import styles from "./picture.module.scss";
 interface pictureProps {
   src: string;
   alt?: string;
+  className?: string;
   customStyles?: React.CSSProperties;
 }
-const Picture = ({ src, alt = "", customStyles }: pictureProps) => {
+const Picture = ({
+  src,
+  alt = "",
+  className = "",
+  customStyles,
+}: pictureProps) => {
   const [isLoading, setIsloading] = useState(true);
   useEffect(() => {});
   return (
-    <div className={styles.container} style={customStyles && customStyles}>
+    <div
+      className={`${styles.container} ${className}`}
+      style={customStyles && customStyles}
+    >
       <figure style={{ backgroundImage: `url(${src})` }}></figure>
       <img
         src={src}

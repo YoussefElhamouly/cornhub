@@ -1,4 +1,4 @@
-.table_wrapper {
+:where(.table_wrapper) {
   width: 100%;
   flex-shrink: 0;
 }

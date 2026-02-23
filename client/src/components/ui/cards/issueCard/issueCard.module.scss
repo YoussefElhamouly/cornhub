@@ -6,7 +6,7 @@
   width: 100%;
 }
 
-.issue_card {
+:where(.issue_card) {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;

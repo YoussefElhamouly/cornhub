@@ -1,4 +1,4 @@
-.modal_outer_window {
+:where(.modal_outer_window) {
   position: fixed;
   inset: 0;
   width: 100%;
@@ -83,7 +83,7 @@
   }
 }
 
-.image_viewer {
+:where(.image_viewer) {
   position: fixed;
   inset: 0;
   width: 100%;
