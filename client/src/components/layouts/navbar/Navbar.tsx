@@ -5,29 +5,123 @@ import styles from "./navbar.module.scss";
 import Button from "../../ui/control/button/Button";
 import SearchBar from "../../ui/control/searchBar/SearchBar";
 import Menu from "../../ui/control/menu/Menu";
-import SideDrawer from "./SideDrawer";
+import BaseDrawer from "@/components/ui/layout/drawer/BaseDrawer";
+import NavLink from "@/components/ui/navigation/navLink/NavLink";
 import Avatar from "../../ui/media/avatar/Avatar";
-import ProgressBar from "./ProgressBar";
+
 const Navbar = ({ children }: { children: React.ReactNode }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   return (
     <div className={styles.navbar}>
-      <SideDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)}>
-        {/* TODO: Add nav content here */}
-        <div
-          style={{
-            color: "#fff",
-            fontWeight: 600,
-            fontSize: "1.2rem",
-            marginBottom: "1.5rem",
-          }}
-        >
-          Menu
+      <BaseDrawer
+        isOpen={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+        position="left"
+        className={styles.side_drawer_override}
+      >
+        <Button
+          variant="transparent"
+          className={styles.close_btn}
+          onClick={() => setDrawerOpen(false)}
+          icon={"X"}
+        />
+
+        <div className={styles.drawer_content}>
+          <nav className={styles.drawer_nav_links}>
+            <NavLink
+              path="/profile"
+              variant="drawer"
+              displayName="Profile"
+              icon={"Home"}
+              tabIndex={drawerOpen ? 0 : -1}
+            />
+            <NavLink
+              path="/issues"
+              variant="drawer"
+              displayName="Issues"
+              icon={"Circle"}
+              tabIndex={drawerOpen ? 0 : -1}
+            />
+            <NavLink
+              path="/pulls"
+              variant="drawer"
+              displayName="Pull requests"
+              icon={"GitPullRequest"}
+              tabIndex={drawerOpen ? 0 : -1}
+            />
+            <NavLink
+              path="/repositories"
+              variant="drawer"
+              displayName="Repositories"
+              icon={"SquareStack"}
+              tabIndex={drawerOpen ? 0 : -1}
+            />
+
+            <NavLink
+              path="/feed"
+              variant="drawer"
+              displayName="Feed"
+              icon={"AtSign"}
+              tabIndex={drawerOpen ? 0 : -1}
+            />
+            <NavLink
+              path="/codespaces"
+              variant="drawer"
+              displayName="Codespaces"
+              icon={"Rocket"}
+              tabIndex={drawerOpen ? 0 : -1}
+            />
+
+            <hr className={styles.drawer_divider} />
+
+            <NavLink
+              path="/explore"
+              variant="drawer"
+              displayName="Explore"
+              icon={"Compass"}
+              tabIndex={drawerOpen ? 0 : -1}
+            />
+            <NavLink
+              path="/marketplace"
+              variant="drawer"
+              displayName="Marketplace"
+              icon={"Tag"}
+              tabIndex={drawerOpen ? 0 : -1}
+            />
+            <NavLink
+              path="/mcp-registry"
+              variant="drawer"
+              displayName="MCP registry"
+              icon={"GitBranch"}
+              tabIndex={drawerOpen ? 0 : -1}
+            />
+            <hr className={styles.drawer_divider} />
+            <h2 className={styles.drawer_section_title}>Top repositories</h2>
+
+            <NavLink
+              path="/YoussefElhamouly/Mittens"
+              variant="drawer"
+              displayName="YoussefElhamouly/Mittens"
+              icon={"CircleUser"}
+              tabIndex={drawerOpen ? 0 : -1}
+            />
+            <NavLink
+              path="/YoussefElhamouly/Walkers"
+              variant="drawer"
+              displayName="YoussefElhamouly/Walkers"
+              icon={"CircleUser"}
+              tabIndex={drawerOpen ? 0 : -1}
+            />
+            <NavLink
+              path="/YoussefElhamouly/cornhub"
+              variant="drawer"
+              displayName="YoussefElhamouly/cornhub"
+              icon={"CircleUser"}
+              tabIndex={drawerOpen ? 0 : -1}
+            />
+          </nav>
         </div>
-        <div style={{ color: "#fff", opacity: 0.7 }}>
-          Add navigation links here...
-        </div>
-      </SideDrawer>
+      </BaseDrawer>
       <div className={styles.globalBar}>
         <Button
           icon={"Menu"}

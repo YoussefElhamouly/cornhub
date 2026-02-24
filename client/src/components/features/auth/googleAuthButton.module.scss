@@ -1,0 +1,39 @@
+@keyframes ripple {
+  to {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+.google_btn {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid var(--border, #3d444d);
+  border-radius: 8px;
+  background: rgba(13, 17, 23, 0.6);
+  color: var(--text-primary, #f0f6fc);
+  font-size: 0.92rem;
+  font-family: "Inter", system-ui, sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    box-shadow 0.2s;
+
+  &:hover {
+    background: rgba(68, 147, 248, 0.08);
+    border-color: rgba(68, 147, 248, 0.5);
+    box-shadow: 0 0 12px rgba(68, 147, 248, 0.15);
+  }
+
+  &:active {
+    background: rgba(68, 147, 248, 0.14);
+  }
+}

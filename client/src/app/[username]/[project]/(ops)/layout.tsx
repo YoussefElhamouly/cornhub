@@ -20,7 +20,7 @@ export default async function OpsLayout({
       <Navbar>
         <ProjectNavbar initialPath={initialPath} />
       </Navbar>
-      <Wrapper customStyles={{ maxWidth: "1500px", margin: "0 auto" }}>
+      <Wrapper>
         <Main>{children}</Main>
       </Wrapper>
     </>

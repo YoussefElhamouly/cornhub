@@ -1,0 +1,130 @@
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-6px);
+  }
+  40% {
+    transform: translateX(6px);
+  }
+  60% {
+    transform: translateX(-4px);
+  }
+  80% {
+    transform: translateX(4px);
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.field_wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  width: 100%;
+
+  &.has_error .input_row {
+    border-color: #f85149;
+    animation: shake 0.35s ease-in-out;
+  }
+
+  &.has_error .label {
+    color: #f85149;
+  }
+}
+
+.input_row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  border: 1px solid var(--border, #3d444d);
+  border-radius: 8px;
+  background: rgba(13, 17, 23, 0.7);
+  padding: 0 0.9rem;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+  position: relative;
+
+  &.focused {
+    border-color: var(--text-accent-orange, #eba537);
+    box-shadow: 0 0 0 3px rgba(235, 165, 55, 0.12);
+  }
+}
+
+.icon {
+  color: var(--icon-primary, #9198a1);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  font-size: 1rem;
+}
+
+.float_group {
+  position: relative;
+  flex: 1;
+  padding: 1.35rem 0 0.45rem;
+}
+
+.input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 0.95rem;
+  color: var(--text-primary, #f0f6fc);
+  font-family: "Inter", "SF Pro Display", system-ui, sans-serif;
+  caret-color: var(--text-accent-orange, #eba537);
+
+  &::placeholder {
+    color: transparent;
+  }
+}
+
+.label {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  font-size: 0.95rem;
+  color: var(--icon-primary, #9198a1);
+  pointer-events: none;
+  transition:
+    top 0.18s,
+    font-size 0.18s,
+    color 0.18s;
+  white-space: nowrap;
+
+  &.lifted {
+    top: 0.2rem;
+    transform: none;
+    font-size: 0.72rem;
+    color: var(--text-accent-orange, #eba537);
+  }
+
+  &.cursor_blink::after {
+    content: "|";
+    display: inline-block;
+    margin-left: 1px;
+    animation: blink 0.9s step-start infinite;
+    color: var(--text-accent-orange, #eba537);
+  }
+}
+
+.error_msg {
+  font-size: 0.78rem;
+  color: #f85149;
+  padding-left: 0.2rem;
+  font-family: "SF Mono", "Fira Code", monospace;
+  animation: shake 0.35s ease-in-out;
+}

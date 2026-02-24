@@ -1,10 +1,7 @@
 import React from "react";
-import Navbar from "@/components/layouts/navbar/Navbar";
-import ProjectNavbar from "@/components/layouts/navbar/ProjectNavbar";
 import Filter from "@/components/ui/control/filter/Filter";
 import Icon from "@/components/ui/media/icon/Icon";
 import styles from "./work-item.module.scss";
-import Wrapper from "@/components/layouts/wrapper/Wrapper";
 interface WorkItemLayoutProps {
   children: React.ReactNode;
   params: Promise<{
@@ -48,7 +45,11 @@ export default async function WorkItemLayout({
 
         <div className={styles.header_meta}>
           <div className={`${styles.status_badge} ${styles[status]}`}>
-            <Icon icon={isPR ? "GitPullRequest" : "CircleDot"} size={16} />
+            <Icon
+              icon={isPR ? "GitPullRequest" : "CircleDot"}
+              size={16}
+              stroke={"var(--text-primary)"}
+            />
             <span>{status.charAt(0).toUpperCase() + status.slice(1)}</span>
           </div>
           <div className={styles.meta_info}>

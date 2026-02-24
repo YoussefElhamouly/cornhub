@@ -1,16 +1,16 @@
 import React from "react";
 import Skeleton from "@/components/ui/feedback/skeleton/Skeleton";
-import ContentViewer from "@/components/ui/layout/contentViewer/ContentViewer";
 import styles from "./_components/commits.module.scss";
+import cardStyles from "@/components/ui/cards/commitCard/commitCard.module.scss";
 
 export default function CommitsLoading() {
   return (
     <div style={{ padding: "1rem" }}>
-      <h1 style={{ color: "transparent", marginBottom: "1.5rem" }}>
+      <div className={styles.identity_header}>
         <Skeleton
           customStyles={{ width: "150px", height: "32px", borderRadius: "6px" }}
         />
-      </h1>
+      </div>
 
       <div className={styles.controls_section}>
         <div className={styles.left_controls}>
@@ -54,17 +54,18 @@ export default function CommitsLoading() {
               <div className={styles.group_icon} style={{ left: "-2.2rem" }}>
                 <Skeleton
                   customStyles={{
-                    width: "16px",
-                    height: "16px",
+                    width: "24px",
+                    height: "24px",
                     borderRadius: "50%",
                   }}
                 />
               </div>
               <Skeleton
                 customStyles={{
-                  width: "120px",
-                  height: "18px",
+                  width: "160px",
+                  height: "20px",
                   borderRadius: "4px",
+                  marginLeft: "0.5rem",
                 }}
               />
             </div>
@@ -72,19 +73,19 @@ export default function CommitsLoading() {
               {[1, 2, 3].map((card) => (
                 <div
                   key={card}
-                  className={styles.commit_card}
-                  style={{ height: "64px" }}
+                  className={cardStyles.commit_card}
+                  style={{ height: "76px" }}
                 >
-                  <div className={styles.commit_main}>
+                  <div className={cardStyles.commit_main}>
                     <Skeleton
                       customStyles={{
                         width: "60%",
                         height: "18px",
-                        marginBottom: "8px",
+                        marginBottom: "4px",
                         borderRadius: "4px",
                       }}
                     />
-                    <div style={{ display: "flex", gap: "8px" }}>
+                    <div className={cardStyles.commit_meta}>
                       <Skeleton
                         customStyles={{
                           width: "20px",
@@ -101,17 +102,17 @@ export default function CommitsLoading() {
                       />
                     </div>
                   </div>
-                  <div style={{ display: "flex", gap: "4px" }}>
+                  <div className={cardStyles.commit_actions}>
                     <Skeleton
                       customStyles={{
-                        width: "60px",
+                        width: "70px",
                         height: "28px",
                         borderRadius: "6px",
                       }}
                     />
                     <Skeleton
                       customStyles={{
-                        width: "60px",
+                        width: "32px",
                         height: "28px",
                         borderRadius: "6px",
                       }}

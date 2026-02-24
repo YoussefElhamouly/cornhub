@@ -144,6 +144,25 @@ export { calculateSum, multiply, subtract };`;
           />
         </ContentViewer.Body>
       </ContentViewer>
+      <ContentViewer customStyles={{ minHeight: "50%" }}>
+        {/* <ContentViewer.Header>
+          <ItemActions />
+        </ContentViewer.Header>
+        <ContentViewer.Body>
+          <Table columns={tableKeys} data={tableData} />
+        </ContentViewer.Body> */}
+
+        <ContentViewer.Header>
+          <ItemActions />
+        </ContentViewer.Header>
+        <ContentViewer.Body>
+          <CodeEditor
+            code={code}
+            onChange={setCode}
+            highlights={testHighlights}
+          />
+        </ContentViewer.Body>
+      </ContentViewer>
     </>
   );
 };

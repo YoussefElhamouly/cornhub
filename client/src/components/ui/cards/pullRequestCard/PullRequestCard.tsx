@@ -48,7 +48,7 @@ const PullRequestCard = ({
         />
         <div className={styles.pr_info}>
           <div className={styles.pr_title_row}>
-            <Link href={`/pull/${prNumber}`} className={styles.pr_title}>
+            <Link href={`pulls/${prNumber}`} className={styles.pr_title}>
               {title}
             </Link>
             {labels.map((label) => (

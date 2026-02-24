@@ -105,7 +105,7 @@ const Post = ({
         </div>
 
         <Menu
-          icon={MoreHorizontal}
+          icon={"MoreHorizontal"}
           wrapperStyle={{ width: "fit-content" }}
           buttonStyle={{
             backgroundColor: "transparent",
@@ -114,6 +114,11 @@ const Post = ({
             display: "flex",
             justifyContent: "center",
             border: "none",
+          }}
+          menuStyle={{
+            right: "0px",
+            height: "fit-content",
+            width: "150px",
           }}
         >
           <div className={styles.menu_item}>Edit</div>
@@ -151,7 +156,7 @@ const Post = ({
       <div className={styles.post_footer}>
         <div className={styles.reaction_group}>
           <Button
-            icon={Star}
+            icon={"Star"}
             title={likeCount > 0 ? likeCount : ""}
             onClick={handleLike}
             variant="transparent"
@@ -160,7 +165,7 @@ const Post = ({
 
         <div className={styles.reaction_group}>
           <Button
-            icon={MessageCircle}
+            icon={"MessageCircle"}
             title={comments > 0 ? comments : ""}
             onClick={() => setShowAllComments(!showAllComments)}
             variant="transparent"

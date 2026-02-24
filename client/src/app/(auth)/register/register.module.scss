@@ -1,0 +1,259 @@
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes blink_dots {
+  0%,
+  100% {
+    content: ".";
+  }
+  33% {
+    content: "..";
+  }
+  66% {
+    content: "...";
+  }
+}
+
+@keyframes bar_grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.card {
+  width: 100%;
+  max-width: 440px;
+  background: rgba(13, 17, 23, 0.82);
+  backdrop-filter: blur(18px);
+  border: 1px solid var(--border, #3d444d);
+  border-radius: 12px;
+  box-shadow:
+    0 8px 40px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+  padding: 2rem 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.card_header {
+  text-align: center;
+  margin-bottom: 1.75rem;
+}
+
+.logo_mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 1px;
+  font-family: "SF Mono", "Fira Code", monospace;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  line-height: 1;
+}
+
+.logo_bracket {
+  color: var(--text-accent-orange, #eba537);
+}
+.logo_slash {
+  color: var(--text-accent-blue, #4493f8);
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary, #f0f6fc);
+  margin: 0 0 0.5rem;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.subtitle {
+  font-size: 0.875rem;
+  color: var(--icon-primary, #9198a1);
+  margin: 0;
+}
+
+.link {
+  color: var(--text-accent-blue, #4493f8);
+  text-decoration: none;
+  font-weight: 500;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.link_muted {
+  font-size: 0.82rem;
+  color: var(--icon-primary, #9198a1);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--text-accent-blue, #4493f8);
+  }
+}
+
+/* Password strength */
+.strength_container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.45rem;
+  padding: 0 0.1rem;
+}
+
+.strength_bars {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+}
+
+.strength_bar {
+  height: 4px;
+  flex: 1;
+  border-radius: 2px;
+  background: var(--border, #3d444d);
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+  transform-origin: left;
+  animation: bar_grow 0.25s ease;
+}
+
+.strength_label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: color 0.3s;
+}
+
+.mono_prefix {
+  font-family: "SF Mono", "Fira Code", monospace;
+  opacity: 0.6;
+}
+
+.primary_btn {
+  position: relative;
+  width: 100%;
+  padding: 0.75rem 1.25rem;
+  background: var(--text-accent-blue, #4493f8);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: "Inter", system-ui, sans-serif;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    box-shadow 0.2s,
+    transform 0.1s;
+  overflow: hidden;
+  margin-top: 0.3rem;
+
+  &:hover:not(:disabled) {
+    background: #5ba3f9;
+    box-shadow: 0 0 16px rgba(68, 147, 248, 0.4);
+    transform: translateY(-1px);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  &.loading {
+    background: rgba(68, 147, 248, 0.6);
+  }
+}
+
+.spinner_row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.spinner {
+  width: 15px;
+  height: 15px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.loading_text {
+  font-family: "SF Mono", "Fira Code", monospace;
+  font-size: 0.88rem;
+}
+
+.dots::after {
+  content: ".";
+  animation: blink_dots 1s step-start infinite;
+}
+
+.divider {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.3rem 0;
+
+  span:first-child,
+  span:last-child {
+    height: 1px;
+    background: var(--border, #3d444d);
+  }
+}
+
+.divider_text {
+  font-size: 0.78rem;
+  color: var(--icon-primary, #9198a1);
+  font-family: "SF Mono", monospace;
+}
+
+.card_footer {
+  margin-top: 1.25rem;
+  text-align: center;
+}
+
+.footer_code {
+  font-size: 0.75rem;
+  color: var(--icon-primary, #9198a1);
+  font-family: "SF Mono", "Fira Code", monospace;
+  opacity: 0.7;
+
+  a {
+    color: inherit;
+
+    &:hover {
+      color: var(--text-accent-blue, #4493f8);
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 1.5rem 1.25rem 1rem;
+    border-radius: 10px;
+  }
+}
