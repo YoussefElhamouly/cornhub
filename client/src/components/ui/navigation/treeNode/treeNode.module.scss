@@ -1,6 +1,7 @@
 .treeNode_wrapper {
   display: flex;
   flex-direction: column;
+  gap: 0.05rem;
 
   // margin-left: 100px;
   .treeNode_btn_wrapper {
@@ -18,8 +19,8 @@
     }
     &.active {
       background-color: var(--tertiary-bg);
-      border-left: 2px solid var(--accent);
-      padding-left: 2px;
+      // border-left: 1px solid var(--text-accent-orange);
+      // padding-left: 2px;
     }
 
     .treeNode_btn {
@@ -66,5 +67,6 @@
     margin-left: 0.5rem;
     // border-bottom: 1px solid var(--border);
     // border-radius: 0.5rem;
+    gap: 0.05rem;
   }
 }

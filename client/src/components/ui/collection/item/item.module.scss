@@ -22,7 +22,7 @@
     margin-left: 0.2rem;
     text-decoration: none;
     &:hover {
-      color: var(--accent);
+      // color: var(--text-accent-orange);
       text-decoration: underline;
     }
   }
@@ -33,7 +33,7 @@
     margin-left: 0.2rem;
     cursor: pointer;
     &:hover {
-      color: var(--accent);
+      // color: var(--text-accent-blue);
       text-decoration: underline;
     }
   }

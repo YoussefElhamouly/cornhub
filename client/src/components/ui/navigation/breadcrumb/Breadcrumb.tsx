@@ -25,7 +25,7 @@ const Breadcrumb = ({ nodePath = "", basePath = "" }: BreadcrumbProps) => {
     <div className={styles.breadcrumb_container}>
       <nav className={styles.path_nav}>
         {/* Root always links to the tree base */}
-        <Link href={basePath || "/"}>/</Link>
+        {/* <Link href={basePath || "/"}>/</Link> */}
 
         {segments.map((segment, index) => {
           const href = `${basePath}/${segments.slice(0, index + 1).join("/")}`;
