@@ -1,158 +1,96 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ContentViewer from "../../../ui/layout/contentViewer/ContentViewer";
-import styles from "./explorerContent.module.scss";
 import CodeEditor from "../codeEditor/CodeEditor";
 import Picture from "@/components/ui/media/picture/Picture";
-import Avatar from "../../../ui/media/avatar/Avatar";
-import Button from "../../../ui/control/button/Button";
+import Video from "@/components/ui/media/Video/Video";
+import FolderView from "./FolderView";
+import FolderContentHeader from "./FolderContentHeader";
+import FileContentHeader from "./FileContentHeader";
+import type { ExplorerContentProps } from "../types/fileExplorer";
+import { inferLanguage } from "../data/mockData";
+import styles from "./explorerContent.module.scss";
 
-import Menu from "../../../ui/control/menu/Menu";
-import Table from "@/components/ui/layout/table/Table";
-const ExplorerContent = () => {
-  const testCode = `// Welcome to CodeEditor with Highlights!
-function calculateSum(a, b) {
-  return a + b;
-}
-
-function multiply(x, y) {
-  const result = x * y;
-  return result;
-}
-
-const greeting = "Hello, World!";
-console.log(greeting);
-
-function subtract(a, b) {
-  return a - b;
-}
-  const greeting = "Hello, World!";
-console.log(greeting);
-
-function subtract(a, b) {
-  return a - b;
-}const greeting = "Hello, World!";
-console.log(greeting);
-
-function subtract(a, b) {
-  return a - b;
-}const greeting = "Hello, World!";
-console.log(greeting);
-
-function subtract(a, b) {
-  return a - b;
-}const greeting = "Hello, World!";
-console.log(greeting);
-
-function subtract(a, b) {
-  return a - b;
-}
-
-export { calculateSum, multiply, subtract };`;
-
-  const [code, setCode] = useState(testCode);
-
-  // Test highlights object: line numbers map to "+" (added), "-" (removed), or "" (none)
-  const testHighlights = {
-    1: "",
-    2: "+",
-    3: "+",
-    // 4: "",
-    // 5: "",
-    6: "+",
-    7: "+",
-    8: "+",
-    // 9: "",
-    // 10: "",
-    11: "-",
-    // 12: "",
-    // 13: "",
-    14: "-",
-    15: "-",
-    // 16: "",
-    17: "+",
-    18: "+",
-  };
-
-  useEffect(() => {
-    console.log(code);
-  }, [code]);
-
-  const ItemActions = ({ fileOptions = null }) => {
+const ExplorerContent = ({
+  node,
+  commit,
+  branch,
+  nodePath,
+  children = [],
+  basePath,
+}: ExplorerContentProps) => {
+  // ── Node not found ────────────────────────────────────────────────────────
+  if (!node) {
     return (
-      <div className={styles.itemViewer_actions}>
-        <h1>yourmom.jsx</h1>
-        <h1>0.3kb</h1>
-        <Button icon={"Popcorn"} />
-        <Button icon={"ArrowDownToLine"} />
-        <Menu
-          title={"Seeders"}
-          leftIcon={"Sprout"}
-          wrapperStyle={{
-            width: "fit-content",
-            padding: "0rem",
-          }}
-          buttonStyle={{
-            padding: "16px 7px",
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-          }}
-          menuStyle={{ right: "0px", left: "unset" }}
-        >
-          {fileOptions}
-        </Menu>
+      <div className={styles.notFound}>
+        <h2>404 — Path not found</h2>
+        <p>
+          The path <code>{nodePath || "/"}</code> does not exist on branch{" "}
+          <strong>{branch}</strong>.
+        </p>
       </div>
     );
-  };
+  }
+
+  // ── Folder ────────────────────────────────────────────────────────────────
+  if (node.type === "folder") {
+    return (
+      <ContentViewer>
+        <ContentViewer.Header>
+          <FolderContentHeader node={node} branch={branch} />
+        </ContentViewer.Header>
+        <ContentViewer.Body>
+          <FolderView children={children} commit={commit} basePath={basePath} />
+        </ContentViewer.Body>
+      </ContentViewer>
+    );
+  }
+
+  // ── Image ─────────────────────────────────────────────────────────────────
+  if (node.type === "image") {
+    return (
+      <ContentViewer>
+        <ContentViewer.Header>
+          <FileContentHeader node={node} commit={commit} branch={branch} />
+        </ContentViewer.Header>
+        <ContentViewer.Body>
+          <Picture src={node.src ?? ""} alt={node.name} />
+        </ContentViewer.Body>
+      </ContentViewer>
+    );
+  }
+
+  // ── Video ─────────────────────────────────────────────────────────────────
+  if (node.type === "video") {
+    return (
+      <ContentViewer>
+        <ContentViewer.Header>
+          <FileContentHeader node={node} commit={commit} branch={branch} />
+        </ContentViewer.Header>
+        <ContentViewer.Body>
+          <Video src={node.src ?? ""} />
+        </ContentViewer.Body>
+      </ContentViewer>
+    );
+  }
+
+  // ── Code / Text File ──────────────────────────────────────────────────────
+  const language = node.language ?? inferLanguage(node.name);
 
   return (
-    <>
-      <div className={styles.author_info}>
-        <Avatar
-          editable={false}
-          src={"/images/amity.jpg"}
-          customStyles={{ width: "35px", height: "35px" }}
+    <ContentViewer>
+      <ContentViewer.Header>
+        <FileContentHeader node={node} commit={commit} branch={branch} />
+      </ContentViewer.Header>
+      <ContentViewer.Body>
+        <CodeEditor
+          code={node.content ?? ""}
+          language={language}
+          // Read-only: no onChange
         />
-        <h2>Youssef Elhamouly</h2>
-
-        <span className={styles.last_modified}>7 months ago</span>
-        <Button
-          title={"History"}
-          icon={"History"}
-          className={styles.history_btn}
-        />
-      </div>
-
-      <ContentViewer customStyles={{ minHeight: "50%" }}>
-        {/* <ContentViewer.Header>
-          <ItemActions />
-        </ContentViewer.Header>
-        <ContentViewer.Body>
-          <Table columns={tableKeys} data={tableData} />
-        </ContentViewer.Body> */}
-
-        <ContentViewer.Header>
-          <ItemActions />
-        </ContentViewer.Header>
-        <ContentViewer.Body>
-          <CodeEditor
-            code={code}
-            onChange={setCode}
-            highlights={testHighlights}
-          />
-        </ContentViewer.Body>
-      </ContentViewer>
-      <ContentViewer customStyles={{ minHeight: "50%" }}>
-        <ContentViewer.Header>
-          <ItemActions />
-        </ContentViewer.Header>
-        <ContentViewer.Body>
-          <Picture src="/images/amity.jpg" />
-        </ContentViewer.Body>
-      </ContentViewer>
-    </>
+      </ContentViewer.Body>
+    </ContentViewer>
   );
 };
 

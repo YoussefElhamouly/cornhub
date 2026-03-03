@@ -16,6 +16,11 @@
     &:hover {
       background-color: var(--tertiary-bg);
     }
+    &.active {
+      background-color: var(--tertiary-bg);
+      border-left: 2px solid var(--accent);
+      padding-left: 2px;
+    }
 
     .treeNode_btn {
       display: flex;

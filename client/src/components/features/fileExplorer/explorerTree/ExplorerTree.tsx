@@ -1,77 +1,60 @@
 "use client";
 
 import React from "react";
+import { useRouter, usePathname } from "next/navigation";
 import TreeNode from "../../../ui/navigation/treeNode/TreeNode";
 import SearchBar from "../../../ui/control/searchBar/SearchBar";
 import styles from "./explorerTree.module.scss";
-const ExplorerTree = () => {
-  const mockTree: React.ComponentProps<typeof TreeNode>[] = [
-    {
-      type: "folder",
-      name: "src",
-      children: [
-        {
-          type: "folder",
-          name: "components",
-          children: [
-            { type: "file", name: "Button.jsx" },
-            { type: "file-added", name: "NewComponent.jsx" },
-            { type: "file-modified", name: "Card.jsx" },
-            { type: "file-minus", name: "DeletedForm.jsx" },
-            { type: "file", name: "Modal.jsx" },
-          ],
-        },
-        {
-          type: "folder",
-          name: "hooks",
-          children: [
-            { type: "file", name: "useAuth.js" },
-            { type: "file-added", name: "useCustom.js" },
-            { type: "file-modified", name: "useOutsideClick.js" },
-          ],
-        },
-        { type: "file", name: "App.jsx" },
-        { type: "file-added", name: "main.jsx" },
-        { type: "file-modified", name: "index.css" },
-      ],
-    },
-    {
-      type: "folder",
-      name: "server",
-      children: [
-        {
-          type: "folder",
-          name: "routes",
-          children: [
-            { type: "file", name: "auth.js" },
-            { type: "file-added", name: "upload.js" },
-            { type: "file-modified", name: "user.js" },
-            { type: "file-minus", name: "deprecated.js" },
-          ],
-        },
-        {
-          type: "folder",
-          name: "models",
-          children: [
-            { type: "file", name: "User.js" },
-            { type: "file-modified", name: "Project.js" },
-            { type: "file-added", name: "Comment.js" },
-          ],
-        },
-        { type: "file", name: "server.js" },
-        { type: "file-modified", name: "config.js" },
-      ],
-    },
-    { type: "file", name: "README.md" },
-    { type: "file-added", name: ".env.example" },
-  ];
+import type { FileTreeNode, ExplorerTreeProps } from "../types/fileExplorer";
+
+/** Convert a FileTreeNode to the shape expected by TreeNode UI component */
+function toTreeNodeProps(
+  node: FileTreeNode,
+  activePath: string,
+  onNavigate: (path: string) => void,
+): React.ComponentProps<typeof TreeNode> {
+  const treeNodeType = (() => {
+    switch (node.status) {
+      case "added":
+        return "file-added";
+      case "modified":
+        return "file-modified";
+      case "removed":
+        return "file-minus";
+      default:
+        return node.type === "folder" ? "folder" : "file";
+    }
+  })();
+
+  return {
+    name: node.name,
+    path: node.path,
+    type: treeNodeType,
+    activePath,
+    onNavigate,
+    children: node.children?.map((child) =>
+      toTreeNodeProps(child, activePath, onNavigate),
+    ),
+  };
+}
+
+const ExplorerTree = ({ tree, activePath, basePath }: ExplorerTreeProps) => {
+  const router = useRouter();
+
+  const handleNavigate = (nodePath: string) => {
+    const href = nodePath ? `${basePath}/${nodePath}` : basePath;
+    router.push(href);
+  };
 
   return (
     <>
       <SearchBar placeHolder={"Go To File"} />
       <div className={styles.explorerTree_container}>
-        {mockTree.map((tree, i) => (
-          <TreeNode {...tree} key={i} />
+        {tree.map((node, i) => (
+          <TreeNode
+            key={i}
+            {...toTreeNodeProps(node, activePath, handleNavigate)}
+          />
         ))}
       </div>
     </>

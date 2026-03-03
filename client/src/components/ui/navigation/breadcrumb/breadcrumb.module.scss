@@ -22,8 +22,14 @@
       color: var(--text-accent-orange);
     }
 
-    span {
+    .separator {
       color: var(--icon-primary);
+      opacity: 0.5;
+    }
+
+    .current {
+      color: var(--text-primary);
+      font-weight: 500;
     }
   }
 

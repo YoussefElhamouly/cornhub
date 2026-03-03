@@ -5,24 +5,65 @@ import styles from "./treeNode.module.scss";
 import Icon from "../../media/icon/Icon";
 import Item from "../../collection/item/Item";
 
-interface TreeNodeProps {
+interface TreeNodeData {
   name: string;
-  type?: "folder" | "file" | "file-added" | "file-modified" | "file-minus";
-  children?: TreeNodeProps[];
+  path?: string;
+  type?:
+    | "folder"
+    | "file"
+    | "file-added"
+    | "file-modified"
+    | "file-minus"
+    | "image"
+    | "video";
+  children?: TreeNodeData[];
+  activePath?: string;
+  onNavigate?: (path: string) => void;
 }
 
-const TreeNode = ({ name, type = "folder", children }: TreeNodeProps) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+const TreeNode = ({
+  name,
+  path = "",
+  type = "folder",
+  children,
+  activePath = "",
+  onNavigate,
+}: TreeNodeData) => {
+  const isCurrentActive = activePath === path && path !== "";
+  const isAncestorOfActive = activePath.startsWith(path + "/") && path !== "";
+
+  const [isExpanded, setIsExpanded] = useState(
+    isCurrentActive || isAncestorOfActive,
+  );
+
   const isFolder = type === "folder";
+
+  // Map image/video to generic "file" for Item's icon set
+  const itemType = (
+    type === "image" || type === "video" ? "file" : type
+  ) as React.ComponentProps<typeof Item>["type"];
+
+  // Chevron: toggle expand/collapse only
+  const handleChevronClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (isFolder) setIsExpanded((prev) => !prev);
+  };
+
+  // Name click: navigate (and for folders also expand)
+  const handleNameClick = () => {
+    if (isFolder) setIsExpanded((prev) => !prev);
+    if (onNavigate && path) onNavigate(path);
+  };
 
   return (
     <div className={styles.treeNode_wrapper}>
-      <div className={styles.treeNode_btn_wrapper}>
+      <div
+        className={`${styles.treeNode_btn_wrapper} ${isCurrentActive ? styles.active : ""}`}
+      >
+        {/* Chevron — expand/collapse only, no navigation */}
         <div
-          className={`${styles.treeNode_expander} ${
-            !isFolder ? styles.disabled : ""
-          }`}
-          onClick={() => isFolder && setIsExpanded((prev) => !prev)}
+          className={`${styles.treeNode_expander} ${!isFolder ? styles.disabled : ""}`}
+          onClick={handleChevronClick}
         >
           <div
             style={{
@@ -36,12 +77,24 @@ const TreeNode = ({ name, type = "folder", children }: TreeNodeProps) => {
           </div>
         </div>
 
-        <Item name={name} type={type} isExpanded={isExpanded} />
+        {/* Item — icon is decorative, only the name text is the click target */}
+        <Item
+          name={name}
+          type={itemType}
+          isExpanded={isExpanded}
+          onClick={handleNameClick}
+        />
       </div>
+
       {isFolder && isExpanded && (
         <div className={styles.treeNode_children_container}>
           {children?.map((child, i) => (
-            <TreeNode key={i} {...child} />
+            <TreeNode
+              key={i}
+              {...child}
+              activePath={activePath}
+              onNavigate={onNavigate}
+            />
           ))}
         </div>
       )}

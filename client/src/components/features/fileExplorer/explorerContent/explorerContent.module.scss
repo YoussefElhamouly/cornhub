@@ -1,3 +1,4 @@
+/* ─── General content viewer layout ───────────────────────────────────────── */
 .explorerContent_container {
   width: 100%;
   height: 100%;
@@ -8,60 +9,114 @@
   overflow: hidden;
 }
 
-.author_info {
-  width: 100%;
-  padding: 0.8rem;
-  box-sizing: border-box;
-  height: 50px;
-  flex-shrink: 0;
+/* ─── 404 / Not found ─────────────────────────────────────────────────────── */
+.notFound {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
-
-  color: var(--text-primary);
-  font-size: 0.9rem;
-
-  // background-color: var(--tertiary-bg);
-  border: 1px solid var(--border);
-  border-radius: 0.25em;
-  .last_modified {
-    margin-left: auto;
-    opacity: 0.7;
-    font-size: 0.8rem;
-  }
-  .history_btn {
-    font-size: 0.8rem;
-
-    gap: 0.3rem;
-    width: fit-content;
-    background-color: transparent;
-    border: none;
-    padding: 0.4rem;
-    height: unset;
-    transition: 0.15s;
-
-    opacity: 0.7;
-    &:hover {
-      background-color: var(--tertiary-bg);
-    }
-  }
-}
-.itemViewer_info {
-  display: flex;
-  align-items: center;
+  justify-content: center;
+  height: 100%;
   gap: 0.75rem;
-  flex: 1;
+  color: var(--text-primary);
+  opacity: 0.6;
+
+  h2 {
+    font-size: 1.2rem;
+  }
+  p {
+    font-size: 0.9rem;
+  }
+
+  code {
+    font-family: var(--font-mono, monospace);
+    background: var(--tertiary-bg);
+    padding: 0.1em 0.4em;
+    border-radius: 0.25em;
+  }
 }
 
-.itemViewer_actions {
-  width: 100%;
+/* ─── Unified node header (folder & file) ─────────────────────────────────── *
+ * Folder:  Name — Branch                                                        *
+ * File:    Name — Commit — Branch — Size                                        *
+ * ─────────────────────────────────────────────────────────────────────────── */
+.nodeHeader {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+  padding: 0.55rem 0.8rem;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+
+  &_name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &_divider {
+    opacity: 0.35;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+
+  &_commit {
+    flex: 1;
+    min-width: 0;
+    font-size: 0.82rem;
+    opacity: 0.7;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 320px;
+  }
+
+  &_branch {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.1em 0.5em;
+    background: var(--tertiary-bg);
+    border: 1px solid var(--border);
+    border-radius: 0.3em;
+    font-size: 0.78rem;
+    color: var(--text-primary);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  &_size {
+    font-size: 0.8rem;
+    opacity: 0.55;
+    font-family: var(--font-mono, monospace);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
 }
 
-.file_size {
-  color: var(--text-primary);
+/* ─── Folder table rows ───────────────────────────────────────────────────── */
+.folderRow_commitMsg {
+  opacity: 0.65;
   font-size: 0.85rem;
-  opacity: 0.7;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 260px;
+  display: block;
+}
+
+.folderRow_date {
+  opacity: 0.5;
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+
+.folderRow_size {
+  opacity: 0.5;
+  font-size: 0.82rem;
+  font-family: var(--font-mono, monospace);
 }

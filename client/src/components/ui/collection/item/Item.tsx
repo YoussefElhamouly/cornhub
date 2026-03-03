@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import styles from "./item.module.scss";
 import Icon from "../../media/icon/Icon";
 
@@ -28,31 +29,45 @@ const FOLDER_OPEN = (
   </svg>
 );
 
-interface ItemsProps {
+export interface ItemProps {
   name: string;
-  type: string;
+  type?: "folder" | "file" | "file-added" | "file-modified" | "file-minus";
   isExpanded?: boolean;
   status?: string | null;
+  /**
+   * If provided, wraps ONLY the name text in a <Link>.
+   * The icon stays outside the link so the clickable area is strictly the title.
+   */
+  href?: string;
+  /**
+   * If provided (and no href), calls this when the name text is clicked.
+   */
+  onClick?: () => void;
 }
+
 const Item = ({
   name,
   type = "folder",
   isExpanded = false,
   status = null,
-}: ItemsProps) => {
+  href,
+  onClick,
+}: ItemProps) => {
   const getIconColor = () => {
     switch (type) {
       case "file-added":
-        return "#22c55e"; // green
+        return "#22c55e";
       case "file-minus":
-        return "#ef4444"; // red
+        return "#ef4444";
       case "file-modified":
-        return "#eba537"; // orange accent
+        return "#eba537";
       default:
         return undefined;
     }
   };
+
   const iconColor = getIconColor();
+
   const getIcon = () => {
     switch (type) {
       case "folder":
@@ -71,12 +86,26 @@ const Item = ({
 
   const IconComponent = getIcon();
 
-  // const isFolder = type === "folder";
+  // The name node: plain span, clickable span, or Link — only the text is interactive
+  const nameNode = href ? (
+    <Link href={href} className={styles.item_name_link}>
+      {name}
+    </Link>
+  ) : onClick ? (
+    <span
+      className={`${styles.item_name} ${styles.item_name_clickable}`}
+      onClick={onClick}
+    >
+      {name}
+    </span>
+  ) : (
+    <span className={styles.item_name}>{name}</span>
+  );
 
   return (
     <div className={styles.item_container}>
       {IconComponent}
-      <h1 className={styles.item_name}>{name}</h1>
+      {nameNode}
     </div>
   );
 };
