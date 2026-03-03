@@ -37,7 +37,6 @@ const IssueControls = ({ searchParams }: IssueControlsProps) => {
           <Link
             href={getTabHref("open")}
             className={`${styles.tab_item} ${currentState === "open" ? styles.active : ""}`}
-            scroll={false}
           >
             <Icon icon="CircleDot" size={16} />
             <span>Open</span>
@@ -46,7 +45,6 @@ const IssueControls = ({ searchParams }: IssueControlsProps) => {
           <Link
             href={getTabHref("closed")}
             className={`${styles.tab_item} ${currentState === "closed" ? styles.active : ""}`}
-            scroll={false}
           >
             <Icon icon="Check" size={16} />
             <span>Closed</span>

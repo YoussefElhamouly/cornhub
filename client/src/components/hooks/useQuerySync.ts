@@ -27,7 +27,7 @@ export const useQuerySync = (queryKey?: string | null) => {
       const search = current.toString();
       const query = search ? `?${search}` : "";
 
-      router.replace(`${pathname}${query}`, { scroll: false });
+      router.replace(`${pathname}${query}`);
     },
     [router, pathname, searchParams, queryKey],
   );

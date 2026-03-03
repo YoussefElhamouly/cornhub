@@ -42,7 +42,6 @@ const RoomControls = ({ searchParams }: RoomControlsProps) => {
           <Link
             href={getTabHref("active")}
             className={`${styles.tab_item} ${currentState === "active" ? styles.active : ""}`}
-            scroll={false}
           >
             <Icon icon="Radio" size={16} />
             <span>Active</span>
@@ -51,7 +50,6 @@ const RoomControls = ({ searchParams }: RoomControlsProps) => {
           <Link
             href={getTabHref("closed")}
             className={`${styles.tab_item} ${currentState === "closed" ? styles.active : ""}`}
-            scroll={false}
           >
             <Icon icon="Archive" size={16} />
             <span>Closed</span>
