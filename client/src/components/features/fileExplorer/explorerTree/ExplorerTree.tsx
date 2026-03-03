@@ -5,7 +5,7 @@ import TreeNode from "../../../ui/navigation/treeNode/TreeNode";
 import SearchBar from "../../../ui/control/searchBar/SearchBar";
 import styles from "./explorerTree.module.scss";
 const ExplorerTree = () => {
-  const mockTree = [
+  const mockTree: React.ComponentProps<typeof TreeNode>[] = [
     {
       type: "folder",
       name: "src",

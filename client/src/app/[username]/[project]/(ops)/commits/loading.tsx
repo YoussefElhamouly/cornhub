@@ -1,7 +1,7 @@
 import React from "react";
 import Skeleton from "@/components/ui/feedback/skeleton/Skeleton";
 import styles from "./_components/commits.module.scss";
-import cardStyles from "@/components/ui/cards/commitCard/commitCard.module.scss";
+import cardStyles from "./_components/cards/commitCard/commitCard.module.scss";
 
 export default function CommitsLoading() {
   return (

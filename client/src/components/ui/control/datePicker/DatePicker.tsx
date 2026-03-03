@@ -4,7 +4,7 @@ import React, { useState, useRef } from "react";
 import styles from "./datePicker.module.scss";
 import Menu, { MenuHandle } from "../menu/Menu";
 import Button from "../button/Button";
-import { useQuerySync } from "@/hooks/useQuerySync";
+import { useQuerySync } from "@/components/hooks/useQuerySync";
 
 interface DatePickerProps {
   selectedDate?: Date | null;

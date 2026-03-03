@@ -2,7 +2,10 @@
 
 import { useEffect, useRef } from "react";
 
-function useOutsideClick(refs, callback) {
+function useOutsideClick(
+  refs: Array<React.RefObject<HTMLElement | null> | null | undefined>,
+  callback: () => void,
+) {
   const callbackRef = useRef(callback);
   const refsRef = useRef(refs);
 
@@ -13,10 +16,12 @@ function useOutsideClick(refs, callback) {
   }, [refs, callback]);
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: MouseEvent) => {
       // Check if click is outside all refs
       const isOutside = refsRef.current.every(
-        (ref) => ref?.current && !ref.current.contains(event.target)
+        (ref: React.RefObject<HTMLElement | null> | null | undefined) =>
+          ref?.current != null &&
+          !ref.current.contains(event.target as Node | null),
       );
 
       if (isOutside) {

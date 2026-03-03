@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./commits.module.scss";
+import styles from "../commits.module.scss";
 import CommitGroup from "./CommitGroup";
 
 const MOCK_COMMITS = [

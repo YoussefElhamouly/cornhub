@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./commits.module.scss";
+import styles from "../commits.module.scss";
 import Dropdown from "@/components/ui/control/dropdown/Dropdown";
 import DatePicker from "@/components/ui/control/datePicker/DatePicker";
 import SearchBar from "@/components/ui/control/searchBar/SearchBar";

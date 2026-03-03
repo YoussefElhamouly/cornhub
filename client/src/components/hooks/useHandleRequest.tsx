@@ -1,14 +1,26 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { throwError } from "../utils/helperFunctions";
+import { throwError } from "../../utils/helperFunctions";
+
+type RequestError = {
+  status: number;
+  message: string;
+  details?: unknown;
+};
 
 const useHandleRequest = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const intervalRef = useRef(); // the timeout interval for refetching in case of a connection error
+  const throwTyped = throwError as unknown as (
+    message: string,
+    status: number,
+    details?: unknown,
+  ) => never;
+
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null); // the timeout interval for refetching in case of a connection error
 
   //refetch
-  function refetch(cb) {
+  function refetch(cb: () => void) {
     if (!intervalRef.current) {
       intervalRef.current = setInterval(cb, 4000);
     }
@@ -23,37 +35,44 @@ const useHandleRequest = () => {
   }
 
   //req handler
-  async function handleRequest(req, cb, onError) {
+  async function handleRequest(
+    req: Request,
+    cb?: (data: unknown) => void,
+    onError?: (err: RequestError) => void,
+  ) {
     setIsLoading(true);
     try {
-      let res;
       try {
         const clonedReq = req.clone();
-        res = await fetch(clonedReq);
-      } catch (err) {
-        throwError("INTERNET_ERROR", 503);
-      }
-      stopRefetching();
-      if (!res.ok) {
-        if (res.status == 404) throwError("NOT_FOUND", 404);
-        const err = await res.json();
-        throwError(err?.message, res.status, err?.details);
-      }
-      const data = await res.json();
-      if (cb != null) cb(data);
-      setIsLoading(false);
-    } catch (error) {
-      if (error.status == 503) {
+        const res = await fetch(clonedReq);
         stopRefetching();
-        refetch(() => handleRequest(req, cb, onError));
+
+        if (!res.ok) {
+          if (res.status === 404) throwTyped("NOT_FOUND", 404);
+          const err = (await res.json()) as { message?: string; details?: unknown };
+          throwTyped(err?.message ?? "REQUEST_FAILED", res.status, err?.details);
+        }
+
+        const data = (await res.json()) as unknown;
+        if (cb) cb(data);
+        setIsLoading(false);
+      } catch (err) {
+        throwTyped("INTERNET_ERROR", 503);
+      }
+    } catch (error) {
+      const err = error as Partial<RequestError>;
+
+      if (err.status === 503) {
+        stopRefetching();
+        refetch(() => void handleRequest(req, cb, onError));
       } else {
         setIsLoading(false);
         stopRefetching();
-        if (onError != null)
+        if (onError)
           onError({
-            status: error?.status || 500,
-            message: error?.message || "Unknown Error occurred",
-            details: error?.details || "",
+            status: err?.status ?? 500,
+            message: err?.message ?? "Unknown Error occurred",
+            details: err?.details ?? "",
           });
       }
     }

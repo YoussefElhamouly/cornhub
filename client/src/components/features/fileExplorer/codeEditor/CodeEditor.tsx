@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useEffect } from "react";
-import Editor from "@monaco-editor/react";
+import Editor, { type Monaco } from "@monaco-editor/react";
 import type { editor } from "monaco-editor";
 import styles from "./codeEditor.module.scss";
 
@@ -143,15 +143,21 @@ const CodeEditor = ({
     }
   };
 
-  const handleEditorDidMount = (editor, monaco) => {
-    editorRef.current = editor;
+  const handleEditorDidMount = (
+    editorInstance: editor.IStandaloneCodeEditor,
+    monacoInstance: Monaco,
+  ) => {
+    editorRef.current = editorInstance;
     // Apply highlights immediately after mount
     if (Object.keys(highlights).length > 0) {
-      applyHighlights(highlights, monaco);
+      applyHighlights(highlights, monacoInstance);
     }
   };
 
-  const applyHighlights = (highlightsObj, monaco) => {
+  const applyHighlights = (
+    highlightsObj: Record<string, string>,
+    monacoInstance: Monaco,
+  ) => {
     if (
       !editorRef.current ||
       !highlightsObj ||
@@ -160,30 +166,30 @@ const CodeEditor = ({
       return;
     }
 
-    const decorations = Object.entries(highlightsObj)
-      .map(([lineNum, type]) => {
-        const line = parseInt(lineNum);
-        if (!line || (type !== "+" && type !== "-")) return null;
+    const decorations: editor.IModelDeltaDecoration[] = [];
 
-        return {
-          range: new monaco.Range(line, 1, line, 250),
-          options: {
-            isWholeLine: true,
-            className:
-              type === "+" ? "highlight-added-line" : "highlight-removed-line",
-            marginClassName:
-              type === "+"
-                ? "highlight-added-margin"
-                : "highlight-removed-margin",
-            glyphMarginClassName:
-              type === "+" ? "glyph-added-icon" : "glyph-removed-icon",
-            glyphMarginHoverMessage: {
-              value: type === "+" ? "Added line" : "Removed line",
-            },
+    for (const [lineNum, type] of Object.entries(highlightsObj)) {
+      const line = parseInt(lineNum, 10);
+      if (!line || (type !== "+" && type !== "-")) continue;
+
+      decorations.push({
+        range: new monacoInstance.Range(line, 1, line, 250),
+        options: {
+          isWholeLine: true,
+          className:
+            type === "+" ? "highlight-added-line" : "highlight-removed-line",
+          marginClassName:
+            type === "+"
+              ? "highlight-added-margin"
+              : "highlight-removed-margin",
+          glyphMarginClassName:
+            type === "+" ? "glyph-added-icon" : "glyph-removed-icon",
+          glyphMarginHoverMessage: {
+            value: type === "+" ? "Added line" : "Removed line",
           },
-        };
-      })
-      .filter(Boolean);
+        },
+      });
+    }
 
     decorationsRef.current = editorRef.current.deltaDecorations(
       decorationsRef.current,
@@ -252,9 +258,9 @@ const CodeEditor = ({
           hideCursorInOverviewRuler: true,
           renderWhitespace: "none",
           stickyScroll: { enabled: false },
-          padding: { top: "10px", bottom: "30px" },
+          padding: { top: 10, bottom: 30 },
         }}
-        beforeMount={(monaco) => {
+        beforeMount={(monaco: Monaco) => {
           // Register all themes
           Object.entries(MONACO_THEMES).forEach(([themeName, themeConfig]) => {
             monaco.editor.defineTheme(themeName, themeConfig);

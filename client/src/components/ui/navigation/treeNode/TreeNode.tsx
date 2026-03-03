@@ -7,7 +7,7 @@ import Item from "../../collection/item/Item";
 
 interface TreeNodeProps {
   name: string;
-  type?: "folder" | "file";
+  type?: "folder" | "file" | "file-added" | "file-modified" | "file-minus";
   children?: TreeNodeProps[];
 }
 
