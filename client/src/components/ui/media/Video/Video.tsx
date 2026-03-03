@@ -60,12 +60,12 @@ const Video = ({ src, maxHeight }: VideoProps) => {
       <video
         playsInline
         ref={videoRef}
-        style={{
-          "--plyr-color-main": "#28343e",
-          "--plyr-badge-border-radius": "1em",
-          opacity: isPlyrReady ? 1 : 0, // Hide the video until Plyr is ready
-          transition: "opacity 0.3s ease-in-out", // Smooth transition for showing the video
-        }}
+        // style={{
+        //   "--plyr-color-main": "#28343e",
+        //   "--plyr-badge-border-radius": "1em",
+        //   opacity: isPlyrReady ? 1 : 0, // Hide the video until Plyr is ready
+        //   transition: "opacity 0.3s ease-in-out", // Smooth transition for showing the video
+        // }}
         controls
       >
         <source src={src} />

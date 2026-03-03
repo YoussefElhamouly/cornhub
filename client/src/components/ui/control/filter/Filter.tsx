@@ -2,7 +2,7 @@
 
 import React from "react";
 import styles from "./filter.module.scss";
-import { useQuerySync } from "@/hooks/useQuerySync";
+import { useQuerySync } from "@/components/hooks/useQuerySync";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 

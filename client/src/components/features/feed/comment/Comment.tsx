@@ -1,16 +1,28 @@
 "use client";
 
 import React, { useState } from "react";
-
-import { ChevronDown, ChevronRight, Reply, Star } from "lucide-react";
-
 import Avatar from "../../../ui/media/avatar/Avatar";
-
 import Button from "../../../ui/control/button/Button";
-
 import styles from "./comment.module.scss";
 
-const Comment = ({ comment, onReply = null }) => {
+export interface CommentData {
+  author: {
+    name: string;
+    username: string;
+    pfp: string;
+  };
+  text: string;
+  timestamp: string;
+  likes: number;
+  replies?: CommentData[];
+}
+
+interface CommentProps {
+  comment: CommentData;
+  onReply?: ((reply: CommentData) => void) | null;
+}
+
+const Comment = ({ comment, onReply = null }: CommentProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [showReplyForm, setShowReplyForm] = useState(false);
   const [replyText, setReplyText] = useState("");
@@ -43,7 +55,6 @@ const Comment = ({ comment, onReply = null }) => {
           <div className={styles.comment_header}>
             <Avatar
               src={comment.author.pfp}
-              alt={comment.author.name}
               customStyles={{ width: "28px", height: "28px" }}
             />
             <div className={styles.author_info}>
@@ -59,14 +70,14 @@ const Comment = ({ comment, onReply = null }) => {
 
           <div className={styles.comment_actions}>
             <Button
-              icon={Star}
+              icon={"Star"}
               title={comment.likes + (liked ? 1 : 0)}
               onClick={() => setLiked(!liked)}
               variant="transparent"
             />
 
             <Button
-              icon={Reply}
+              icon={"Reply"}
               title="Reply"
               onClick={() => setShowReplyForm(!showReplyForm)}
               variant="transparent"
@@ -74,8 +85,8 @@ const Comment = ({ comment, onReply = null }) => {
 
             {hasReplies && (
               <Button
-                icon={isExpanded ? ChevronDown : ChevronRight}
-                title={`${comment.replies.length}`}
+                icon={isExpanded ? "ChevronDown" : "ChevronRight"}
+                title={`${comment.replies?.length}`}
                 onClick={() => setIsExpanded(!isExpanded)}
                 variant="transparent"
               />
@@ -86,7 +97,7 @@ const Comment = ({ comment, onReply = null }) => {
 
       {hasReplies && isExpanded && (
         <div className={styles.replies_container}>
-          {comment.replies.map((reply, index) => (
+          {comment.replies?.map((reply, index) => (
             <Comment
               key={index}
               comment={reply}

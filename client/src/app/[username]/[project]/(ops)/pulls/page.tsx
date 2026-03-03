@@ -1,7 +1,7 @@
 import React from "react";
 import ContentViewer from "@/components/ui/layout/contentViewer/ContentViewer";
-import PullRequestControls from "./_components/PullRequestControls";
-import PullRequestList from "./_components/PullRequestList";
+import PullRequestControls from "./_components/controls/PullRequestControls";
+import PullRequestList from "./_components/lists/PullRequestList";
 import styles from "./_components/pulls.module.scss";
 
 export default async function PullRequestsPage({

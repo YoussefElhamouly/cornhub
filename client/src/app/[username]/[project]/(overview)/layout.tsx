@@ -1,4 +1,4 @@
-import LayoutWrapper from "./_layoutStructure/LayoutWrapper";
+import LayoutWrapper from "./_componenets/layoutStructure/LayoutWrapper";
 import Navbar from "@/components/layouts/navbar/Navbar";
 import ProjectNavbar from "@/components/layouts/navbar/ProjectNavbar";
 

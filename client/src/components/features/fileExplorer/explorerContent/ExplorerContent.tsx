@@ -4,12 +4,12 @@ import React, { useEffect, useState } from "react";
 import ContentViewer from "../../../ui/layout/contentViewer/ContentViewer";
 import styles from "./explorerContent.module.scss";
 import CodeEditor from "../codeEditor/CodeEditor";
-import { History } from "lucide-react";
+import Picture from "@/components/ui/media/picture/Picture";
 import Avatar from "../../../ui/media/avatar/Avatar";
 import Button from "../../../ui/control/button/Button";
-import { Sprout, ArrowDownToLine, Popcorn } from "lucide-react";
+
 import Menu from "../../../ui/control/menu/Menu";
-import InputField from "../../../ui/control/inputField/InputField";
+import Table from "@/components/ui/layout/table/Table";
 const ExplorerContent = () => {
   const testCode = `// Welcome to CodeEditor with Highlights!
 function calculateSum(a, b) {
@@ -145,22 +145,11 @@ export { calculateSum, multiply, subtract };`;
         </ContentViewer.Body>
       </ContentViewer>
       <ContentViewer customStyles={{ minHeight: "50%" }}>
-        {/* <ContentViewer.Header>
-          <ItemActions />
-        </ContentViewer.Header>
-        <ContentViewer.Body>
-          <Table columns={tableKeys} data={tableData} />
-        </ContentViewer.Body> */}
-
         <ContentViewer.Header>
           <ItemActions />
         </ContentViewer.Header>
         <ContentViewer.Body>
-          <CodeEditor
-            code={code}
-            onChange={setCode}
-            highlights={testHighlights}
-          />
+          <Picture src="/images/amity.jpg" />
         </ContentViewer.Body>
       </ContentViewer>
     </>

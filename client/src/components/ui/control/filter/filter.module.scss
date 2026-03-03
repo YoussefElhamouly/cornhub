@@ -1,7 +1,7 @@
 :where(.filterBar) {
   display: flex;
   gap: 0.3rem;
-  border-bottom: 1px solid var(--border) !important;
+  border-bottom: 1px solid var(--border);
   .filter_label {
     position: relative;
     top: 1px;

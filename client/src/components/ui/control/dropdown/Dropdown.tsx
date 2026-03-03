@@ -4,7 +4,7 @@ import React, { useState, useRef, useCallback } from "react";
 import styles from "./dropdown.module.scss";
 import Menu, { MenuHandle } from "../menu/Menu";
 
-import { useQuerySync } from "@/hooks/useQuerySync";
+import { useQuerySync } from "@/components/hooks/useQuerySync";
 
 interface DropdownProps {
   title?: string;

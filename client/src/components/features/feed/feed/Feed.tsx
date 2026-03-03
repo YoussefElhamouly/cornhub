@@ -1,8 +1,7 @@
 "use client";
-
 import React from "react";
 import Post from "../post/Post";
-import CreatePost from "../post/CreatePost";
+// import CreatePost from "../post/CreatePost";
 
 const mockPosts = [
   {
@@ -221,7 +220,6 @@ const mockPosts = [
 const Feed = () => {
   return (
     <>
-      {/* <CreatePost /> */}
       {mockPosts.map((post, i) => (
         <Post
           key={i}

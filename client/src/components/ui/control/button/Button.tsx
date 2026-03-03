@@ -6,7 +6,7 @@ import Icon from "../../media/icon/Icon";
 
 interface ButtonProps {
   className?: string;
-  title?: string;
+  title?: any;
   variant?: "workSpace" | "transparent" | "outline" | "ghost";
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   customStyles?: React.CSSProperties;

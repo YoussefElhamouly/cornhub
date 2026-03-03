@@ -22,16 +22,24 @@ const Picture = ({
   return (
     <div
       className={`${styles.container} ${className}`}
-      style={customStyles && customStyles}
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        ...customStyles,
+      }}
     >
       <figure style={{ backgroundImage: `url(${src})` }}></figure>
+
       <img
         src={src}
         alt={alt}
+        style={{ display: "block", marginInline: "auto" }}
         onLoad={() => {
           setIsloading(false);
         }}
       />
+
       {isLoading && <Skeleton />}
     </div>
   );

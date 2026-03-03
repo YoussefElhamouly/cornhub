@@ -2,9 +2,26 @@
 
 import React, { useRef, useEffect } from "react";
 import Editor from "@monaco-editor/react";
+import type { editor } from "monaco-editor";
 import styles from "./codeEditor.module.scss";
 
-const MONACO_THEMES = {
+declare global {
+  interface Window {
+    monaco?: typeof import("monaco-editor");
+  }
+}
+
+interface CodeEditorProps {
+  code?: string;
+  language?: string;
+  onChange?: (value: string) => void;
+  theme?: string;
+  customStyles?: React.CSSProperties;
+  className?: string;
+  highlights?: Record<string, string>;
+}
+
+const MONACO_THEMES: Record<string, editor.IStandaloneThemeData> = {
   "transparent-theme": {
     base: "vs-dark",
     inherit: true,
@@ -115,11 +132,11 @@ const CodeEditor = ({
   customStyles = {},
   className = "",
   highlights = {},
-}) => {
-  const editorRef = useRef(null);
-  const decorationsRef = useRef([]);
+}: CodeEditorProps) => {
+  const editorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
+  const decorationsRef = useRef<string[]>([]);
 
-  const handleChange = (value) => {
+  const handleChange = (value: string | undefined) => {
     // Disable editing when highlights are present
     if (onChange && Object.keys(highlights).length === 0) {
       onChange(value || "");
@@ -154,6 +171,10 @@ const CodeEditor = ({
             isWholeLine: true,
             className:
               type === "+" ? "highlight-added-line" : "highlight-removed-line",
+            marginClassName:
+              type === "+"
+                ? "highlight-added-margin"
+                : "highlight-removed-margin",
             glyphMarginClassName:
               type === "+" ? "glyph-added-icon" : "glyph-removed-icon",
             glyphMarginHoverMessage: {
@@ -244,21 +265,23 @@ const CodeEditor = ({
           styleSheet.textContent = `
             .highlight-added-line {
               background-color: rgba(34, 197, 94, 0.2) !important;
-              border-left: 3px solid #22c55e !important;
             }
             .highlight-removed-line {
               background-color: rgba(239, 68, 68, 0.2) !important;
-              border-left: 3px solid #ef4444 !important;
+            }
+            .highlight-added-margin {
+              background-color: rgba(34, 197, 94, 0.2) !important;
+            }
+            .highlight-removed-margin {
+              background-color: rgba(239, 68, 68, 0.2) !important;
             }
             .glyph-added-icon {
-              background-color: rgba(34, 197, 94, 0.3) !important;
               background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext x='4' y='12' font-size='24' font-weight='bold' fill='%2322c55e'%3E+%3C/text%3E%3C/svg%3E") !important;
               background-repeat: no-repeat !important;
               background-position: center !important;
               background-size: 10px !important;
             }
             .glyph-removed-icon {
-              background-color: rgba(239, 68, 68, 0.3) !important;
               background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext x='4' y='12' font-size='24' font-weight='bold' fill='%23ef4444'%3E−%3C/text%3E%3C/svg%3E") !important;
               background-repeat: no-repeat !important;
               background-position: center !important;

@@ -8,7 +8,7 @@ import React, {
   useImperativeHandle,
 } from "react";
 import styles from "./menu.module.scss";
-import useOutsideClick from "../../../../hooks/useOutsideClick";
+import useOutsideClick from "@/components/hooks/useOutsideClick";
 import Icon from "../../media/icon/Icon";
 
 export interface MenuHandle {

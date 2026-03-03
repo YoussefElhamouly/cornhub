@@ -1,5 +1,5 @@
-import CommitsControls from "./_components/CommitsControls";
-import CommitsList from "./_components/CommitsList";
+import CommitsControls from "./_components/controls/CommitsControls";
+import CommitsList from "./_components/lists/CommitsList";
 import styles from "./_components/commits.module.scss";
 
 export default async function CommitsPage({

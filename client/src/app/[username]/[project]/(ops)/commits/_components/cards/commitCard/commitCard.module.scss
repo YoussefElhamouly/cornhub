@@ -1,0 +1,117 @@
+/* CommitCard Styles */
+:where(.commit_card) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+  background-color: transparent;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.02);
+  }
+}
+
+.commit_main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.commit_message_row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  .commit_message {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--text-accent-blue);
+    }
+  }
+
+  .expand_btn {
+    padding: 2px !important;
+    height: auto !important;
+    color: var(--icon-primary) !important;
+    background-color: #212830 !important;
+    border-radius: 2px !important;
+  }
+}
+
+.commit_meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--icon-primary);
+
+  .author_name {
+    font-weight: 600;
+    color: var(--text-primary);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .verified_badge {
+    color: #3fb950;
+    border: 1px solid rgba(63, 185, 80, 0.4);
+    padding: 0 7px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+}
+
+.commit_actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  .commit_hash {
+    font-family:
+      ui-monospace,
+      SFMono-Regular,
+      SF Mono,
+      Menlo,
+      Consolas,
+      Liberation Mono,
+      monospace;
+    font-size: 0.8rem;
+    color: var(--icon-primary);
+    text-decoration: none;
+    padding: 0.25rem;
+
+    &:hover {
+      color: var(--text-accent-blue);
+    }
+  }
+
+  .action_btn {
+    padding: 4px !important;
+    height: 28px !important;
+    width: 28px !important;
+    color: var(--icon-primary) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 6px !important;
+
+    &:hover {
+      color: var(--text-accent-blue) !important;
+      background-color: #212830 !important;
+    }
+  }
+}
+
+/* Layout, controls and skeleton styles moved to page-level _components/commits.module.scss */

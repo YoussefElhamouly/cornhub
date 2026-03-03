@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import ContentViewer from "@/components/ui/layout/contentViewer/ContentViewer";
-import RoomControls from "./_components/RoomControls";
-import RoomList from "./_components/RoomList";
+import RoomControls from "./_components/controls/RoomControls";
+import RoomList from "./_components/lists/RoomList";
 import styles from "./_components/rooms.module.scss";
 
 export default async function RoomsPage({

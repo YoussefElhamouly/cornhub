@@ -1,7 +1,7 @@
 import React from "react";
 import ContentViewer from "@/components/ui/layout/contentViewer/ContentViewer";
-import IssueControls from "./_components/IssueControls";
-import IssueList from "./_components/IssueList";
+import IssueControls from "./_components/controls/IssueControls";
+import IssueList from "./_components/lists/IssueList";
 import styles from "./_components/issues.module.scss";
 
 export default async function IssuesPage({

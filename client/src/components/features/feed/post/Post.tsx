@@ -9,10 +9,31 @@ import Picture from "../../../ui/media/picture/Picture";
 import Video from "../../../ui/media/Video/Video";
 import Slider from "../../../ui/media/slider/Slider";
 import ShowMoreText from "../../../ui/media/showMoreText/ShowMoreText";
-import Comment from "../comment/Comment";
-import { Star, MessageCircle, MoreHorizontal } from "lucide-react";
-import Avatar from "../../../ui/media/avatar/Avatar";
+import Comment, { CommentData } from "../comment/Comment";
 
+import Avatar from "../../../ui/media/avatar/Avatar";
+interface postProps {
+  author?: {
+    name: string;
+    username: string;
+    pfp: string;
+    timestamp: string;
+  };
+  postBody?: {
+    text: string | null;
+    image:
+      | { metadata?: { width: number; height: number }; src: string }[]
+      | null;
+    video: { metadata?: { width: number; height: number }; src: string } | null;
+  };
+  likes?: number;
+  comments?: number;
+  tags?: string[];
+  commentsList?: CommentData[];
+  onLike?: (isLiked: boolean) => void;
+  onComment?: (comment: string) => void;
+  onShare?: (shared: boolean) => void;
+}
 const Post = ({
   author = {
     name: "User Name",
@@ -29,10 +50,10 @@ const Post = ({
   comments = 0,
   tags = [],
   commentsList = [],
-  onLike = null,
-  onComment = null,
-  onShare = null,
-}) => {
+  onLike = () => {},
+  onComment = () => {},
+  onShare = () => {},
+}: postProps) => {
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(likes);
   const [showAllComments, setShowAllComments] = useState(false);
@@ -48,15 +69,7 @@ const Post = ({
   const renderMediaAttachment = () => {
     // Video takes precedence
     if (postBody.video) {
-      return (
-        <Video
-          src={postBody.video.src || postBody.video}
-          maxHeight={400}
-          customStyles={{
-            marginTop: "1rem",
-          }}
-        />
-      );
+      return <Video src={postBody.video.src} maxHeight={400} />;
     }
 
     // Images
@@ -70,7 +83,7 @@ const Post = ({
         const imageData = postBody.image[0];
         return (
           <Picture
-            src={imageData.src || imageData}
+            src={imageData?.src}
             customStyles={{
               width: "100%",
               height: "auto",

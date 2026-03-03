@@ -1,7 +1,7 @@
 import React from "react";
 import Wrapper from "@/components/layouts/wrapper/Wrapper";
 import Main from "@/components/layouts/main/Main";
-import CommitGroup from "../../../../commits/_components/CommitGroup";
+import CommitGroup from "../../../../commits/_components/lists/CommitGroup";
 
 export default function CommitsPage() {
   const mockCommits = [

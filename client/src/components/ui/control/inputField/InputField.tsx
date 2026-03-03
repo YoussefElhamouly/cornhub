@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import styles from "./inputField.module.scss";
-import { useQuerySync } from "@/hooks/useQuerySync";
+import { useQuerySync } from "../../../hooks/useQuerySync";
 
 interface InputFieldProps {
   id?: string;

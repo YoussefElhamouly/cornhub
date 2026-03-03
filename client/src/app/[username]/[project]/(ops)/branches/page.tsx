@@ -1,8 +1,8 @@
 import React from "react";
 import Wrapper from "@/components/layouts/wrapper/Wrapper";
 import Main from "@/components/layouts/main/Main";
-import BranchControls from "./_components/BranchControls";
-import BranchList from "./_components/BranchList";
+import BranchControls from "./_components/controls/BranchControls";
+import BranchList from "./_components/lists/BranchList";
 import styles from "./_components/branches.module.scss";
 
 interface BranchesProps {

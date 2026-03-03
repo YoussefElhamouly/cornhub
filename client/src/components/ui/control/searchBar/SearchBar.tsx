@@ -5,7 +5,7 @@ import styles from "./searchBar.module.scss";
 import { useState } from "react";
 
 import Icon from "../../media/icon/Icon";
-import { useQuerySync } from "@/hooks/useQuerySync";
+import { useQuerySync } from "@/components/hooks/useQuerySync";
 
 interface searchBarProps {
   placeHolder: string;
