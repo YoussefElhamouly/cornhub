@@ -1,8 +1,8 @@
 import React from "react";
-import ContentViewer from "../../../../../../../components/ui/layout/contentViewer/ContentViewer";
-import Table from "../../../../../../../components/ui/layout/table/Table";
-import Item from "../../../../../../../components/ui/collection/item/Item";
-import styles from "./branches.module.scss";
+import ContentViewer from "@/components/ui/layout/contentViewer/ContentViewer";
+import Table from "@/components/ui/layout/table/Table";
+import Item from "@/components/ui/collection/item/Item";
+import styles from "../branches.module.scss";
 
 // Table columns and mock data for both tables
 const columns = [
