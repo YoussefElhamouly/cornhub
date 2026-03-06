@@ -1,4 +1,4 @@
-const renderNumberWithAbbreviations = (number) => {
+const renderNumberWithAbbreviations = (number: number) => {
   if (number >= 1000000) {
     return (number / 1000000).toFixed(1) + "M";
   }
@@ -8,9 +8,11 @@ const renderNumberWithAbbreviations = (number) => {
   return number.toString();
 };
 
-function timeDifference(pastTime) {
+function timeDifference(pastTime: string | number | Date) {
   const now = new Date();
-  const diffInSeconds = Math.floor((now - new Date(pastTime)) / 1000);
+  const diffInSeconds = Math.floor(
+    (now.getTime() - new Date(pastTime).getTime()) / 1000,
+  );
 
   if (diffInSeconds < 60) {
     return "Just now";
@@ -30,13 +32,17 @@ function timeDifference(pastTime) {
   return `${diffInDays} day${diffInDays === 1 ? "" : "s"} ago`;
 }
 
-function formatDate(dateString) {
+function formatDate(dateString: string | number | Date) {
   const date = new Date(dateString);
-  const options = { month: "long", day: "numeric", year: "numeric" };
+  const options: Intl.DateTimeFormatOptions = {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  };
   return date.toLocaleDateString("en-US", options);
 }
 
-function formatNumber(number) {
+function formatNumber(number: number) {
   if (number >= 1e9) {
     return (number / 1e9).toFixed(1) + "b";
   } else if (number >= 1e6) {
@@ -48,8 +54,13 @@ function formatNumber(number) {
   }
 }
 
-const throwError = (message, status, details = null) => {
-  const error = new Error(message);
+export interface CustomError extends Error {
+  status?: number;
+  details?: any;
+}
+
+const throwError = (message: string, status: number, details: any = null) => {
+  const error = new Error(message) as CustomError;
   error.status = status;
   error.details = details;
   throw error;
@@ -62,3 +73,9 @@ export {
   formatNumber,
   renderNumberWithAbbreviations,
 };
+
+export function formatFileSize(bytes: number): string {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}

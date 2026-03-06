@@ -4,6 +4,7 @@ import React from "react";
 import styles from "./breadcrumb.module.scss";
 import Link from "next/link";
 import Button from "../../control/button/Button";
+import { useParams } from "next/navigation";
 
 interface BreadcrumbProps {
   /** Joined node path, e.g. "src/components/Button.tsx" */
@@ -13,6 +14,9 @@ interface BreadcrumbProps {
 }
 
 const Breadcrumb = ({ nodePath = "", basePath = "" }: BreadcrumbProps) => {
+  const params = useParams();
+  const project = params?.project || "Project";
+
   // Split path into non-empty segments
   const segments = nodePath.split("/").filter(Boolean);
 
@@ -24,8 +28,12 @@ const Breadcrumb = ({ nodePath = "", basePath = "" }: BreadcrumbProps) => {
   return (
     <div className={styles.breadcrumb_container}>
       <nav className={styles.path_nav}>
-        {/* Root always links to the tree base */}
-        {/* <Link href={basePath || "/"}>/</Link> */}
+        {/* Root of the repository */}
+        {segments.length === 0 ? (
+          <span className={styles.current}>{project as string}</span>
+        ) : (
+          <Link href={basePath}>{project as string}</Link>
+        )}
 
         {segments.map((segment, index) => {
           const href = `${basePath}/${segments.slice(0, index + 1).join("/")}`;

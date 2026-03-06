@@ -1,21 +1,15 @@
-"use client";
-
 import React from "react";
 import Icon from "@/components/ui/media/icon/Icon";
-import type { FileTreeNode, Commit } from "../types/fileExplorer";
+import type { ExplorerNode } from "../../types/fileExplorer";
 import styles from "./explorerContent.module.scss";
 
 interface FolderContentHeaderProps {
-  node: FileTreeNode;
+  node: ExplorerNode;
   branch: string;
 }
 
-/**
- * Header for directory nodes.
- * Layout: Directory Name — Branch Name
- */
 const FolderContentHeader = ({ node, branch }: FolderContentHeaderProps) => {
-  const displayName = node.path === "" ? "root" : node.name;
+  const displayName = node.path === "" ? "root" : node.title;
 
   return (
     <div className={styles.nodeHeader}>

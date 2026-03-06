@@ -14,7 +14,7 @@ const columns = [
 
 const data1 = [
   {
-    branch: <Item name={"main"} type="folder" />,
+    branch: <Item title={"main"} type="folder" />,
     message: "Default branch",
     author: "Youssef Elhamouly",
     updated: "2 days ago",
@@ -23,19 +23,19 @@ const data1 = [
 
 const data2 = [
   {
-    branch: <Item name={"deploy-button-better-descriptions"} type="folder" />,
+    branch: <Item title={"deploy-button-better-descriptions"} type="folder" />,
     message: "Better deploy descriptions",
     author: "Alex Martinez",
     updated: "3 days ago",
   },
   {
-    branch: <Item name={"deploy-button-input-descriptions"} type="folder" />,
+    branch: <Item title={"deploy-button-input-descriptions"} type="folder" />,
     message: "Input descriptions",
     author: "Jordan Lee",
     updated: "3 days ago",
   },
   {
-    branch: <Item name={"add-deploy-button"} type="folder" />,
+    branch: <Item title={"add-deploy-button"} type="folder" />,
     message: "Add deploy button",
     author: "Youssef Elhamouly",
     updated: "3 days ago",

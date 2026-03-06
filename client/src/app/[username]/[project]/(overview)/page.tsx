@@ -22,27 +22,27 @@ const CodeOverview = async () => {
 
   const tableData = [
     {
-      item: <Item name={"assets"} type={"folder"} />,
+      item: <Item title={"assets"} type={"folder"} />,
       message: "Icons",
       timestamp: "2 hours ago",
     },
     {
-      item: <Item name={"client"} type={"folder"} />,
+      item: <Item title={"client"} type={"folder"} />,
       message: "Refactor component structure",
       timestamp: "2 hours ago",
     },
     {
-      item: <Item name={"server"} type={"folder"} />,
+      item: <Item title={"server"} type={"folder"} />,
       message: "Add utility functions",
       timestamp: "5 hours ago",
     },
     {
-      item: <Item name={".cornignore"} type={"file"} />,
+      item: <Item title={".cornignore"} type={"file"} />,
       message: "Implement custom React hooks",
       timestamp: "1 day ago",
     },
     {
-      item: <Item name={"readme.md"} type={"file"} />,
+      item: <Item title={"readme.md"} type={"file"} />,
       message: "Create new page templates",
       timestamp: "2 days ago",
     },

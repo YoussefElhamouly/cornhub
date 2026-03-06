@@ -1,8 +1,9 @@
 import React from "react";
 import Navbar from "@/components/layouts/navbar/Navbar";
-import FileExplorer from "@/components/features/fileExplorer/fileExplorer/FileExplorer";
+import FileExplorer from "@/components/features/fileExplorer/FileExplorer";
 import ProjectNavbar from "@/components/layouts/navbar/ProjectNavbar";
 import styles from "../workSpace.module.scss";
+import { mockBranches } from "@/components/features/fileExplorer/data/mockData";
 
 interface WorkSpaceProps {
   params: Promise<{
@@ -15,11 +16,23 @@ interface WorkSpaceProps {
 const WorkSpace = async ({ params }: WorkSpaceProps) => {
   const { username, project, path } = await params;
 
-  // Join wildcard segments back into a node path string.
-  // e.g. ["src", "components", "Button.tsx"] → "src/components/Button.tsx"
-  // e.g. undefined (root) → ""
-  const nodePath = path ? path.join("/") : "";
+  // ── Resolve branch name & node path from wildcard segments ──────────────
+  // URL: /{username}/{project}/tree/{branchName}/{...nodePath}
+  const knownBranchNames = mockBranches.map((b) => b.name);
 
+  let branchName = "main";
+  let nodePath = "";
+
+  if (path && path.length > 0) {
+    if (knownBranchNames.includes(path[0])) {
+      branchName = path[0];
+      nodePath = path.slice(1).join("/");
+    } else {
+      nodePath = path.join("/");
+    }
+  }
+
+  const basePath = `/${username}/${project}/tree`;
   const initialPath = `/${username}/${project}`;
 
   return (
@@ -28,10 +41,10 @@ const WorkSpace = async ({ params }: WorkSpaceProps) => {
         <ProjectNavbar initialPath={initialPath} />
       </Navbar>
       <FileExplorer
-        username={username}
-        project={project}
-        branch="main"
+        branches={mockBranches}
+        activeBranchName={branchName}
         nodePath={nodePath}
+        basePath={basePath}
       />
     </div>
   );

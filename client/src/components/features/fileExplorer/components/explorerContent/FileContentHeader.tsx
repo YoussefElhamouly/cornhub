@@ -1,21 +1,14 @@
-"use client";
-
-import React from "react";
 import Icon from "@/components/ui/media/icon/Icon";
-import type { FileTreeNode, Commit } from "../types/fileExplorer";
-import { formatFileSize } from "../data/mockData";
+import type { FileNode, Commit } from "../../types/fileExplorer";
+import { formatFileSize } from "@/utils/helperFunctions";
 import styles from "./explorerContent.module.scss";
 
 interface FileContentHeaderProps {
-  node: FileTreeNode;
+  node: FileNode;
   commit: Commit;
   branch: string;
 }
 
-/**
- * Header for file nodes.
- * Layout: File Name — Last Commit Message — Branch Name — File Size
- */
 const FileContentHeader = ({
   node,
   commit,
@@ -23,11 +16,11 @@ const FileContentHeader = ({
 }: FileContentHeaderProps) => {
   return (
     <div className={styles.nodeHeader}>
-      <span className={styles.nodeHeader_name}>{node.name}</span>
+      <span className={styles.nodeHeader_name}>{node.title}</span>
 
       <span className={styles.nodeHeader_divider}>—</span>
 
-      <span className={styles.nodeHeader_commit} title={commit.hash}>
+      <span className={styles.nodeHeader_commit} title={commit._id}>
         {commit.message}
       </span>
 
@@ -38,11 +31,11 @@ const FileContentHeader = ({
         {branch}
       </span>
 
-      {node.size != null && (
+      {node.metaData.size != null && (
         <>
           <span className={styles.nodeHeader_divider}>—</span>
           <span className={styles.nodeHeader_size}>
-            {formatFileSize(node.size)}
+            {formatFileSize(node.metaData.size)}
           </span>
         </>
       )}

@@ -30,36 +30,30 @@ const FOLDER_OPEN = (
 );
 
 export interface ItemProps {
-  name: string;
-  type?: "folder" | "file" | "file-added" | "file-modified" | "file-minus";
+  title: string;
+  type?: "directory" | "file";
   isExpanded?: boolean;
-  status?: string | null;
-  /**
-   * If provided, wraps ONLY the name text in a <Link>.
-   * The icon stays outside the link so the clickable area is strictly the title.
-   */
+  status?: "added" | "modified" | "removed" | "unchanged";
   href?: string;
-  /**
-   * If provided (and no href), calls this when the name text is clicked.
-   */
+
   onClick?: () => void;
 }
 
 const Item = ({
-  name,
-  type = "folder",
+  title,
+  type = "directory",
   isExpanded = false,
-  status = null,
+  status = "unchanged",
   href,
   onClick,
 }: ItemProps) => {
   const getIconColor = () => {
-    switch (type) {
-      case "file-added":
+    switch (status) {
+      case "added":
         return "#22c55e";
-      case "file-minus":
+      case "removed":
         return "#ef4444";
-      case "file-modified":
+      case "modified":
         return "#eba537";
       default:
         return undefined;
@@ -69,16 +63,23 @@ const Item = ({
   const iconColor = getIconColor();
 
   const getIcon = () => {
-    switch (type) {
-      case "folder":
-        return isExpanded ? FOLDER_OPEN : FOLDER_CLOSED;
-      case "file-added":
+    if (type === "directory") {
+      return (
+        <div
+          style={{ color: iconColor, display: "flex", alignItems: "center" }}
+        >
+          {isExpanded ? FOLDER_OPEN : FOLDER_CLOSED}
+        </div>
+      );
+    }
+
+    switch (status) {
+      case "added":
         return <Icon icon={"FilePlus"} stroke={iconColor} size={19} />;
-      case "file-minus":
+      case "removed":
         return <Icon icon={"FileMinus"} stroke={iconColor} size={19} />;
-      case "file-modified":
+      case "modified":
         return <Icon icon={"FileDiff"} stroke={iconColor} size={19} />;
-      case "file":
       default:
         return <Icon icon={"File"} stroke={iconColor} size={19} />;
     }
@@ -89,17 +90,17 @@ const Item = ({
   // The name node: plain span, clickable span, or Link — only the text is interactive
   const nameNode = href ? (
     <Link href={href} className={styles.item_name_link}>
-      {name}
+      {title}
     </Link>
   ) : onClick ? (
     <span
       className={`${styles.item_name} ${styles.item_name_clickable}`}
       onClick={onClick}
     >
-      {name}
+      {title}
     </span>
   ) : (
-    <span className={styles.item_name}>{name}</span>
+    <span className={styles.item_name}>{title}</span>
   );
 
   return (

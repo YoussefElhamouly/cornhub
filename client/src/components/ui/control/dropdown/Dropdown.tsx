@@ -65,24 +65,16 @@ const Dropdown = ({
       leftIcon={icon}
       closeOnSelect={true}
       className={className}
+      wrapperStyle={{
+        width: "100%",
+      }}
       buttonStyle={{
-        display: "flex",
-        alignItems: "center",
-        padding: "0.5rem 0.8rem",
-        border: "1px solid var(--border)",
-        borderRadius: "0.2rem",
-        fontSize: "0.9rem",
-        cursor: "pointer",
         color: "var(--text-primary)",
         backgroundColor: "transparent",
-        width: "fit-content",
-        maxWidth: "fit-content",
+        width: "100%",
         minWidth: "120px",
         minHeight: "32px",
-        gap: "0.5rem",
-        position: "relative",
-        boxSizing: "border-box",
-        transition: "all 0.2s ease",
+
         ...buttonStyle,
       }}
       menuStyle={{

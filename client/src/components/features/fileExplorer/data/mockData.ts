@@ -1,635 +1,339 @@
-import type { Branch, Commit, FileTreeNode } from "../types/fileExplorer";
+import type { Branch, Commit, ExplorerNode } from "../types/fileExplorer";
 
-// ─── Commits ──────────────────────────────────────────────────────────────────
+// ─── Mock Trees ──────────────────────────────────────────────────────────────
 
-const mainCommits: Commit[] = [
+const mainTree: ExplorerNode[] = [
   {
-    hash: "a1b2c3d4e5f6789012345678901234567890abcd",
-    shortHash: "a1b2c3d",
-    message: "feat: add video player integration with Plyr",
-    author: "Youssef Elhamouly",
-    date: "2026-02-28T14:22:00Z",
-  },
-  {
-    hash: "b2c3d4e5f678901234567890123456789012bcde",
-    shortHash: "b2c3d4e",
-    message: "refactor: migrate ExplorerContent to typed props",
-    author: "Youssef Elhamouly",
-    date: "2026-02-25T10:05:00Z",
-  },
-  {
-    hash: "c3d4e5f67890123456789012345678901234cdef",
-    shortHash: "c3d4e5f",
-    message: "chore: add README and repo boilerplate",
-    author: "Youssef Elhamouly",
-    date: "2026-02-20T08:00:00Z",
-  },
-];
-
-const developCommits: Commit[] = [
-  {
-    hash: "d4e5f6789012345678901234567890123456defa",
-    shortHash: "d4e5f67",
-    message: "feat: implement wildcard routing for file explorer",
-    author: "Youssef Elhamouly",
-    date: "2026-03-02T09:15:00Z",
-  },
-  {
-    hash: "e5f678901234567890123456789012345678efab",
-    shortHash: "e5f6789",
-    message: "wip: redesign ExplorerContent header metadata",
-    author: "Youssef Elhamouly",
-    date: "2026-03-01T17:40:00Z",
-  },
-  {
-    hash: "f6789012345678901234567890123456789fabcd",
-    shortHash: "f678901",
-    message: "fix: breadcrumb path normalization edge cases",
-    author: "Youssef Elhamouly",
-    date: "2026-02-28T12:30:00Z",
-  },
-];
-
-// ─── Mock File Content ────────────────────────────────────────────────────────
-
-const buttonContent = `import React from "react";
-import styles from "./Button.module.scss";
-import Icon from "@/components/ui/media/icon/Icon";
-
-interface ButtonProps {
-  title?: string;
-  icon?: string;
-  onClick?: () => void;
-  disabled?: boolean;
-  className?: string;
-}
-
-const Button = ({
-  title,
-  icon,
-  onClick,
-  disabled = false,
-  className = "",
-}: ButtonProps) => {
-  return (
-    <button
-      className={\`\${styles.btn} \${className}\`}
-      onClick={onClick}
-      disabled={disabled}
-    >
-      {icon && <Icon icon={icon} size={16} />}
-      {title && <span>{title}</span>}
-    </button>
-  );
-};
-
-export default Button;
-`;
-
-const useAuthContent = `import { useState, useEffect, useCallback } from "react";
-
-interface AuthState {
-  user: { id: string; username: string; email: string } | null;
-  isLoading: boolean;
-  error: string | null;
-}
-
-export const useAuth = () => {
-  const [state, setState] = useState<AuthState>({
-    user: null,
-    isLoading: true,
-    error: null,
-  });
-
-  const login = useCallback(async (email: string, password: string) => {
-    try {
-      setState((prev) => ({ ...prev, isLoading: true, error: null }));
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        body: JSON.stringify({ email, password }),
-        headers: { "Content-Type": "application/json" },
-      });
-      if (!res.ok) throw new Error("Invalid credentials");
-      const user = await res.json();
-      setState({ user, isLoading: false, error: null });
-    } catch (err: any) {
-      setState({ user: null, isLoading: false, error: err.message });
-    }
-  }, []);
-
-  const logout = useCallback(async () => {
-    await fetch("/api/auth/logout", { method: "POST" });
-    setState({ user: null, isLoading: false, error: null });
-  }, []);
-
-  useEffect(() => {
-    fetch("/api/auth/me")
-      .then((r) => (r.ok ? r.json() : null))
-      .then((user) => setState({ user, isLoading: false, error: null }))
-      .catch(() => setState({ user: null, isLoading: false, error: null }));
-  }, []);
-
-  return { ...state, login, logout };
-};
-`;
-
-const indexCssContent = `/* ─── Global Reset ─────────────────────────── */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-/* ─── CSS Custom Properties ─────────────────── */
-:root {
-  --primary-bg: #0d1117;
-  --secondary-bg: #161b22;
-  --tertiary-bg: #21262d;
-  --border: #30363d;
-  --text-primary: #e6edf3;
-  --text-secondary: #8b949e;
-  --accent: #eba537;
-  --accent-hover: #f0b83d;
-  --success: #22c55e;
-  --danger: #ef4444;
-  --font-mono: "JetBrains Mono", "Fira Code", monospace;
-}
-
-/* ─── Base ───────────────────────────────────── */
-body {
-  background-color: var(--primary-bg);
-  color: var(--text-primary);
-  font-family: "Inter", system-ui, sans-serif;
-  min-height: 100dvh;
-  line-height: 1.6;
-}
-`;
-
-const serverJsContent = `import express from "express";
-import cors from "cors";
-import helmet from "helmet";
-import { mongoConnect } from "./config/db.js";
-import authRoutes from "./routes/auth.js";
-import projectRoutes from "./routes/projects.js";
-
-const app = express();
-const PORT = process.env.PORT || 5000;
-
-app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
-app.use(helmet());
-app.use(express.json());
-
-app.use("/api/auth", authRoutes);
-app.use("/api/projects", projectRoutes);
-
-mongoConnect().then(() => {
-  app.listen(PORT, () => {
-    console.log(\`Server running on port \${PORT}\`);
-  });
-});
-`;
-
-const readmeContent = `# CornHub
-
-A GitHub-inspired collaborative code hosting platform built with Next.js and Express.
-
-## Features
-- Repository management
-- File explorer with deep linking
-- Commit history
-- Branch management
-- Code review with diff highlighting
-
-## Stack
-- **Frontend**: Next.js 15, TypeScript, SCSS Modules
-- **Backend**: Node.js, Express, MongoDB
-- **Code Editor**: Monaco Editor
-- **Video**: Plyr.js
-
-## Getting Started
-
-\`\`\`bash
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-\`\`\`
-
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-`;
-
-// ─── Main Branch Tree ─────────────────────────────────────────────────────────
-
-const mainTree: FileTreeNode[] = [
-  {
-    name: "src",
+    _id: "src",
+    title: "src",
+    parentId: "root",
+    type: "directory",
     path: "src",
-    type: "folder",
+    commitHash: "c3f9a1e",
+    branch: "main",
     children: [
       {
-        name: "components",
-        path: "src/components",
-        type: "folder",
-        children: [
-          {
-            name: "Button.tsx",
-            path: "src/components/Button.tsx",
-            type: "file",
-            size: 892,
-            language: "typescript",
-            content: buttonContent,
-            status: "modified",
-          },
-          {
-            name: "Card.tsx",
-            path: "src/components/Card.tsx",
-            type: "file",
-            size: 430,
-            language: "typescript",
-            content: `import React from "react";\n\nconst Card = ({ children }: { children: React.ReactNode }) => (\n  <div className="card">{children}</div>\n);\n\nexport default Card;\n`,
-          },
-          {
-            name: "Modal.tsx",
-            path: "src/components/Modal.tsx",
-            type: "file",
-            size: 544,
-            language: "typescript",
-            content: `import React from "react";\n\nconst Modal = ({ isOpen, onClose, children }: any) => {\n  if (!isOpen) return null;\n  return (\n    <div className="modal-overlay" onClick={onClose}>\n      <div className="modal" onClick={(e) => e.stopPropagation()}>\n        {children}\n      </div>\n    </div>\n  );\n};\n\nexport default Modal;\n`,
-          },
-          {
-            name: "banner.jpg",
-            path: "src/components/banner.jpg",
-            type: "image",
-            size: 245120,
-            src: "/images/amity.jpg",
-          },
-        ],
-      },
-      {
-        name: "hooks",
-        path: "src/hooks",
-        type: "folder",
-        children: [
-          {
-            name: "useAuth.ts",
-            path: "src/hooks/useAuth.ts",
-            type: "file",
-            size: 1240,
-            language: "typescript",
-            content: useAuthContent,
-          },
-          {
-            name: "useOutsideClick.ts",
-            path: "src/hooks/useOutsideClick.ts",
-            type: "file",
-            size: 380,
-            language: "typescript",
-            content: `import { useEffect, RefObject } from "react";\n\nexport const useOutsideClick = <T extends HTMLElement>(\n  ref: RefObject<T>,\n  handler: () => void\n) => {\n  useEffect(() => {\n    const listener = (e: MouseEvent) => {\n      if (!ref.current || ref.current.contains(e.target as Node)) return;\n      handler();\n    };\n    document.addEventListener("mousedown", listener);\n    return () => document.removeEventListener("mousedown", listener);\n  }, [ref, handler]);\n};\n`,
-            status: "modified",
-          },
-        ],
-      },
-      {
-        name: "index.css",
-        path: "src/index.css",
+        _id: "app-tsx",
+        title: "App.tsx",
+        parentId: "src",
         type: "file",
-        size: 1890,
-        language: "css",
-        content: indexCssContent,
-        status: "modified",
-      },
-      {
-        name: "App.tsx",
         path: "src/App.tsx",
-        type: "file",
-        size: 620,
-        language: "typescript",
-        content: `import React from "react";\nimport { BrowserRouter, Routes, Route } from "react-router-dom";\nimport HomePage from "./pages/HomePage";\n\nconst App = () => (\n  <BrowserRouter>\n    <Routes>\n      <Route path="/" element={<HomePage />} />\n    </Routes>\n  </BrowserRouter>\n);\n\nexport default App;\n`,
-      },
-    ],
-  },
-  {
-    name: "server",
-    path: "server",
-    type: "folder",
-    children: [
+        commitHash: "c3f9a1e",
+        branch: "main",
+        content:
+          'import React from "react";\n\nexport default function App() {\n  return (\n    <div className="app">\n      <h1>Hello World</h1>\n    </div>\n  );\n}',
+        metaData: {
+          extension: "tsx",
+          language: "TypeScript",
+          mimeType: "text/typescript",
+          size: 1200,
+          lines: 9,
+          linesHightlight: {},
+        },
+      } as ExplorerNode,
       {
-        name: "routes",
-        path: "server/routes",
-        type: "folder",
+        _id: "utils-ts",
+        title: "utils.ts",
+        parentId: "src",
+        type: "file",
+        path: "src/utils.ts",
+        commitHash: "c3f9a1e",
+        branch: "main",
+        content:
+          "export const sum = (a: number, b: number): number => a + b;\n\nexport const capitalize = (s: string): string =>\n  s.charAt(0).toUpperCase() + s.slice(1);",
+        metaData: {
+          extension: "ts",
+          language: "TypeScript",
+          mimeType: "text/typescript",
+          size: 300,
+          lines: 4,
+          linesHightlight: {},
+        },
+      } as ExplorerNode,
+      {
+        _id: "assets",
+        title: "assets",
+        parentId: "src",
+        type: "directory",
+        path: "src/assets",
+        commitHash: "c3f9a1e",
+        branch: "main",
         children: [
           {
-            name: "auth.js",
-            path: "server/routes/auth.js",
+            _id: "logo-img",
+            title: "logo.png",
+            parentId: "assets",
             type: "file",
-            size: 760,
-            language: "javascript",
-            content: `import { Router } from "express";\nimport { login, logout, me } from "../controllers/auth.js";\nimport { protect } from "../middleware/protect.js";\n\nconst router = Router();\n\nrouter.post("/login", login);\nrouter.post("/logout", logout);\nrouter.get("/me", protect, me);\n\nexport default router;\n`,
-          },
+            path: "src/assets/logo.png",
+            commitHash: "c3f9a1e",
+            branch: "main",
+            metaData: {
+              mimeType: "image/png" as const,
+              width: 512,
+              height: 512,
+              format: "png",
+              size: 84532,
+              src: "/files/assets/logo.png",
+            },
+          } as ExplorerNode,
           {
-            name: "projects.js",
-            path: "server/routes/projects.js",
+            _id: "intro-video",
+            title: "intro.mp4",
+            parentId: "assets",
             type: "file",
-            size: 540,
-            language: "javascript",
-            content: `import { Router } from "express";\nimport { getProjects, createProject } from "../controllers/projects.js";\nimport { protect } from "../middleware/protect.js";\n\nconst router = Router();\n\nrouter.get("/", protect, getProjects);\nrouter.post("/", protect, createProject);\n\nexport default router;\n`,
-          },
+            path: "src/assets/intro.mp4",
+            commitHash: "c3f9a1e",
+            branch: "main",
+            metaData: {
+              mimeType: "video/mp4" as const,
+              duration: 42,
+              width: 1920,
+              height: 1080,
+              codec: "h264",
+              frameRate: 30,
+              size: 5242880,
+              src: "/files/assets/intro.mp4",
+            },
+          } as ExplorerNode,
         ],
-      },
-      {
-        name: "server.js",
-        path: "server/server.js",
-        type: "file",
-        size: 720,
-        language: "javascript",
-        content: serverJsContent,
-      },
-      {
-        name: "demo.mp4",
-        path: "server/demo.mp4",
-        type: "video",
-        size: 8_500_000,
-        src: "https://www.w3schools.com/html/mov_bbb.mp4",
-        status: "added",
       },
     ],
   },
   {
-    name: "README.md",
-    path: "README.md",
-    type: "file",
-    size: 870,
-    language: "markdown",
-    content: readmeContent,
+    _id: "public",
+    title: "public",
+    parentId: "root",
+    type: "directory",
+    path: "public",
+    commitHash: "c3f9a1e",
+    branch: "main",
+    children: [
+      {
+        _id: "index-html",
+        title: "index.html",
+        parentId: "public",
+        type: "file",
+        path: "public/index.html",
+        commitHash: "c3f9a1e",
+        branch: "main",
+        content:
+          '<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8" />\n  <title>My Project</title>\n</head>\n<body>\n  <div id="root"></div>\n</body>\n</html>',
+        metaData: {
+          mimeType: "text/html",
+          size: 600,
+        },
+      } as ExplorerNode,
+    ],
   },
   {
-    name: "preview.png",
-    path: "preview.png",
-    type: "image",
-    size: 512000,
-    src: "/images/amity.jpg",
-    status: "added",
+    _id: "package-json",
+    title: "package.json",
+    parentId: "root",
+    type: "file",
+    path: "package.json",
+    commitHash: "c3f9a1e",
+    branch: "main",
+    content: '{\n  "name": "my-project",\n  "version": "1.0.0"\n}',
+    metaData: {
+      mimeType: "application/json",
+      size: 420,
+    },
+  },
+  {
+    _id: "readme",
+    title: "README.md",
+    parentId: "root",
+    type: "file",
+    path: "README.md",
+    commitHash: "c3f9a1e",
+    branch: "main",
+    content:
+      "# My Project\n\nA sample project for testing the file explorer.\n\n## Getting Started\n\n```bash\nnpm install\nnpm run dev\n```\n\n## Features\n\n- Server-side rendering\n- File explorer\n- Code editor",
+    metaData: {
+      extension: "md",
+      language: "Markdown",
+      mimeType: "text/markdown",
+      size: 120,
+      lines: 15,
+      linesHightlight: {},
+    },
   },
 ];
 
-// ─── Develop Branch Tree (different structure) ────────────────────────────────
-
-const developTree: FileTreeNode[] = [
+const devTree: ExplorerNode[] = [
   {
-    name: "client",
-    path: "client",
-    type: "folder",
+    _id: "src-dev",
+    title: "src",
+    parentId: "root-dev",
+    type: "directory",
+    path: "src",
+    commitHash: "a7b2d4f",
+    branch: "dev",
     children: [
       {
-        name: "src",
-        path: "client/src",
-        type: "folder",
-        children: [
-          {
-            name: "app",
-            path: "client/src/app",
-            type: "folder",
-            children: [
-              {
-                name: "page.tsx",
-                path: "client/src/app/page.tsx",
-                type: "file",
-                size: 310,
-                language: "typescript",
-                content: `import React from "react";\n\nexport default function Home() {\n  return (\n    <main>\n      <h1>Welcome to CornHub</h1>\n    </main>\n  );\n}\n`,
-                status: "modified",
-              },
-              {
-                name: "layout.tsx",
-                path: "client/src/app/layout.tsx",
-                type: "file",
-                size: 480,
-                language: "typescript",
-                content: `import type { Metadata } from "next";\nimport "./globals.css";\n\nexport const metadata: Metadata = {\n  title: "CornHub",\n  description: "A collaborative code hosting platform",\n};\n\nexport default function RootLayout({ children }: { children: React.ReactNode }) {\n  return (\n    <html lang="en">\n      <body>{children}</body>\n    </html>\n  );\n}\n`,
-              },
-            ],
-          },
-          {
-            name: "components",
-            path: "client/src/components",
-            type: "folder",
-            children: [
-              {
-                name: "FileExplorer",
-                path: "client/src/components/FileExplorer",
-                type: "folder",
-                children: [
-                  {
-                    name: "FileExplorer.tsx",
-                    path: "client/src/components/FileExplorer/FileExplorer.tsx",
-                    type: "file",
-                    size: 2200,
-                    language: "typescript",
-                    content: `// New wildcard-routing FileExplorer\n"use client"\nimport React from "react";\n// ... (develop branch version)\nexport default function FileExplorer() {\n  return <div>FileExplorer (develop)</div>;\n}\n`,
-                    status: "modified",
-                  },
-                ],
-              },
-            ],
-          },
-          {
-            name: "globals.css",
-            path: "client/src/globals.css",
-            type: "file",
-            size: 620,
-            language: "css",
-            content: `@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");\n\nbody {\n  font-family: "Inter", sans-serif;\n  background: #0d1117;\n  color: #e6edf3;\n}\n`,
-          },
-        ],
-      },
-      {
-        name: "package.json",
-        path: "client/package.json",
+        _id: "app-tsx-dev",
+        title: "App.tsx",
+        parentId: "src-dev",
         type: "file",
-        size: 820,
-        language: "json",
-        content: `{\n  "name": "cornhub-client",\n  "version": "0.2.0",\n  "scripts": {\n    "dev": "next dev",\n    "build": "next build",\n    "start": "next start"\n  },\n  "dependencies": {\n    "next": "15.0.0",\n    "react": "^18.0.0",\n    "@monaco-editor/react": "^4.6.0"\n  }\n}\n`,
-        status: "modified",
-      },
-    ],
-  },
-  {
-    name: "server",
-    path: "server",
-    type: "folder",
-    children: [
+        path: "src/App.tsx",
+        commitHash: "a7b2d4f",
+        branch: "dev",
+        content:
+          'import React from "react";\nimport Dashboard from "./Dashboard";\n\nexport default function App() {\n  return (\n    <div className="app">\n      <Dashboard />\n    </div>\n  );\n}',
+        metaData: {
+          extension: "tsx",
+          language: "TypeScript",
+          mimeType: "text/typescript",
+          size: 1400,
+          lines: 10,
+          linesHightlight: {},
+        },
+      } as ExplorerNode,
       {
-        name: "index.js",
-        path: "server/index.js",
+        _id: "dashboard-tsx",
+        title: "Dashboard.tsx",
+        parentId: "src-dev",
         type: "file",
-        size: 800,
-        language: "javascript",
-        content: serverJsContent,
-      },
+        path: "src/Dashboard.tsx",
+        commitHash: "a7b2d4f",
+        branch: "dev",
+        status: "added",
+        content:
+          'import React from "react";\n\nexport default function Dashboard() {\n  return (\n    <div className="dashboard">\n      <h2>Dashboard</h2>\n      <p>Welcome to the dashboard.</p>\n    </div>\n  );\n}',
+        metaData: {
+          extension: "tsx",
+          language: "TypeScript",
+          mimeType: "text/typescript",
+          size: 900,
+          lines: 10,
+          linesHightlight: {},
+        },
+      } as ExplorerNode,
+      {
+        _id: "utils-ts-dev",
+        title: "utils.ts",
+        parentId: "src-dev",
+        type: "file",
+        path: "src/utils.ts",
+        commitHash: "a7b2d4f",
+        branch: "dev",
+        content:
+          "export const sum = (a: number, b: number): number => a + b;\n\nexport const capitalize = (s: string): string =>\n  s.charAt(0).toUpperCase() + s.slice(1);\n\nexport const formatCurrency = (n: number): string =>\n  `$${n.toFixed(2)}`;",
+        metaData: {
+          extension: "ts",
+          language: "TypeScript",
+          mimeType: "text/typescript",
+          size: 450,
+          lines: 7,
+          linesHightlight: {},
+        },
+      } as ExplorerNode,
     ],
   },
   {
-    name: "assets",
-    path: "assets",
-    type: "folder",
-    children: [
-      {
-        name: "logo.png",
-        path: "assets/logo.png",
-        type: "image",
-        size: 98304,
-        src: "/images/amity.jpg",
-        status: "added",
-      },
-      {
-        name: "walkthrough.mp4",
-        path: "assets/walkthrough.mp4",
-        type: "video",
-        size: 12_000_000,
-        src: "https://www.w3schools.com/html/mov_bbb.mp4",
-        status: "added",
-      },
-    ],
-  },
-  {
-    name: "CONTRIBUTING.md",
-    path: "CONTRIBUTING.md",
+    _id: "package-json-dev",
+    title: "package.json",
+    parentId: "root-dev",
     type: "file",
-    size: 530,
-    language: "markdown",
-    content: `# Contributing to CornHub\n\n## How to Contribute\n\n1. Fork the repository\n2. Create a feature branch: \`git checkout -b feat/your-feature\`\n3. Commit your changes: \`git commit -m "feat: add your feature"\`\n4. Push and open a Pull Request\n\n## Code Style\n- TypeScript strict mode\n- ESLint + Prettier\n- SCSS Modules for styling\n`,
+    path: "package.json",
+    commitHash: "a7b2d4f",
+    branch: "dev",
+    content: '{\n  "name": "my-project",\n  "version": "1.1.0-dev"\n}',
+    metaData: {
+      mimeType: "application/json",
+      size: 440,
+    },
   },
   {
-    name: "README.md",
+    _id: "readme-dev",
+    title: "README.md",
+    parentId: "root-dev",
+    type: "file",
     path: "README.md",
-    type: "file",
-    size: 870,
-    language: "markdown",
-    content: readmeContent,
+    commitHash: "a7b2d4f",
+    branch: "dev",
+    content:
+      "# My Project (dev)\n\nDevelopment branch with new dashboard feature.\n\n## What's New\n\n- Added `Dashboard` component\n- Updated `utils.ts` with `formatCurrency`",
+    metaData: {
+      extension: "md",
+      language: "Markdown",
+      mimeType: "text/markdown",
+      size: 140,
+      lines: 8,
+      linesHightlight: {},
+    },
   },
 ];
 
-// ─── Branches ─────────────────────────────────────────────────────────────────
+// ─── Mock Commits ────────────────────────────────────────────────────────────
 
-export const BRANCHES: Record<string, Branch> = {
-  main: {
+export const mockCommits: Record<string, Commit> = {
+  c3f9a1e: {
+    _id: "c3f9a1e",
+    message: "Initial project structure",
+    author: "Youssef",
+    createdAt: new Date("2026-03-01T10:00:00Z"),
+    branch: "main",
+    parentCommitId: undefined,
+    rootNodeId: "root",
+  },
+  a7b2d4f: {
+    _id: "a7b2d4f",
+    message: "Add dashboard feature",
+    author: "Youssef",
+    createdAt: new Date("2026-03-03T09:30:00Z"),
+    branch: "dev",
+    parentCommitId: "c3f9a1e",
+    rootNodeId: "root-dev",
+  },
+};
+
+// ─── Mock Branches (with tree embedded) ──────────────────────────────────────
+
+export const mockBranches: Branch[] = [
+  {
+    _id: "branch-main",
     name: "main",
-    latestCommit: mainCommits[0],
-    commits: mainCommits,
+    headCommitId: "c3f9a1e",
+    commits: ["c3f9a1e"],
+    createdAt: new Date("2026-03-01T10:00:00Z"),
+    updatedAt: new Date("2026-03-01T10:00:00Z"),
     tree: mainTree,
   },
-  develop: {
-    name: "develop",
-    latestCommit: developCommits[0],
-    commits: developCommits,
-    tree: developTree,
+  {
+    _id: "branch-dev",
+    name: "dev",
+    headCommitId: "a7b2d4f",
+    commits: ["a7b2d4f"],
+    createdAt: new Date("2026-03-02T14:00:00Z"),
+    updatedAt: new Date("2026-03-03T09:30:00Z"),
+    tree: devTree,
   },
-};
+];
 
-export const DEFAULT_BRANCH = "main";
-
-// ─── Helper Utilities ─────────────────────────────────────────────────────────
+// ─── Helpers ─────────────────────────────────────────────────────────────────
 
 /**
- * Walk a tree to find the node at `nodePath`.
- * An empty / undefined path returns a virtual root node.
+ * Walk a node tree by path segments and return the matching node,
+ * or `undefined` if the path is not found.
  */
-export function getNodeByPath(
-  branchName: string,
+export function resolveNode(
+  tree: ExplorerNode[],
   nodePath: string,
-): FileTreeNode | undefined {
-  const branch = BRANCHES[branchName];
-  if (!branch) return undefined;
+): ExplorerNode | undefined {
+  if (!nodePath) return undefined;
 
-  const cleaned = nodePath.replace(/^\/|\/$/g, "");
-  if (!cleaned) {
-    // Return a synthetic root node so callers can handle the root uniformly
-    return {
-      name: "root",
-      path: "",
-      type: "folder",
-      children: branch.tree,
-    };
-  }
+  const segments = nodePath.split("/").filter(Boolean);
+  let current: ExplorerNode | undefined;
+  let children: ExplorerNode[] = tree;
 
-  const parts = cleaned.split("/");
-
-  function walk(
-    nodes: FileTreeNode[],
-    depth: number,
-  ): FileTreeNode | undefined {
-    const target = nodes.find((n) => n.name === parts[depth]);
-    if (!target) return undefined;
-    if (depth === parts.length - 1) return target;
-    if (target.type === "folder" && target.children) {
-      return walk(target.children, depth + 1);
+  for (const segment of segments) {
+    current = children.find((n) => n.title === segment);
+    if (!current) return undefined;
+    if (current.type === "directory") {
+      children = (current.children ?? []) as ExplorerNode[];
     }
-    return undefined;
   }
 
-  return walk(branch.tree, 0);
-}
-
-/** Get the latest commit for a branch */
-export function getLatestCommit(
-  branchName: string,
-): import("../types/fileExplorer").Commit {
-  const branch = BRANCHES[branchName] ?? BRANCHES[DEFAULT_BRANCH];
-  return branch.latestCommit;
-}
-
-/** Get a commit by hash, or fall back to latest */
-export function getCommitByHash(
-  branchName: string,
-  hash: string,
-): import("../types/fileExplorer").Commit {
-  const branch = BRANCHES[branchName] ?? BRANCHES[DEFAULT_BRANCH];
-  return (
-    branch.commits.find((c) => c.hash === hash || c.shortHash === hash) ??
-    branch.latestCommit
-  );
-}
-
-/** Format bytes into a human-readable string */
-export function formatFileSize(bytes: number): string {
-  if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
-}
-
-/** Infer language for Monaco Editor from file extension */
-export function inferLanguage(filename: string): string {
-  const ext = filename.split(".").pop()?.toLowerCase() ?? "";
-  const map: Record<string, string> = {
-    ts: "typescript",
-    tsx: "typescript",
-    js: "javascript",
-    jsx: "javascript",
-    json: "json",
-    css: "css",
-    scss: "scss",
-    md: "markdown",
-    html: "html",
-    py: "python",
-    sh: "shell",
-    yaml: "yaml",
-    yml: "yaml",
-    env: "plaintext",
-  };
-  return map[ext] ?? "plaintext";
-}
-
-/** Format an ISO date string to a relative human-readable label */
-export function formatRelativeDate(isoDate: string): string {
-  const now = new Date();
-  const date = new Date(isoDate);
-  const diffMs = now.getTime() - date.getTime();
-  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-
-  if (diffDays === 0) return "today";
-  if (diffDays === 1) return "yesterday";
-  if (diffDays < 30) return `${diffDays} days ago`;
-  if (diffDays < 365) return `${Math.floor(diffDays / 30)} months ago`;
-  return `${Math.floor(diffDays / 365)} years ago`;
+  return current;
 }

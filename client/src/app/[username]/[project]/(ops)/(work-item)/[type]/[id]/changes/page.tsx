@@ -1,5 +1,6 @@
 import React from "react";
-import FileExplorer from "@/components/features/fileExplorer/fileExplorer/FileExplorer";
+import FileExplorer from "@/components/features/fileExplorer/FileExplorer";
+import { mockBranches } from "@/components/features/fileExplorer/data/mockData";
 
 interface ChangesPageProps {
   params: Promise<{ username: string; project: string }>;
@@ -7,12 +8,14 @@ interface ChangesPageProps {
 
 export default async function ChangesPage({ params }: ChangesPageProps) {
   const { username, project } = await params;
+  const basePath = `/${username}/${project}/tree`;
+
   return (
     <FileExplorer
-      username={username}
-      project={project}
-      branch="main"
+      branches={mockBranches}
+      activeBranchName="main"
       nodePath=""
+      basePath={basePath}
     />
   );
 }
