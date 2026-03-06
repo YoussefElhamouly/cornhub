@@ -22,17 +22,17 @@ const CodeOverview = async () => {
 
   const tableData = [
     {
-      item: <Item title={"assets"} type={"folder"} />,
+      item: <Item title={"assets"} type={"directory"} />,
       message: "Icons",
       timestamp: "2 hours ago",
     },
     {
-      item: <Item title={"client"} type={"folder"} />,
+      item: <Item title={"client"} type={"directory"} />,
       message: "Refactor component structure",
       timestamp: "2 hours ago",
     },
     {
-      item: <Item title={"server"} type={"folder"} />,
+      item: <Item title={"server"} type={"directory"} />,
       message: "Add utility functions",
       timestamp: "5 hours ago",
     },
@@ -147,7 +147,9 @@ This project is licensed under the MIT License - see the LICENSE file for detail
         buttonStyle={{
           backgroundColor: "var(--tertiary-bg)",
           height: "32px",
+          width: "100%",
         }}
+        wrapperStyle={{ maxWidth: "100px" }}
       />
 
       <Button title="1 Branch" variant="transparent" icon="GitBranch" />

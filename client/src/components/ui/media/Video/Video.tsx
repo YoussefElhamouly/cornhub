@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useRef, useEffect, useState } from "react";
-import Plyr from "plyr";
 import styles from "./video.module.scss";
 import "plyr/dist/plyr.css";
 
@@ -16,35 +15,39 @@ const Video = ({ src, maxHeight }: VideoProps) => {
   const [isPlyrReady, setIsPlyrReady] = useState(false);
 
   useEffect(() => {
-    if (!plyrRef.current) {
-      plyrRef.current = new Plyr(videoRef.current, {
-        controls: [
-          "play-large",
-          "play",
-          "progress",
-          "current-time",
-          "volume",
-          "settings",
-          "fullscreen",
-        ],
-        speed: {
-          selected: 1,
-          options: [0.5, 1, 2],
-        },
-      });
+    // Dynamic import keeps Plyr out of the SSR module graph entirely —
+    // it only runs in the browser where `document` is available.
+    import("plyr").then(({ default: Plyr }) => {
+      if (!plyrRef.current) {
+        plyrRef.current = new Plyr(videoRef.current, {
+          controls: [
+            "play-large",
+            "play",
+            "progress",
+            "current-time",
+            "volume",
+            "settings",
+            "fullscreen",
+          ],
+          speed: {
+            selected: 1,
+            options: [0.5, 1, 2],
+          },
+        });
 
-      plyrRef.current.on("ready", () => {
-        setIsPlyrReady(true);
-      });
+        plyrRef.current.on("ready", () => {
+          setIsPlyrReady(true);
+        });
 
-      plyrRef.current.on("enterfullscreen", () => {
-        videoRef.current.style.maxHeight = "none";
-      });
+        plyrRef.current.on("enterfullscreen", () => {
+          videoRef.current.style.maxHeight = "none";
+        });
 
-      plyrRef.current.on("exitfullscreen", () => {
-        videoRef.current.style.maxHeight = `${maxHeight}px`;
-      });
-    }
+        plyrRef.current.on("exitfullscreen", () => {
+          videoRef.current.style.maxHeight = `${maxHeight}px`;
+        });
+      }
+    });
 
     return () => {
       if (plyrRef.current && videoRef.current && isPlyrReady) {

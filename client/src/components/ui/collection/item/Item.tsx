@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 import styles from "./item.module.scss";
 import Icon from "../../media/icon/Icon";
 
@@ -87,11 +86,21 @@ const Item = ({
 
   const IconComponent = getIcon();
 
-  // The name node: plain span, clickable span, or Link — only the text is interactive
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (href) {
+      e.preventDefault();
+      window.history.pushState(null, "", href);
+      // history.pushState does not fire 'popstate' natively;
+      // dispatch it manually so FileExplorer's listener picks up the change.
+      window.dispatchEvent(new PopStateEvent("popstate"));
+    }
+  };
+
+  // The name node: plain span, clickable span, or anchor — only the text is interactive
   const nameNode = href ? (
-    <Link href={href} className={styles.item_name_link}>
+    <a href={href} className={styles.item_name_link} onClick={handleLinkClick}>
       {title}
-    </Link>
+    </a>
   ) : onClick ? (
     <span
       className={`${styles.item_name} ${styles.item_name_clickable}`}

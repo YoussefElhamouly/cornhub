@@ -68,7 +68,7 @@ const TreeNode = ({
           type={type}
           status={status}
           isExpanded={isExpanded}
-          href={href}
+          href={isCurrentActive ? undefined : href}
           onClick={isDirectory ? handleNameClick : undefined}
         />
       </div>
@@ -77,7 +77,7 @@ const TreeNode = ({
         <div className={styles.treeNode_children_container}>
           {children?.map((child, i) => (
             <TreeNode
-              key={child.path || i}
+              key={child.path || `__index_${i}`}
               {...child}
               activePath={activePath}
               basePath={basePath}
