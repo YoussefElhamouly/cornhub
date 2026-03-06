@@ -12,7 +12,7 @@ import type { ExplorerNode, Commit, Branch } from "../../types/fileExplorer";
 import styles from "./explorerContent.module.scss";
 
 interface ExplorerContentProps {
-  node: ExplorerNode;
+  node?: ExplorerNode;
   commit: Commit;
   branch: Branch;
   basePath: string;

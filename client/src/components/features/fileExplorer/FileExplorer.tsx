@@ -38,16 +38,18 @@ const FileExplorer = ({
   // ── Resolve the active node from the URL path ────────────────────────────
   const activeNode = nodePath ? resolveNode(tree, nodePath) : undefined;
 
-  const displayNode: ExplorerNode = activeNode ?? {
-    _id: "root",
-    title: activeBranch.name,
-    parentId: null,
-    type: "directory",
-    path: "",
-    commitHash: activeBranch.headCommitId,
-    branch: activeBranch.name,
-    children: tree,
-  };
+  const displayNode: ExplorerNode | undefined = nodePath
+    ? activeNode
+    : {
+        _id: "root",
+        title: activeBranch.name,
+        parentId: null,
+        type: "directory",
+        path: "",
+        commitHash: activeBranch.headCommitId,
+        branch: activeBranch.name,
+        children: tree,
+      };
 
   const treePath = `${basePath}/${activeBranch.name}`;
 
