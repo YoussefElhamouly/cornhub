@@ -1,4 +1,7 @@
+"use client";
+
 import React from "react";
+import Link from "next/link";
 import styles from "./item.module.scss";
 import Icon from "../../media/icon/Icon";
 
@@ -86,21 +89,11 @@ const Item = ({
 
   const IconComponent = getIcon();
 
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (href) {
-      e.preventDefault();
-      window.history.pushState(null, "", href);
-      // history.pushState does not fire 'popstate' natively;
-      // dispatch it manually so FileExplorer's listener picks up the change.
-      window.dispatchEvent(new PopStateEvent("popstate"));
-    }
-  };
-
-  // The name node: plain span, clickable span, or anchor — only the text is interactive
+  // Use Next.js <Link> for navigation so the router handles it properly
   const nameNode = href ? (
-    <a href={href} className={styles.item_name_link} onClick={handleLinkClick}>
+    <Link href={href} className={styles.item_name_link}>
       {title}
-    </a>
+    </Link>
   ) : onClick ? (
     <span
       className={`${styles.item_name} ${styles.item_name_clickable}`}

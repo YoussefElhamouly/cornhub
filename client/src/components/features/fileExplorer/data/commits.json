@@ -1,0 +1,19 @@
+{
+  "c3f9a1e": {
+    "_id": "c3f9a1e",
+    "message": "Initial project structure",
+    "author": "Youssef",
+    "createdAt": "2026-03-01T10:00:00Z",
+    "branch": "main",
+    "rootNodeId": "root"
+  },
+  "a7b2d4f": {
+    "_id": "a7b2d4f",
+    "message": "Add dashboard feature",
+    "author": "Youssef",
+    "createdAt": "2026-03-03T09:30:00Z",
+    "branch": "dev",
+    "parentCommitId": "c3f9a1e",
+    "rootNodeId": "root-dev"
+  }
+}

@@ -2,9 +2,9 @@ import React from "react";
 import Navbar from "@/components/layouts/navbar/Navbar";
 import ProjectNavbar from "@/components/layouts/navbar/ProjectNavbar";
 import styles from "./workSpace.module.scss";
-import { mockBranches } from "@/components/features/fileExplorer/data/mockData";
+import FileExplorer from "@/components/features/fileExplorer/FileExplorer";
 import type { Branch } from "@/components/features/fileExplorer/types/fileExplorer";
-import { ExplorerDataProvider } from "@/components/features/fileExplorer/components/contexts/ExplorerDataContext";
+import branchesData from "@/components/features/fileExplorer/data/branches.json";
 
 export default async function TreeLayout({
   children,
@@ -17,23 +17,19 @@ export default async function TreeLayout({
   const initialPath = `/${username}/${project}`;
 
   // ── Data fetch ────────────────────────────────────────────────────────────
-  // In production this would be an API call with network latency.
-  // It runs ONCE when the /tree layout mounts and is NOT re-triggered
-  // when the user navigates deeper into /tree/... paths.
-  const branches = mockBranches as Branch[];
+  // Runs ONCE when the /tree layout mounts. It is NOT re-triggered
+  // when the user navigates deeper into /tree/... paths because the
+  // layout stays mounted — only page.tsx re-renders.
+  const branches = branchesData as unknown as Branch[];
 
   return (
     <div className={styles.workspace}>
       <Navbar>
         <ProjectNavbar initialPath={initialPath} />
       </Navbar>
-      <ExplorerDataProvider
-        branches={branches}
-        username={username}
-        project={project}
-      >
+      <FileExplorer branches={branches} username={username} project={project}>
         {children}
-      </ExplorerDataProvider>
+      </FileExplorer>
     </div>
   );
 }

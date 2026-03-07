@@ -4,6 +4,7 @@ import React from "react";
 import styles from "./breadcrumb.module.scss";
 import Button from "../../control/button/Button";
 import { useParams } from "next/navigation";
+import Link from "next/link";
 
 interface BreadcrumbProps {
   /** Joined node path, e.g. "src/components/Button.tsx" */
@@ -24,17 +25,6 @@ const Breadcrumb = ({ nodePath = "", basePath = "" }: BreadcrumbProps) => {
     navigator.clipboard.writeText(nodePath);
   };
 
-  const handleLinkClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    href: string,
-  ) => {
-    e.preventDefault();
-    window.history.pushState(null, "", href);
-    // history.pushState does not fire 'popstate' natively;
-    // dispatch it manually so FileExplorer's listener picks up the change.
-    window.dispatchEvent(new PopStateEvent("popstate"));
-  };
-
   return (
     <div className={styles.breadcrumb_container}>
       <nav className={styles.path_nav}>
@@ -42,9 +32,7 @@ const Breadcrumb = ({ nodePath = "", basePath = "" }: BreadcrumbProps) => {
         {segments.length === 0 ? (
           <span className={styles.current}>{project as string}</span>
         ) : (
-          <a href={basePath} onClick={(e) => handleLinkClick(e, basePath)}>
-            {project as string}
-          </a>
+          <Link href={basePath}>{project as string}</Link>
         )}
 
         {segments.map((segment, index) => {
@@ -56,9 +44,7 @@ const Breadcrumb = ({ nodePath = "", basePath = "" }: BreadcrumbProps) => {
               {isLast ? (
                 <span className={styles.current}>{segment}</span>
               ) : (
-                <a href={href} onClick={(e) => handleLinkClick(e, href)}>
-                  {segment}
-                </a>
+                <Link href={href}>{segment}</Link>
               )}
             </React.Fragment>
           );

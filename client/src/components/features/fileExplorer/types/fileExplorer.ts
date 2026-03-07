@@ -115,7 +115,7 @@ export interface Commit {
   _id: string; // commit hash or ObjectId
   message: string;
   author: string;
-  createdAt: Date;
+  createdAt: Date | string;
 
   branch: string; // branch name reference
   parentCommitId?: string; // previous commit (for history chain)
@@ -133,8 +133,8 @@ export interface Branch {
   headCommitId: string; // latest commit
   commits: string[]; // list of commit _ids (history)
 
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: Date | string;
+  updatedAt: Date | string;
   tree?: ExplorerNode[];
 }
 

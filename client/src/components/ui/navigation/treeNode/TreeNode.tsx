@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+import { usePathname } from "next/navigation";
 import styles from "./treeNode.module.scss";
 import Icon from "../../media/icon/Icon";
 import Item from "../../collection/item/Item";
@@ -26,12 +27,33 @@ const TreeNode = ({
   activePath = "",
   basePath = "",
 }: TreeNodeProps) => {
-  const isCurrentActive = activePath === path && path !== "";
-  const isAncestorOfActive = activePath.startsWith(path + "/") && path !== "";
+  const pathname = usePathname();
+
+  // Derive the active node path from the current URL.
+  // Falls back to the server-provided `activePath` for initial render or
+  // if the pathname is outside this tree's basePath.
+  const effectiveActivePath = useMemo(() => {
+    if (!pathname || !basePath || !pathname.startsWith(basePath)) {
+      return activePath ?? "";
+    }
+
+    const afterBase = pathname.slice(basePath.length).replace(/^\//, "");
+    return afterBase;
+  }, [pathname, basePath, activePath]);
+
+  const isCurrentActive = effectiveActivePath === path && path !== "";
+  const isAncestorOfActive =
+    path !== "" && effectiveActivePath.startsWith(path + "/");
 
   const [isExpanded, setIsExpanded] = useState(
     isCurrentActive || isAncestorOfActive,
   );
+
+  useEffect(() => {
+    if (isCurrentActive || isAncestorOfActive) {
+      setIsExpanded(true);
+    }
+  }, [isCurrentActive, isAncestorOfActive]);
 
   const isDirectory = type === "directory";
 
