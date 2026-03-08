@@ -1,6 +1,6 @@
-import Overview from "./_components /pages/overview/Overview";
-import Repositories from "./_components /pages/repositories/Repositories";
-import Posts from "./_components /pages/posts/Posts";
+import Overview from "./_components/pages/overview/Overview";
+import Repositories from "./_components/pages/repositories/Repositories";
+import Posts from "./_components/pages/posts/Posts";
 
 const TABS: Record<string, React.ComponentType> = {
   overview: Overview,
