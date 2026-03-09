@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 
 import ProjectCard from "@/components/ui/cards/projectCard/ProjectCard";
-import ContributionGraph from "./components/visualizations /contributionGraph/ContributionGraph";
+import ContributionGraph from "./components/visualizations/contributionGraph/ContributionGraph";
 
 import ActivityList from "./components/lists/activityList/ActivityList";
 import Dropdown from "@/components/ui/control/dropdown/Dropdown";

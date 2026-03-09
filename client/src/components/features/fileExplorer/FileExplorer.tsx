@@ -2,9 +2,9 @@
 
 import React, { useMemo, useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import ExplorerTree from "./components/explorerTree/ExplorerTree";
+
 import ExplorerContent from "./components/explorerContent/ExplorerContent";
-import ExplorereSidePanel from "./components/explorerTree/ExplorereSidePanel";
+import ExplorereSidePanel from "./components/explorerSidePanel/ExplorereSidePanel";
 import styles from "./fileExplorer.module.scss";
 import Menu from "@/components/ui/control/menu/Menu";
 import Main from "@/components/layouts/main/Main";
@@ -12,17 +12,14 @@ import Wrapper from "@/components/layouts/wrapper/Wrapper";
 import Breadcrumb from "@/components/ui/navigation/breadcrumb/Breadcrumb";
 import type { ExplorerNode } from "./types/fileExplorer";
 import { resolveNode, mockCommits } from "./data/mockData";
-import { ExplorerProvider } from "./components/contexts/ExplorerContext";
+
 import { useExplorerData } from "./components/contexts/ExplorerDataContext";
-import CollapsibleSidePanel from "./components/explorerTree/CollapsibleSidePanel";
-import PanelToggleButton from "./components/explorerTree/PanelToggleButton";
+import Button from "@/components/ui/control/button/Button";
 
 const FileExplorer = () => {
-  const { branches, username, project } = useExplorerData();
+  const { branches, username, project, isPanelOpen, togglePanel } =
+    useExplorerData();
 
-  // usePathname gives the server-rendered path, but history.pushState doesn't
-  // update it. We track the pathname ourselves and sync on popstate events
-  // so that intra-tree navigation never triggers a server refetch.
   const serverPathname = usePathname();
   const [pathname, setPathname] = useState(serverPathname);
 
@@ -97,51 +94,53 @@ const FileExplorer = () => {
       };
 
   return (
-    <ExplorerProvider>
-      <Wrapper>
-        <CollapsibleSidePanel>
-          <ExplorereSidePanel
-            activeBranch={activeBranch}
-            allBranches={branches}
-            basePath={basePath}
-          >
-            <ExplorerTree
-              tree={tree}
-              activePath={nodePath}
-              basePath={treePath}
-            />
-          </ExplorereSidePanel>
-        </CollapsibleSidePanel>
-        <Main>
-          <header className={styles.explorer_content_nav}>
-            <PanelToggleButton />
-            <Breadcrumb nodePath={nodePath} basePath={treePath} />
-            <Menu
-              icon={"Menu"}
-              wrapperStyle={{
-                width: "fit-content",
-                padding: "0rem",
-                marginLeft: "auto",
-              }}
-              buttonStyle={{
-                padding: "13px 7px",
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-              }}
-              menuStyle={{ right: "0px", left: "unset" }}
-            />
-          </header>
+    <Wrapper>
+      {isPanelOpen && (
+        <ExplorereSidePanel
+          activeBranch={activeBranch}
+          activePath={nodePath}
+          basePath={basePath}
+          tree={tree}
+        />
+      )}
 
-          <ExplorerContent
-            node={displayNode}
-            commit={commit}
-            branch={activeBranch}
-            basePath={treePath}
+      <Main>
+        <header className={styles.explorer_content_nav}>
+          <Button
+            icon={isPanelOpen ? "PanelLeftOpen" : "PanelRightOpen"}
+            onClick={togglePanel}
+            customStyles={{
+              padding: "8px",
+              marginRight: "0.5rem",
+              display: "flex",
+            }}
           />
-        </Main>
-      </Wrapper>
-    </ExplorerProvider>
+          <Breadcrumb nodePath={nodePath} basePath={treePath} />
+          <Menu
+            icon={"Menu"}
+            wrapperStyle={{
+              width: "fit-content",
+              padding: "0rem",
+              marginLeft: "auto",
+            }}
+            buttonStyle={{
+              padding: "13px 7px",
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+            }}
+            menuStyle={{ right: "0px", left: "unset" }}
+          />
+        </header>
+
+        <ExplorerContent
+          node={displayNode}
+          commit={commit}
+          branch={activeBranch}
+          basePath={treePath}
+        />
+      </Main>
+    </Wrapper>
   );
 };
 

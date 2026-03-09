@@ -16,10 +16,6 @@ export default async function TreeLayout({
   const { username, project } = await params;
   const initialPath = `/${username}/${project}`;
 
-  // ── Data fetch ────────────────────────────────────────────────────────────
-  // In production this would be an API call with network latency.
-  // It runs ONCE when the /tree layout mounts and is NOT re-triggered
-  // when the user navigates deeper into /tree/... paths.
   const branches = mockBranches as Branch[];
 
   return (

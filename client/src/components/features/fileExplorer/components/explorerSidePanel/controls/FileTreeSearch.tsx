@@ -3,8 +3,8 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import Icon from "@/components/ui/media/icon/Icon";
-import styles from "./fileTreeSearch.module.scss";
-import type { ExplorerNode } from "../../types/fileExplorer";
+import styles from "../explorerTree.module.scss";
+import type { ExplorerNode } from "../../../types/fileExplorer";
 import useOutsideClick from "@/components/hooks/useOutsideClick";
 
 interface FileTreeSearchProps {

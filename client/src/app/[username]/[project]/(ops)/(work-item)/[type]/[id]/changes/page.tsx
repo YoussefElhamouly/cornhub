@@ -11,11 +11,12 @@ export default async function ChangesPage({ params }: ChangesPageProps) {
   const basePath = `/${username}/${project}/tree`;
 
   return (
-    <FileExplorer
-      branches={mockBranches}
-      activeBranchName="main"
-      nodePath=""
-      basePath={basePath}
-    />
+    // <FileExplorer
+
+    //   activeBranchName="main"
+    //   nodePath=""
+    //   basePath={basePath}
+    // />
+    <></>
   );
 }
