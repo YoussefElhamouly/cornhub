@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useMemo } from "react";
 import { usePathname } from "next/navigation";
 
 import ExplorerContent from "./components/explorerContent/ExplorerContent";
@@ -20,23 +20,7 @@ const FileExplorer = () => {
   const { branches, username, project, isPanelOpen, togglePanel } =
     useExplorerData();
 
-  const serverPathname = usePathname();
-  const [pathname, setPathname] = useState(serverPathname);
-
-  useEffect(() => {
-    // Keep our local pathname in sync with the SSR value on mount
-    setPathname(window.location.pathname);
-
-    const onPopState = () => setPathname(window.location.pathname);
-    window.addEventListener("popstate", onPopState);
-    return () => window.removeEventListener("popstate", onPopState);
-  }, []);
-
-  // Also update if the Next.js router legitimately changes the pathname
-  // (e.g. branch switch, which IS a real navigation)
-  useEffect(() => {
-    setPathname(serverPathname);
-  }, [serverPathname]);
+  const pathname = usePathname();
 
   // ── Derive active branch + node path from the current URL ───────────────
   const { activeBranch, nodePath, basePath, treePath } = useMemo(() => {
@@ -100,6 +84,7 @@ const FileExplorer = () => {
           activeBranch={activeBranch}
           activePath={nodePath}
           basePath={basePath}
+          treePath={treePath}
           tree={tree}
         />
       )}

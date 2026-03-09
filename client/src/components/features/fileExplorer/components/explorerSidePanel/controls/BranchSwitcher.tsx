@@ -35,6 +35,7 @@ const BranchSwitcher = ({ activeBranch, basePath }: BranchSwitcherProps) => {
         padding: "15px",
         width: "100%",
         justifyContent: "space-between",
+        backgroundColor: "var(--tertiary-bg)",
       }}
       menuStyle={{ width: "100%" }}
     />

@@ -11,6 +11,7 @@ import { useExplorerData } from "../contexts/ExplorerDataContext";
 interface ExplorereSidePanelProps {
   activeBranch: Branch;
   basePath: string;
+  treePath: string;
   tree: ExplorerNode[];
   activePath: string;
 }
@@ -18,6 +19,7 @@ interface ExplorereSidePanelProps {
 const ExplorereSidePanel = ({
   activeBranch,
   basePath,
+  treePath,
   tree,
   activePath,
 }: ExplorereSidePanelProps) => {
@@ -36,7 +38,7 @@ const ExplorereSidePanel = ({
             key={node._id}
             {...node}
             activePath={activePath}
-            basePath={basePath}
+            basePath={treePath}
           />
         ))}
       </div>
