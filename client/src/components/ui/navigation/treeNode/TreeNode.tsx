@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import styles from "./treeNode.module.scss";
 import Icon from "../../media/icon/Icon";
 import Item from "../../collection/item/Item";
-
+import { usePathname } from "next/navigation";
 interface TreeNodeProps {
   title: string;
   path?: string;
@@ -12,7 +12,7 @@ interface TreeNodeProps {
   status?: "added" | "modified" | "removed" | "unchanged";
 
   children?: TreeNodeProps[];
-  activePath?: string;
+
   basePath?: string;
   onNavigate?: (path: string) => void;
 }
@@ -23,20 +23,18 @@ const TreeNode = ({
   type = "directory",
   status = "unchanged",
   children,
-  activePath = "",
+
   basePath = "",
 }: TreeNodeProps) => {
-  const isCurrentActive = activePath === path && path !== "";
-  const isAncestorOfActive = activePath.startsWith(path + "/") && path !== "";
+  const current_path = usePathname();
+  const isCurrentActive = current_path.endsWith(path);
+  const isAncestorOfActive = current_path.includes(path);
 
   const [isExpanded, setIsExpanded] = useState(
     isCurrentActive || isAncestorOfActive,
   );
 
   const isDirectory = type === "directory";
-
-  // Build the href for this node
-  const href = basePath ? `${basePath}/${path}` : undefined;
 
   const handleChevronClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -68,7 +66,7 @@ const TreeNode = ({
           type={type}
           status={status}
           isExpanded={isExpanded}
-          href={isCurrentActive ? undefined : href}
+          href={`${basePath}/${path}`}
           onClick={isDirectory ? handleNameClick : undefined}
         />
       </div>
@@ -79,7 +77,6 @@ const TreeNode = ({
             <TreeNode
               key={child.path || `__index_${i}`}
               {...child}
-              activePath={activePath}
               basePath={basePath}
             />
           ))}

@@ -1,12 +1,13 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect } from "react";
-import type { Branch } from "../../types/fileExplorer";
+import type { Branch, Commit } from "../../types/fileExplorer";
 
 interface ExplorerDataContextType {
   branches: Branch[];
-  username: string;
-  project: string;
+  commits: Commit[];
+  basePath: string;
+
   isPanelOpen?: boolean;
   togglePanel?: () => void;
 }
@@ -17,8 +18,8 @@ const ExplorerDataContext = createContext<ExplorerDataContextType | undefined>(
 
 export const ExplorerDataProvider = ({
   branches,
-  username,
-  project,
+  commits,
+  basePath,
   children,
 }: ExplorerDataContextType & { children: React.ReactNode }) => {
   const [isPanelOpen, setIsPanelOpen] = useState<boolean>(true);
@@ -37,7 +38,13 @@ export const ExplorerDataProvider = ({
   const togglePanel = () => setIsPanelOpen((prev) => !prev);
   return (
     <ExplorerDataContext.Provider
-      value={{ branches, username, project, isPanelOpen, togglePanel }}
+      value={{
+        branches,
+        basePath,
+        isPanelOpen,
+        togglePanel,
+        commits,
+      }}
     >
       {children}
     </ExplorerDataContext.Provider>

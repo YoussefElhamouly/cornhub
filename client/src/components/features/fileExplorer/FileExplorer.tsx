@@ -1,67 +1,68 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React from "react";
 import { usePathname } from "next/navigation";
-
 import ExplorerContent from "./components/explorerContent/ExplorerContent";
 import ExplorereSidePanel from "./components/explorerSidePanel/ExplorereSidePanel";
 import styles from "./fileExplorer.module.scss";
-import Menu from "@/components/ui/control/menu/Menu";
-import Main from "@/components/layouts/main/Main";
 import Wrapper from "@/components/layouts/wrapper/Wrapper";
-import Breadcrumb from "@/components/ui/navigation/breadcrumb/Breadcrumb";
+import Main from "@/components/layouts/main/Main";
 import type { ExplorerNode } from "./types/fileExplorer";
-import { resolveNode, mockCommits } from "./data/mockData";
 
 import { useExplorerData } from "./components/contexts/ExplorerDataContext";
-import Button from "@/components/ui/control/button/Button";
 
 const FileExplorer = () => {
-  const { branches, username, project, isPanelOpen, togglePanel } =
-    useExplorerData();
+  function resolveNode(
+    tree: ExplorerNode[],
+    nodePath: string,
+  ): ExplorerNode | undefined {
+    if (!nodePath) return undefined;
 
-  const pathname = usePathname();
+    const segments = nodePath.split("/").filter(Boolean);
+    let current: ExplorerNode | undefined;
+    let children: ExplorerNode[] = tree;
 
-  // ── Derive active branch + node path from the current URL ───────────────
-  const { activeBranch, nodePath, basePath, treePath } = useMemo(() => {
-    const base = `/${username}/${project}/tree`;
-    // Strip the base prefix from the pathname to get the raw path segments
-    const afterBase = pathname.startsWith(base)
-      ? pathname.slice(base.length).replace(/^\//, "")
-      : "";
-    const segments = afterBase ? afterBase.split("/") : [];
-
-    const knownBranchNames = branches.map((b) => b.name);
-    let activeBranchName = branches[0]?.name ?? "main";
-    let nodePathResolved = "";
-
-    if (segments.length > 0) {
-      if (knownBranchNames.includes(segments[0])) {
-        activeBranchName = segments[0];
-        nodePathResolved = segments.slice(1).join("/");
-      } else {
-        nodePathResolved = segments.join("/");
+    for (const segment of segments) {
+      current = children.find((n) => n.title === segment);
+      if (!current) return undefined;
+      if (current.type === "directory") {
+        children = (current.children ?? []) as ExplorerNode[];
       }
     }
 
-    const branch =
-      branches.find((b) => b.name === activeBranchName) ?? branches[0];
-    const tree_ = `${base}/${branch.name}`;
+    return current;
+  }
 
-    return {
-      activeBranch: branch,
-      nodePath: nodePathResolved,
-      basePath: base,
-      treePath: tree_,
-    };
-  }, [pathname, branches, username, project]);
+  const { branches, commits, isPanelOpen, basePath } = useExplorerData();
 
-  const tree = activeBranch.tree ?? [];
+  const pathname = usePathname();
 
-  // ── Resolve the commit from the branch ────────────────────────────────────
-  const commit = mockCommits[activeBranch.headCommitId];
+  const afterBase = pathname.startsWith(basePath)
+    ? pathname.slice(basePath.length).replace(/^\//, "")
+    : "";
+  const segments = afterBase ? afterBase.split("/") : [];
 
-  // ── Resolve the active node from the URL path ─────────────────────────────
+  const knownBranchNames = branches.map((b) => b.name);
+  let activeBranchName = branches[0]?.name ?? "main";
+  let nodePath = "";
+
+  if (segments.length > 0) {
+    if (knownBranchNames.includes(segments[0])) {
+      activeBranchName = segments[0];
+      nodePath = segments.slice(1).join("/");
+    } else {
+      nodePath = segments.join("/");
+    }
+  }
+
+  const activeBranch =
+    branches.find((b) => b.name === activeBranchName) ?? branches[0];
+  const treePath = `${basePath}/${activeBranch?.name}`;
+
+  const commit =
+    commits.find((c) => c._id === activeBranch.headCommitId) ?? commits[0];
+  const tree = commit?.tree ?? [];
+
   const activeNode = nodePath ? resolveNode(tree, nodePath) : undefined;
 
   const displayNode: ExplorerNode | undefined = nodePath
@@ -89,44 +90,29 @@ const FileExplorer = () => {
         />
       )}
 
-      <Main>
-        <header className={styles.explorer_content_nav}>
-          <Button
-            icon={isPanelOpen ? "PanelLeftOpen" : "PanelRightOpen"}
-            onClick={togglePanel}
-            customStyles={{
-              padding: "8px",
-              marginRight: "0.5rem",
-              display: "flex",
-            }}
-          />
-          <Breadcrumb nodePath={nodePath} basePath={treePath} />
-          <Menu
-            icon={"Menu"}
-            wrapperStyle={{
-              width: "fit-content",
-              padding: "0rem",
-              marginLeft: "auto",
-            }}
-            buttonStyle={{
-              padding: "13px 7px",
-              width: "100%",
-              display: "flex",
-              justifyContent: "center",
-            }}
-            menuStyle={{ right: "0px", left: "unset" }}
-          />
-        </header>
-
-        <ExplorerContent
-          node={displayNode}
-          commit={commit}
-          branch={activeBranch}
-          basePath={treePath}
-        />
-      </Main>
+      <ExplorerContent
+        node={displayNode}
+        commit={commit}
+        branch={activeBranch}
+        basePath={treePath}
+        nodePath={nodePath}
+      />
     </Wrapper>
   );
 };
 
+FileExplorer.Header = ({ children }: { children: React.ReactNode }) => {
+  return <div className={styles.explorer_header}> {children}</div>;
+};
+
+FileExplorer.SidePanel = ({ children }: { children: React.ReactNode }) => {
+  return <div className={styles.explorer_sidePanel}> {children}</div>;
+};
+FileExplorer.ExplorerContent = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  return <Main className={styles.explorer_content}> {children}</Main>;
+};
 export default FileExplorer;

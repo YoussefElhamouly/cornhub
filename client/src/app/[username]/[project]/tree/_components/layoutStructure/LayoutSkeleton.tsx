@@ -5,7 +5,7 @@ import Main from "@/components/layouts/main/Main";
 import Aside from "@/components/layouts/aside/Aside";
 import fileExplorerStyles from "@/components/features/fileExplorer/fileExplorer.module.scss";
 import ContentViewer from "@/components/ui/layout/contentViewer/ContentViewer";
-const LoadingFileExplorer = () => {
+const LayoutSkeleton = () => {
   return (
     <Wrapper>
       <Aside>
@@ -82,4 +82,4 @@ const LoadingFileExplorer = () => {
   );
 };
 
-export default LoadingFileExplorer;
+export default LayoutSkeleton;

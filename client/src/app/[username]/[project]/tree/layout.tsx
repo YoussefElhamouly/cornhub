@@ -2,34 +2,24 @@ import React from "react";
 import Navbar from "@/components/layouts/navbar/Navbar";
 import ProjectNavbar from "@/components/layouts/navbar/ProjectNavbar";
 import styles from "./workSpace.module.scss";
-import { mockBranches } from "@/components/features/fileExplorer/data/mockData";
-import type { Branch } from "@/components/features/fileExplorer/types/fileExplorer";
-import { ExplorerDataProvider } from "@/components/features/fileExplorer/components/contexts/ExplorerDataContext";
+import LayoutWrapper from "./_components/layoutStructure/LayoutWrapper";
 
 export default async function TreeLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
-  params: Promise<{ username: string; project: string }>;
+  params: Promise<{ username: string; project: string; path?: string[] }>;
 }) {
-  const { username, project } = await params;
+  const { username, project, path } = await params;
   const initialPath = `/${username}/${project}`;
-
-  const branches = mockBranches as Branch[];
 
   return (
     <div className={styles.workspace}>
       <Navbar>
         <ProjectNavbar initialPath={initialPath} />
       </Navbar>
-      <ExplorerDataProvider
-        branches={branches}
-        username={username}
-        project={project}
-      >
-        {children}
-      </ExplorerDataProvider>
+      <LayoutWrapper params={params}>{children}</LayoutWrapper>
     </div>
   );
 }

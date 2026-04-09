@@ -1,6 +1,10 @@
+"use client";
+import { useRouter } from "next/navigation";
+
 import React from "react";
 import styles from "./item.module.scss";
 import Icon from "../../media/icon/Icon";
+import Link from "next/link";
 
 const FOLDER_CLOSED = (
   <svg
@@ -59,6 +63,7 @@ const Item = ({
     }
   };
 
+  const router = useRouter();
   const iconColor = getIconColor();
 
   const getIcon = () => {
@@ -86,21 +91,11 @@ const Item = ({
 
   const IconComponent = getIcon();
 
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (href) {
-      e.preventDefault();
-      window.history.pushState(null, "", href);
-      // history.pushState does not fire 'popstate' natively;
-      // dispatch it manually so FileExplorer's listener picks up the change.
-      window.dispatchEvent(new PopStateEvent("popstate"));
-    }
-  };
-
   // The name node: plain span, clickable span, or anchor — only the text is interactive
   const nameNode = href ? (
-    <a href={href} className={styles.item_name_link} onClick={handleLinkClick}>
+    <Link href={href} className={styles.item_name_link}>
       {title}
-    </a>
+    </Link>
   ) : onClick ? (
     <span
       className={`${styles.item_name} ${styles.item_name_clickable}`}

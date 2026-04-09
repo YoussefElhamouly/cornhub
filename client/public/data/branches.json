@@ -1,0 +1,93 @@
+{
+  "branches": [
+    {
+      "_id": "branch-main",
+      "name": "main",
+      "headCommitId": "c3f9a1e",
+      "createdAt": "2026-03-01T10:00:00.000Z",
+      "updatedAt": "2026-03-01T10:00:00.000Z"
+    },
+    {
+      "_id": "branch-dev",
+      "name": "dev",
+      "headCommitId": "a7b2d4f",
+      "createdAt": "2026-03-02T14:00:00.000Z",
+      "updatedAt": "2026-03-03T09:30:00.000Z"
+    }
+  ],
+  "commits": [
+    {
+      "_id": "c3f9a1e",
+      "message": "Initial project structure",
+      "author": "Youssef",
+      "createdAt": "2026-03-01T10:00:00.000Z",
+      "parentCommitId": null,
+      "rootNodeId": "root",
+      "tree": [
+        {
+          "_id": "src",
+          "title": "src",
+          "parentId": "root",
+          "type": "directory",
+          "path": "src",
+          "commitHash": "c3f9a1e",
+          "branch": "main",
+          "children": [
+            {
+              "_id": "app-tsx",
+              "title": "App.tsx",
+              "parentId": "src",
+              "type": "file",
+              "path": "src/App.tsx",
+              "commitHash": "c3f9a1e",
+              "branch": "main",
+              "content": "...",
+              "metaData": {
+                "extension": "tsx",
+                "language": "TypeScript",
+                "mimeType": "text/typescript"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_id": "a7b2d4f",
+      "message": "Add dashboard feature",
+      "author": "Youssef",
+      "createdAt": "2026-03-03T09:30:00.000Z",
+      "parentCommitId": "c3f9a1e",
+      "rootNodeId": "root-dev",
+      "tree": [
+        {
+          "_id": "src-dev",
+          "title": "src",
+          "parentId": "root-dev",
+          "type": "directory",
+          "path": "src",
+          "commitHash": "a7b2d4f",
+          "branch": "dev",
+          "children": [
+            {
+              "_id": "dashboard-tsx",
+              "title": "Dashboard.tsx",
+              "parentId": "src-dev",
+              "type": "file",
+              "path": "src/Dashboard.tsx",
+              "commitHash": "a7b2d4f",
+              "branch": "dev",
+              "status": "added",
+              "content": "...",
+              "metaData": {
+                "extension": "tsx",
+                "language": "TypeScript",
+                "mimeType": "text/typescript"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

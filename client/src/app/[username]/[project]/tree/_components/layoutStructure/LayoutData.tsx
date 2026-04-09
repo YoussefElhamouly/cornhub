@@ -1,22 +1,21 @@
 import React from "react";
-import FileExplorer from "@/components/features/fileExplorer/FileExplorer";
-import { ExplorerDataProvider } from "@/components/features/fileExplorer/components/contexts/ExplorerDataContext";
-import {
+
+import type {
   Branch,
   Commit,
 } from "@/components/features/fileExplorer/types/fileExplorer";
-interface ChangesPageProps {
-  params: Promise<{
-    username: string;
-    project: string;
-    type: string;
-    id: string;
-  }>;
+import { ExplorerDataProvider } from "@/components/features/fileExplorer/components/contexts/ExplorerDataContext";
+
+interface LayoutDataProps {
+  children: React.ReactNode;
+  params: Promise<{ username: string; project: string; path?: string[] }>;
 }
 
-export default async function ChangesPage({ params }: ChangesPageProps) {
-  const { username, project, type, id } = await params;
-
+export default async function LayoutData({
+  params,
+  children,
+}: LayoutDataProps) {
+  const { username, project } = await params;
   const res = await new Promise<{ branches: Branch[]; commits: Commit[] }>(
     (resolve) => {
       setTimeout(() => {
@@ -430,14 +429,15 @@ export const db = {
   );
 
   const { branches, commits } = res;
-  const basePath = `/${username}/${project}/${type}/${id}/tree/${branches[0].name}`;
+  const basePath = `/${username}/${project}/tree`;
+
   return (
     <ExplorerDataProvider
       branches={branches}
-      commits={commits}
       basePath={basePath}
+      commits={commits}
     >
-      <FileExplorer />
+      {children}
     </ExplorerDataProvider>
   );
 }

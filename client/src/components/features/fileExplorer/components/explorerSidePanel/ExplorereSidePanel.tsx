@@ -30,16 +30,11 @@ const ExplorereSidePanel = ({
         <Button icon={"PanelLeftClose"} onClick={togglePanel} />
         <h1>Files</h1>
       </header>
-      <BranchSwitcher activeBranch={activeBranch} basePath={basePath} />
+      {/* <BranchSwitcher activeBranch={activeBranch} basePath={basePath} /> */}
       <FileTreeSearch tree={tree} basePath={basePath} />
       <div className={styles.explorerTree_container}>
         {tree.map((node) => (
-          <TreeNode
-            key={node._id}
-            {...node}
-            activePath={activePath}
-            basePath={treePath}
-          />
+          <TreeNode key={node._id} {...node} basePath={treePath} />
         ))}
       </div>
     </Aside>

@@ -8,6 +8,13 @@
   min-height: 0;
   overflow: hidden;
 }
+.explorer_content_nav {
+  height: 35px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 1rem;
+}
 
 /* ─── 404 / Not found ─────────────────────────────────────────────────────── */
 .notFound {
