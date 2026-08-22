@@ -15,22 +15,18 @@ import Breadcrumb from "@/components/ui/navigation/breadcrumb/Breadcrumb";
 import Menu from "@/components/ui/control/menu/Menu";
 import Main from "@/components/layouts/main/Main";
 
-interface ExplorerContentProps {
-  node?: ExplorerNode;
-  commit: Commit;
-  branch: Branch;
-  basePath: string;
-  nodePath: string;
-}
+interface ExplorerContentProps {}
 
-const ExplorerContent = ({
-  node,
-  commit,
-  branch,
-  basePath,
-  nodePath,
-}: ExplorerContentProps) => {
-  const { togglePanel, isPanelOpen } = useExplorerData();
+const ExplorerContent = (_props: ExplorerContentProps) => {
+  const {
+    displayNode: node,
+    commit,
+    activeBranch: branch,
+    treePath: basePath,
+    nodePath,
+    togglePanel,
+    isPanelOpen,
+  } = useExplorerData();
   const NotFoundBlock = () => (
     <div className={styles.notFound}>
       <h2>404 — Path not found</h2>

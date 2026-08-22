@@ -1,18 +1,26 @@
 import React from "react";
-import FileExplorer from "@/components/features/fileExplorer/FileExplorer";
 
+import Wrapper from "@/components/layouts/wrapper/Wrapper";
 import { redirect } from "next/navigation";
+import BranchSwitcher from "@/components/features/fileExplorer/components/explorerSidePanel/controls/BranchSwitcher";
+import FileExplorer from "@/components/features/fileExplorer/FileExplorerClient";
 
 export default async function WorkSpace({
   params,
 }: {
   params: Promise<{ username: string; project: string; path?: string[] }>;
 }) {
-  const { username, project, path = [] } = await params;
+  return (
+    <FileExplorer>
+      <FileExplorer.Header />
 
-  if (path.length === 0) {
-    redirect(`/${username}/${project}/tree/main`);
-  }
+      <Wrapper>
+        <FileExplorer.SidePanel>
+          <BranchSwitcher />
+        </FileExplorer.SidePanel>
 
-  return <FileExplorer />;
+        <FileExplorer.ExplorerContent />
+      </Wrapper>
+    </FileExplorer>
+  );
 }

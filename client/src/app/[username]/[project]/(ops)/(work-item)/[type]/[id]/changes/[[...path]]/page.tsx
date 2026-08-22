@@ -1,10 +1,11 @@
 import React from "react";
-import FileExplorer from "@/components/features/fileExplorer/FileExplorer";
+import FileExplorer from "@/components/features/fileExplorer/FileExplorerClient";
 import { ExplorerDataProvider } from "@/components/features/fileExplorer/components/contexts/ExplorerDataContext";
 import {
   Branch,
   Commit,
 } from "@/components/features/fileExplorer/types/fileExplorer";
+import Wrapper from "@/components/layouts/wrapper/Wrapper";
 interface ChangesPageProps {
   params: Promise<{
     username: string;
@@ -430,14 +431,22 @@ export const db = {
   );
 
   const { branches, commits } = res;
-  const basePath = `/${username}/${project}/${type}/${id}/tree/${branches[0].name}`;
+  const basePath = `/${username}/${project}/${type}/${id}/changes/tree`;
   return (
     <ExplorerDataProvider
       branches={branches}
       commits={commits}
       basePath={basePath}
     >
-      <FileExplorer />
+      <FileExplorer>
+        <FileExplorer.Header />
+
+        <Wrapper>
+          <FileExplorer.SidePanel></FileExplorer.SidePanel>
+
+          <FileExplorer.ExplorerContent />
+        </Wrapper>
+      </FileExplorer>
     </ExplorerDataProvider>
   );
 }

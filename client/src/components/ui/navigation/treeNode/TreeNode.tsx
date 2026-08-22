@@ -27,8 +27,12 @@ const TreeNode = ({
   basePath = "",
 }: TreeNodeProps) => {
   const current_path = usePathname();
-  const isCurrentActive = current_path.endsWith(path);
-  const isAncestorOfActive = current_path.includes(path);
+  const fullPath = `${basePath}/${path}`;
+
+  const isCurrentActive = current_path === fullPath;
+
+  const isAncestorOfActive =
+    current_path === fullPath || current_path.startsWith(fullPath + "/");
 
   const [isExpanded, setIsExpanded] = useState(
     isCurrentActive || isAncestorOfActive,

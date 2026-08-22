@@ -3,15 +3,10 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import Dropdown from "@/components/ui/control/dropdown/Dropdown";
-import type { Branch } from "../../../types/fileExplorer";
 import { useExplorerData } from "../../contexts/ExplorerDataContext";
-interface BranchSwitcherProps {
-  activeBranch: Branch;
-  basePath: string;
-}
 
-const BranchSwitcher = ({ activeBranch, basePath }: BranchSwitcherProps) => {
-  const { branches } = useExplorerData();
+const BranchSwitcher = () => {
+  const { branches, activeBranch, basePath } = useExplorerData();
   const router = useRouter();
 
   const options = branches.map((b) => ({

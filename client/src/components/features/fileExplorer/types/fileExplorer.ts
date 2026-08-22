@@ -12,7 +12,6 @@ export interface FileSystemNode {
 
   path: string; // resolved in backend
   commitHash: string;
-  branch: string;
 }
 
 export interface DirectoryNode extends FileSystemNode {

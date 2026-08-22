@@ -9,28 +9,18 @@ import FileTreeSearch from "./controls/FileTreeSearch";
 import type { ExplorerNode } from "../../types/fileExplorer";
 import { useExplorerData } from "../contexts/ExplorerDataContext";
 interface ExplorereSidePanelProps {
-  activeBranch: Branch;
-  basePath: string;
-  treePath: string;
-  tree: ExplorerNode[];
-  activePath: string;
+  children?: React.ReactNode;
 }
 
-const ExplorereSidePanel = ({
-  activeBranch,
-  basePath,
-  treePath,
-  tree,
-  activePath,
-}: ExplorereSidePanelProps) => {
-  const { togglePanel } = useExplorerData();
+const ExplorereSidePanel = ({ children }: ExplorereSidePanelProps) => {
+  const { togglePanel, basePath, treePath, tree } = useExplorerData();
   return (
     <Aside>
       <header className={styles.explorer_tree_header}>
         <Button icon={"PanelLeftClose"} onClick={togglePanel} />
         <h1>Files</h1>
       </header>
-      {/* <BranchSwitcher activeBranch={activeBranch} basePath={basePath} /> */}
+      {children}
       <FileTreeSearch tree={tree} basePath={basePath} />
       <div className={styles.explorerTree_container}>
         {tree.map((node) => (
